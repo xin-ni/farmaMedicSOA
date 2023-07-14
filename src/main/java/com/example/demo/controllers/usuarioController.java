@@ -47,5 +47,20 @@ return "No pudo eliminar el usuario con id" + id;
 }
 }
 
+
+@PostMapping("/login")
+public String login(@RequestParam("email") String email, @RequestParam("password") String password) {
+    // Buscar al usuario por correo electrónico
+    usuarioModel usuario = usuarioService.obtenerUsuarioPorEmail(email);
+
+    if (usuario != null && usuario.getPass().equals(password)) {
+        // Credenciales válidas, inicio de sesión exitoso
+        return "Inicio de sesión exitoso";
+    } else {
+        // Credenciales inválidas, inicio de sesión fallido
+        return "Inicio de sesión fallido";
+    }
+}
+
 }
 

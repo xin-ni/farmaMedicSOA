@@ -27,6 +27,7 @@ public class usuarioModel {
     @ManyToOne
     @JoinColumn(name = "idCargo")
     private cargoModel cargo;
-    private String emailUsuario;
+    @Column(name = "email")
+    private String email;
     private String pass;
    }

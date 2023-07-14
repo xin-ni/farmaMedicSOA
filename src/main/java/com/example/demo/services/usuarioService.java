@@ -31,7 +31,9 @@ return usuarioRepository.findById(id);
 //public ArrayList<productoModel> obtenerPorPrioridad(Integer nombre) {
 //return productoRepository.findByPrioridad(nombre);
 //}
-
+public usuarioModel obtenerUsuarioPorEmail(String email) {
+    return usuarioRepository.findByEmail(email);
+}
 public boolean eliminarUsuario(int id) {
 try{
 usuarioRepository.deleteById(id);
