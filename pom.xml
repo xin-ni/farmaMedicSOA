@@ -63,6 +63,8 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			
 		</plugins>
 	</build>
 	<repositories>
@@ -101,5 +103,7 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
+	
+
 
 </project>

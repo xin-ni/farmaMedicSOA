@@ -34,6 +34,7 @@ return usuarioRepository.findById(id);
 public usuarioModel obtenerUsuarioPorEmail(String email) {
     return usuarioRepository.findByEmail(email);
 }
+
 public boolean eliminarUsuario(int id) {
 try{
 usuarioRepository.deleteById(id);
