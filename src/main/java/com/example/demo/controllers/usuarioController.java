@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -51,7 +53,7 @@ return "No pudo eliminar el usuario con id" + id;
 
 
 @PostMapping("/login")
-public String login(@RequestParam("email") String email, @RequestParam("password") String password) {
+public RedirectView login(@RequestParam("email") String email, @RequestParam("password") String password) {
     // Buscar al usuario por correo electrónico
     usuarioModel usuario = usuarioService.obtenerUsuarioPorEmail(email);
 
@@ -61,14 +63,16 @@ public String login(@RequestParam("email") String email, @RequestParam("password
 
         if (idCargo == 1) {
             // Redirigir a la página del administrador
-            return "redirect:/paginas/vistas/administrador.html";
+            return new RedirectView("/paginas/vistas/administrador.html");
         } else {
             // Redirigir a la página del vendedor
-            return "redirect:/paginas/vistas/vendedor.html";
+            return new RedirectView("/paginas/vistas/vendedor.html");
+
         }
     } else {
         // Credenciales inválidas, inicio de sesión fallido
-        return "redirect:/paginas/vistas/login.html";
+        return new RedirectView("/paginas/vistas/login.html");
+
     }
 }
 }
