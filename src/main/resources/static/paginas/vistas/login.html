@@ -1,53 +1,61 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Inicio de sesión</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    
-    .container {
-      max-width: 300px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    
-    .container h2 {
-      text-align: center;
-    }
-    
-    .container input[type="text"],
-    .container input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
-    
-    .container input[type="submit"] {
-      width: 100%;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h2>Iniciar sesión</h2>
-    <form action="/entity/usuario/login" method="post">
-        <input type="text" placeholder="Correo electrónico" id="email" name="email" required>
-        <input type="password" placeholder="Contraseña" id="password" name="password" required>
-        
-      <input type="submit" value="Iniciar sesión">
-    </form>
-  </div>
-</body>
+  <head>
+    <title>Inicio de sesión</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="container__Login">
+        <div class="container__LoginForm">
+          <form action="/entity/usuario/login" method="post">
+            <img
+              class="login__image"
+              src="../imagen/LogoImage.png"
+              alt="LogoImage"
+            />
+            <h2 class="login__tittle">Iniciar sesión</h2>
+            <p class="login__paragraph">
+              Por favor, complete los siguientes campos antes de comenzar
+            </p>
+            <div class="container__LoginInput">
+              <input
+                class="container__Input"
+                type="text"
+                id="email"
+                name="email"
+                required
+              />
+              <label for="">
+                Usuario <i class="fa-solid fa-user" style="color: #15adcb"></i>
+              </label>
+            </div>
+            <div class="container__LoginInput">
+              <input
+                class="container__Input"
+                type="password"
+                id="password"
+                name="password"
+                required
+              />
+              <label for="">
+                Contraseña
+                <i class="fa-solid fa-eye-slash" style="color: #15adcb"></i
+              ></label>
+            </div>
+
+            <input
+              class="container__button"
+              type="submit"
+              value="Iniciar sesión"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://kit.fontawesome.com/b9a2b0c154.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

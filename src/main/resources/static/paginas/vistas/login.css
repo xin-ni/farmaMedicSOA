@@ -1,0 +1,110 @@
+.container {
+  width: 100%;
+  height: 1024px;
+  display: flex;
+  max-width: 1440px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+.container__Login {
+  background: #fff;
+  box-shadow: 0px 8px 53px 0px rgba(18, 148, 140, 0.31),
+    0px 4px 9px 0px rgba(0, 0, 0, 0.1);
+  width: 590px;
+  height: 635px;
+  border-radius: 15px;
+}
+.container__Login {
+  display: flex;
+}
+.container__LoginForm {
+  margin: 23px 142px 142px 142px;
+  display: flex;
+}
+.login__image {
+  display: flex;
+  padding-left: 118px;
+}
+.login__tittle {
+  margin: 0;
+  padding-top: 16px;
+  padding-bottom: 15px;
+  padding-left: 89px;
+}
+.login__paragraph {
+  margin: 0;
+  padding-top: 15px;
+  padding-bottom: 36px;
+  width: 312px;
+  color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  font-family: Public Sans;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.container__LoginInput {
+  width: 100%;
+  position: relative;
+  margin: 30px 0;
+  border-bottom: 2px solid #31afa4;
+  & label {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.44);
+    pointer-events: none;
+    transition: 0.5s;
+    font-family: Public Sans;
+    font-size: 17.926px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    & i {
+      margin-left: 200px;
+    }
+  }
+}
+.container__LoginInput input {
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  color: #1b1a1b;
+  padding: 0 5px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.container__Input {
+  width: 100%;
+}
+.container__Input:focus ~ label {
+  top: -5px;
+}
+
+.container__Input:valid ~ label {
+  top: -5px;
+}
+.container__button {
+  width: 288.089px;
+  height: 51.216px;
+  border-radius: 10px;
+  border: 1px solid rgba(13, 180, 170, 0.98);
+  background: rgba(64, 185, 178, 0.35);
+  width: 288.089px px;
+  height: 51.216px;
+  margin-top: 61px;
+  color: rgba(24, 46, 44, 0.98);
+  text-align: center;
+  font-family: Roboto;
+  font-size: 15.365px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
+}
