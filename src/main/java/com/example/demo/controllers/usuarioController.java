@@ -6,9 +6,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import com.example.demo.models.administradorModel;
 import com.example.demo.models.usuarioModel;
 import com.example.demo.services.usuarioService;
-
+import com.example.demo.services.administradorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -50,8 +51,6 @@ return "No pudo eliminar el usuario con id" + id;
 }
 }
 
-
-
 @PostMapping("/login")
 public RedirectView login(@RequestParam("email") String email, @RequestParam("password") String password) {
     // Buscar al usuario por correo electrónico
@@ -62,18 +61,20 @@ public RedirectView login(@RequestParam("email") String email, @RequestParam("pa
         int idCargo = usuario.getCargo().getIdCargo();
 
         if (idCargo == 1) {
-            // Redirigir a la página del administrador
-            return new RedirectView("/paginas/vistas/administrador.html");
+           
+                return new RedirectView("/paginas/vistas/administrador/ventas.html");
+           
+                // Administrador no encontrado, redirigir a página de error o realizar otra acción
+            
         } else {
             // Redirigir a la página del vendedor
             return new RedirectView("/paginas/vistas/vendedor.html");
-
         }
     } else {
         // Credenciales inválidas, inicio de sesión fallido
         return new RedirectView("/paginas/vistas/login.html");
-
     }
 }
-}
 
+
+}

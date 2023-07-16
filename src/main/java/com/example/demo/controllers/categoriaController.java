@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import com.example.demo.models.categoriaModel;
+import com.example.demo.models.productoModel;
 import com.example.demo.services.categoriaService;
 
 
@@ -46,6 +47,33 @@ return "Se eliminó el usuario con id " + id;
 return "No pudo eliminar el usuario con id" + id;
 }
 }
+
+
+
+//mostrar en la tabla el listado de categorias
+
+@GetMapping("/listarCatById")
+@ResponseBody
+public String generarTablaCategoria() {
+    StringBuilder tablaCategoria = new StringBuilder();
+
+    ArrayList<categoriaModel> categorias = categoriaService.obtenerCategoria();
+  
+    for (categoriaModel categoria : categorias) {
+        tablaCategoria.append("<tr>");
+        tablaCategoria.append("<td>").append(categoria.getIdCategoria()).append("</td>");
+        tablaCategoria.append("<td>").append(categoria.getNombreCategoria()).append("</td>");
+        tablaCategoria.append("<td>").append(categoria.getDescripcionCategoria()).append("</td>");
+        tablaCategoria.append("<td>").append(categoria.getEstado() == 0 ? "Activo" : "Inactivo").append("</td>");        
+        tablaCategoria.append("</tr>");
+    }
+
+    tablaCategoria.append("</tbody>");
+    tablaCategoria.append("</table>");
+
+    return tablaCategoria.toString();
+}
+
 
 }
 

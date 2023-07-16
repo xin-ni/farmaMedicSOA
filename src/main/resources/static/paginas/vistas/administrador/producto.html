@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Productos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../estilos.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            cargarNavList();
+        });
+
+        function cargarNavList() {
+            fetch("../administrador/componentes/navList.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("navContainer").innerHTML = data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            cargarHeader();
+        });
+
+        function cargarHeader() {
+            fetch("../administrador/componentes/header.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("contenedorCabecera").innerHTML = data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <div id="contenedorCabecera"></div>
+    <nav id="navContainer"></nav>
+    <h1>Lista de Productos</h1>
+
+    <table id="tablaProductos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio Compra</th>
+                <th>Precio Venta</th>
+                <th>Categoría</th>
+                <th>Fecha Vencimiento</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se agregarán dinámicamente las filas de productos -->
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function () {
+            cargarTablaProductos();
+        });
+
+        function cargarTablaProductos() {
+            $.get("http://localhost:8080/entity/producto/listarPorId", function (tablaProductos) {
+                $("#tablaProductos tbody").html(tablaProductos);
+            });
+        }
+    </script>
+</body>
+
+</html>
