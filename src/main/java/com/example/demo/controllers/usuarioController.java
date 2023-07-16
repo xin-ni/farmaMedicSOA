@@ -62,10 +62,8 @@ public RedirectView login(@RequestParam("email") String email, @RequestParam("pa
 
         if (idCargo == 1) {
            
-                return new RedirectView("/paginas/vistas/administrador/ventas.html");
-           
-                // Administrador no encontrado, redirigir a página de error o realizar otra acción
-            
+                return new RedirectView("/paginas/vistas/administrador/ventas.html");   
+                         
         } else {
             // Redirigir a la página del vendedor
             return new RedirectView("/paginas/vistas/vendedor.html");
