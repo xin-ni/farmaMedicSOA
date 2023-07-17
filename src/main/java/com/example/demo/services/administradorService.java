@@ -27,6 +27,9 @@ return administradorRepository.findById(id);
 }
 
   
+public administradorModel obtenerAdministradorPorIdUsuario(int idUsuario) {
+    return administradorRepository.findByUsuarioId(idUsuario);
+}
 
 public boolean eliminarAdministrador(int id) {
 try{

@@ -4,5 +4,13 @@
 <div class="contenedorLogo" style="background-color: green;">
     <img src="" alt="tuercaPerfil">
 </div>
-<p>Bienvenido, Admin </p>
+<script>
+    // Obtener el nombre del vendedor desde el almacenamiento local
+    const nombreAdministrador = localStorage.getItem('nombreAdministrador');
+
+    if (nombreAdministrador) {
+        // Mostrar el nombre del vendedor en el elemento con id "nombreVendedor"
+        document.getElementById('nombreAdministrador').textContent = 'Hola ' + nombreAdministrador;
+    }
+</script>
 <p>Cargo: administrador</p>

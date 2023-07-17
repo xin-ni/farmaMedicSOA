@@ -28,7 +28,21 @@
 <nav id="navContainer"></nav>
 <h1>Lista de Categorías</h1>
 
-<p>hola admin</p>
+<p id="nombreAdministrador"></p>
+   
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const nombreAdministrador = urlParams.get('nombreAdministrador');
+
+    if (nombreAdministrador) {
+        // Guardar el nombre del vendedor en el almacenamiento local
+        localStorage.setItem('nombreAdministrador', nombreAdministrador);
+
+        // Mostrar el nombre del vendedor en el elemento con id "nombreVendedor"
+        document.getElementById('nombreAdministrador').textContent = 'Hola ' + nombreAdministrador;
+    }
+</script>
+</body>
 
 </body>
 </html>
