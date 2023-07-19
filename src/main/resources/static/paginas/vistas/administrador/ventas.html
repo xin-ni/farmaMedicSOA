@@ -4,45 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categorias</title>
-    <link rel="stylesheet" href="../estilos.css">
+    <link rel="stylesheet" href="../../estilos.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            cargarNavList();
-        });
+    <script src="../../js/componentesAdmin.js"></script>
 
-        function cargarNavList() {
-            fetch("../administrador/componentes/navList.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("navContainer").innerHTML = data;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-    </script>
+          
 </head>
 <body>
+    <div id="contenedorCabecera" "></div>
+    <nav id="navContainer"></nav>
+    <h1>Administrar Ventas</h1>
 
-<nav id="navContainer"></nav>
-<h1>Lista de Categorías</h1>
 
-<p id="nombreAdministrador"></p>
-   
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const nombreAdministrador = urlParams.get('nombreAdministrador');
 
-    if (nombreAdministrador) {
-        // Guardar el nombre del vendedor en el almacenamiento local
-        localStorage.setItem('nombreAdministrador', nombreAdministrador);
-
-        // Mostrar el nombre del vendedor en el elemento con id "nombreVendedor"
-        document.getElementById('nombreAdministrador').textContent = 'Hola ' + nombreAdministrador;
-    }
-</script>
-</body>
-
+    
 </body>
 </html>

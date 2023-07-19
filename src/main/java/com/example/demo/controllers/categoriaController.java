@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import com.example.demo.models.categoriaModel;
-import com.example.demo.models.productoModel;
 import com.example.demo.services.categoriaService;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 @RequestMapping("/entity/categoria")
 public class categoriaController {

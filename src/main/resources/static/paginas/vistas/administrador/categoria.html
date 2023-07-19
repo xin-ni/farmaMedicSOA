@@ -6,42 +6,12 @@
     <title>Categorias</title>
     <link rel="stylesheet" href="../../estilos.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            cargarNavList();
-        });
+    <script src="../../js/componentesAdmin.js"></script>
 
-        function cargarNavList() {
-            fetch("../administrador/componentes/navList.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("navContainer").innerHTML = data;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-    </script>
-     <script>
-        $(document).ready(function () {
-            cargarHeader();
-        });
-
-        function cargarHeader() {
-            fetch("../administrador/componentes/header.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("contenedorCabecera").innerHTML = data;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-    </script>
 </head>
 <body>
 
-    <div id="contenedorCabecera" style="display: flex; background-color: red;"></div>
+    <div id="contenedorCabecera" "></div>
 <nav id="navContainer"></nav>
 <h1>Lista de Categorías</h1>
 

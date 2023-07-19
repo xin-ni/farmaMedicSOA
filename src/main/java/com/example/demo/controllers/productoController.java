@@ -9,7 +9,7 @@ import com.example.demo.services.productoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+
 @RestController
 @RequestMapping("/entity/producto")
 public class productoController {
@@ -21,10 +21,10 @@ public ArrayList<productoModel> obtenerProducto(){
 return productoService.obtenerProducto();
 }
 
-@PostMapping()
-public productoModel guardarProdcuto(@RequestBody productoModel usuario){
-return this.productoService.guardarProducto(usuario);
-}
+ @PostMapping()
+    public productoModel guardarProdcuto(@RequestBody productoModel producto) {
+        return this.productoService.guardarProducto(producto);
+    }
 
 @GetMapping( path = "/{id}")
 public Optional<productoModel> obtenerProductoPorId(@PathVariable("id") int id) {

@@ -5,49 +5,59 @@
     <title>Productos</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../estilos.css">
+    <link rel="stylesheet" href="estilosAdmin.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            cargarNavList();
-        });
-
-        function cargarNavList() {
-            fetch("../administrador/componentes/navList.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("navContainer").innerHTML = data;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-    </script>
-    <script>
-        $(document).ready(function () {
-            cargarHeader();
-        });
-
-        function cargarHeader() {
-            fetch("../administrador/componentes/header.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("contenedorCabecera").innerHTML = data;
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-    </script>
+    <script src="../../js/componentesAdmin.js"></script>
+   
 </head>
 
 <body>
-    <div id="contenedorCabecera" style="display: flex; background-color: red;"></div>
+    <div id="contenedorCabecera"></div>
     <nav id="navContainer"></nav>
-    <h1>Lista de Productos</h1>
 
-    <table id="tablaProductos">
+
+    
+    <div id="miModal" class="modal">
+        <div class="modal-contenido">
+          <span class="cerrar">&times;</span>
+          <h2>Crear Producto</h2>
+          <form action="/entity/producto" method="POST">
+            <label for="nombreProducto">Nombre del Producto:</label>
+            <input type="text" id="nombreProducto" name="nombreProducto" required><br>
+        
+            <label for="descripcionProducto">Descripción del Producto:</label>
+            <textarea id="descripcionProducto" name="descripcionProducto" required></textarea><br>
+        
+            <label for="precioCompraProducto">Precio de Compra:</label>
+            <input type="number" step="0.01" id="precioCompraProducto" name="precioCompraProducto" required><br>
+        
+            <label for="precioVentaProducto">Precio de Venta:</label>
+            <input type="number" step="0.01" id="precioVentaProducto" name="precioVentaProducto" required><br>
+        
+            <label for="categoria">Categoría:</label>
+<input id="categoria" name="categoria" required>
+    <br>
+
+        
+            <label for="fechaVencimiento">Fecha de Vencimiento:</label>
+            <input type="date" id="fechaVencimiento" name="fechaVencimiento" required><br>
+        
+            <label for="stock">Stock:</label>
+            <input type="number" id="stock" name="stock" required><br>
+        
+            <input type="submit" value="Guardar">
+        </form>
+        </div>
+      </div>
+      
+   
+    
+  
+<div>
+       <h1>Lista de Productos</h1>
+    <button id="abrirModal">+ Generar Producto</button>
+    <div >
+        <table id="tablaProductos">
         <thead>
             <tr>
                 <th>ID</th>
@@ -64,6 +74,10 @@
             <!-- Aquí se agregarán dinámicamente las filas de productos -->
         </tbody>
     </table>
+    </div>
+</div>
+ 
+    
     <script>
         $(document).ready(function () {
             cargarTablaProductos();
@@ -75,6 +89,9 @@
             });
         }
     </script>
+    
+  
+<script src="../../js/modalProducto.js"></script>
 </body>
 
 </html>
