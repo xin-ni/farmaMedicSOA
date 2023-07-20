@@ -17,7 +17,9 @@ public class categoriaService {
     public List<categoriaModel> obtenerCategorias() {
         return (List<categoriaModel>) categoriaRepository.findAll();
     }
-
+    public List<categoriaModel> obtenerCategoriasActivas() {
+        return categoriaRepository.findByEstado(1);
+    }
     public categoriaModel guardarCategoria(categoriaModel categoria) {
         return categoriaRepository.save(categoria);
     }

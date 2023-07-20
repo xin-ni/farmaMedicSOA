@@ -1,91 +1,85 @@
 package com.example.demo.controllers;
 
-import java.util.ArrayList;
-import java.util.Optional;
 
 import com.example.demo.models.productoModel;
+import com.example.demo.services.categoriaService;
 import com.example.demo.services.productoService;
+import com.example.demo.models.categoriaModel;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 
-@RestController
-@RequestMapping("/entity/producto")
+@Controller
+@RequestMapping("/entity/productos")
 public class productoController {
 
+    @Autowired
+    
+
     private final productoService productoService;
+    private final categoriaService categoriaService;
 
     @Autowired
-    public productoController(productoService productoService) {
+    public productoController(productoService productoService, categoriaService categoriaService) {
         this.productoService = productoService;
+        this.categoriaService = categoriaService;
+    }
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+    
+
+    @GetMapping("/")
+    public String listarProductos(Model model) {
+        model.addAttribute("productos", productoService.obtenerProductos());
+        return "listaProductos";
+    }
+    @GetMapping("/crear")
+    public String mostrarFormularioCreacion(Model model) {
+        model.addAttribute("producto", new productoModel());
+        List<categoriaModel> categoriasActivas = categoriaService.obtenerCategoriasActivas();
+        model.addAttribute("categorias", categoriasActivas);
+        return "formularioCreacionProducto";
+    }
+    
+
+    @PostMapping("/crear")
+    public String crearProducto(@ModelAttribute productoModel producto) {
+        productoService.guardarProducto(producto);
+        return "redirect:/entity/productos/";
+    }
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEdicion(@PathVariable int id, Model model) {
+        model.addAttribute("producto", productoService.obtenerProductoPorId(id).orElse(null));
+        List<categoriaModel> categoriasActivas = categoriaService.obtenerCategoriasActivas();
+        model.addAttribute("categorias", categoriasActivas);
+        return "formularioEdicionProducto";
+    }
+    
+    
+
+    @PostMapping("/editar/{id}")
+    public String editarProducto(@PathVariable int id, @ModelAttribute productoModel producto) {
+        producto.setIdProducto(id);
+        productoService.guardarProducto(producto);
+        return "redirect:/entity/productos/";
     }
 
-@GetMapping()
-public ArrayList<productoModel> obtenerProducto(){
-return productoService.obtenerProducto();
-}
-
- @PostMapping("/nuevo")
-    public productoModel guardarProducto(@RequestBody productoModel producto) {
-        return productoService.guardarProducto(producto);
+    @GetMapping("/eliminar/{id}")
+    public String eliminarProducto(@PathVariable int id) {
+        productoService.eliminarProducto(id);
+        return "redirect:/entity/productos/";
     }
-
-@GetMapping( path = "/{id}")
-public Optional<productoModel> obtenerProductoPorId(@PathVariable("id") int id) {
-return this.productoService.obtenerPorId(id);
-}
-
-@DeleteMapping( path = "/{id}")
-public String eliminarPorId(@PathVariable("id") int id){
-boolean ok = this.productoService.eliminarProducto(id);
-if (ok){
-return "Se eliminó el producto con id " + id;
-}else{
-return "No pudo eliminar el producto con id" + id;
-}
-}
-
-
-
-@GetMapping("/listarPorId")
-@ResponseBody // Agregamos esta anotación
-public String generarTablaProducto() {
-    StringBuilder tablaProductos = new StringBuilder();
-
-ArrayList<productoModel> productos = productoService.obtenerProducto();
-   Collections.sort(productos, new Comparator<productoModel>() {
-    @Override
-    public int compare(productoModel p1, productoModel p2) {
-        return Integer.compare(p2.getIdProducto(), p1.getIdProducto());
-    }
-});
-
-// Generar la tabla con los productos ordenados
-for (productoModel producto : productos) {
-    tablaProductos.append("<tr>");
-    tablaProductos.append("<td>").append(producto.getIdProducto()).append("</td>");
-    tablaProductos.append("<td>").append(producto.getNombreProducto()).append("</td>");
-    tablaProductos.append("<td>").append(producto.getDescripcionProducto()).append("</td>");
-    tablaProductos.append("<td>").append("S/").append(formatoMoneda(producto.getPrecioCompraProducto())).append("</td>");
-    tablaProductos.append("<td>").append("S/").append(formatoMoneda(producto.getPrecioVentaProducto())).append("</td>");
-    tablaProductos.append("<td>").append(producto.getCategoria().getNombreCategoria()).append("</td>");
-    tablaProductos.append("<td>").append(producto.getFechaVencimiento()).append("</td>");
-    tablaProductos.append("<td>").append(producto.getStock()).append("</td>");
-    tablaProductos.append("<td>"+"<img alt='borrar'><img alt='editar'></td>");
-    tablaProductos.append("</tr>");
-}
-    tablaProductos.append("</tbody>");
-    tablaProductos.append("</table>");
-
-    return tablaProductos.toString();
-}
-private String formatoMoneda(double valor) {
-    return String.format("%.2f", valor);
-}
-
 }
 

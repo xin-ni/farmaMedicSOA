@@ -4,6 +4,8 @@
     <!-- Head aquí -->
 </head>
 <body>
+   
+
     <h1>Editar categoría</h1>
     <form th:action="@{/entity/categorias/editar/{id}(id=${categoria.idCategoria})}" th:object="${categoria}" method="post">
         <label for="nombreCategoria">Nombre:</label>

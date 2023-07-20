@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Head aquí -->
+</head>
+<body>
+ 
+    <h1>Editar producto</h1>
+    <form th:action="@{/entity/productos/editar/{id}(id=${producto.idProducto})}" th:object="${producto}" method="post">
+        <label for="nombreProducto">Nombre:</label>
+        <input type="text" id="nombreProducto" th:field="*{nombreProducto}" required>
+        
+        <label for="descripcionProducto">Descripción:</label>
+        <input type="text" id="descripcionProducto" th:field="*{descripcionProducto}">
+        
+        <label for="precioCompraProducto">Precio Compra:</label>
+        <input type="number" id="precioCompraProducto" th:field="*{precioCompraProducto}" required>
+        
+        <label for="precioVentaProducto">Precio Venta:</label>
+        <input type="number" id="precioVentaProducto" th:field="*{precioVentaProducto}" required>
+        
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" th:field="*{categoria.idCategoria}" required>
+            <option th:each="categoria : ${categorias}" 
+                    th:value="${categoria.idCategoria}"
+                    th:text="${categoria.nombreCategoria}"
+                    th:selected="${categoria.idCategoria == producto.categoria.idCategoria}"></option>
+        </select>
+        
+        <label for="fechaVencimiento">Fecha de Vencimiento:</label>
+        <input type="date" id="fechaVencimiento" th:field="*{fechaVencimiento}" required>
+        
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" th:field="*{stock}" required>
+        
+        <button type="submit">Guardar</button>
+    </form>
+</body>
+</html>

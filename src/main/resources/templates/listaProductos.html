@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Head aquí -->
+</head>
+<body>
+    <div th:replace="navbar.html"></div>
+
+
+    <h1>Lista de Productos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio Compra</th>
+                <th>Precio Venta</th>
+                <th>Categoría</th>
+                <th>Fecha Vencimiento</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="producto : ${productos}">
+                <td th:text="${producto.idProducto}"></td>
+                <td th:text="${producto.nombreProducto}"></td>
+                <td th:text="${producto.descripcionProducto}"></td>
+                <td th:text="${producto.precioCompraProducto}"></td>
+                <td th:text="${producto.precioVentaProducto}"></td>
+                <td th:text="${producto.categoria.nombreCategoria}"></td>
+                <td th:text="${producto.fechaVencimiento}"></td>
+                <td th:text="${producto.stock}"></td>
+                <td>
+                    <a th:href="@{/entity/productos/editar/{id}(id=${producto.idProducto})}">Editar</a>
+                    <a th:href="@{/entity/productos/eliminar/{id}(id=${producto.idProducto})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/entity/productos/crear}">Agregar nuevo
