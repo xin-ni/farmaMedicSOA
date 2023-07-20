@@ -30,5 +30,3 @@ function cargarNavList() {
             console.log(error);
         });
 }
-
-

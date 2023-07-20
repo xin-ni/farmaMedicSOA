@@ -1,6 +1,4 @@
 /*modal para generar producto*/
-
-/* Estilos para el modal */
 .modal {
     display: none;
     /* Ocultar el modal por defecto */
@@ -41,10 +39,161 @@
 }
 
 /*diseño del navList*/
+#navContainer {
+    background-color: #155C73;
+    padding: 10px;
+    width: 146px;
+    height: 765px;
+}
+
+#navContainer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  #navContainer li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 0;
+    flex: 1;
+  }
+
+  #navContainer a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    background-color: #155C73;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: relative;
+    padding: 5px;
+  }
+
+  #navContainer a:hover {
+    background-color: #0E3B4C;
+    transform: scale(1.1);
+  }
+
+  /* Estilos para los íconos */
+  #navContainer i {
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+  }
+
+  /* Estilos para el div izquierdo */
+  #leftDiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 100%;
+    background-color: #a9db63;
+    display: none;
+  }
+
+  /* Estilos para el div derecho */
+  #rightDiv {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 100%;
+    background-color: #a9db63;
+    display: none;
+  }
+
+  /* Mostrar los divs cuando el cursor esté sobre el enlace o cuando el enlace esté activo */
+  #navContainer a:hover #leftDiv,
+  #navContainer a:hover #rightDiv,
+  #navContainer a.active #leftDiv,
+  #navContainer a.active #rightDiv {
+    display: block;
+  }
+
+  /* Estilos para el enlace activo */
+  #navContainer a.active {
+    background-color: #0E3B4C;
+    transform: scale(1.1);
+  }
+
+#cerrarSesion{
+    border: none;
+    border-top: 2px solid white;
+}
 
 
 /*diseño del header*/
 
 #contenedorCabecera{
+    
+padding: 10px;
+    align-items: center;
     background-color: #a9db63;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.contenedorLogo{
+    margin: 0 10px;
+    align-items: center;
+}
+.contenedorUser{
+    margin: 0 20px;
+    gap: 10px;
+    display: flex;
+}
+.contenedorCargo{
+
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #155C73;
+    height: 27px;
+    border-radius: 5px;
+    border: none;
+}
+
+.conectadoContenedor{
+    width: 10px;
+height: 10px;
+flex-shrink: 0;
+    border-radius: 50%;
+    background-color: #268916;
+}
+
+.contectado{
+    gap: 7px;
+    align-items: center;
+    display: flex;
+}
+
+#contenedorCargoNombre{
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+#nombreAdministradorHeader{
+    margin: 0;
+}
+
+/*contenedor de navList y Contenido*/
+
+.contenedorInferior{
+    display: flex;
 }

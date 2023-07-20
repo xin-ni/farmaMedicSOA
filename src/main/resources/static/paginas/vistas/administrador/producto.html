@@ -6,13 +6,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilosAdmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../../js/componentesAdmin.js"></script>
    
 </head>
 
 <body>
+    
     <div id="contenedorCabecera"></div>
+    <div class="contenedorInferior">
     <nav id="navContainer"></nav>
 
 
@@ -21,7 +25,7 @@
         <div class="modal-contenido">
           <span class="cerrar">&times;</span>
           <h2>Crear Producto</h2>
-          <form action="/entity/producto" method="POST">
+          <form id="miFormulario" method="POST">
             <label for="nombreProducto">Nombre del Producto:</label>
             <input type="text" id="nombreProducto" name="nombreProducto" required><br>
         
@@ -35,7 +39,11 @@
             <input type="number" step="0.01" id="precioVentaProducto" name="precioVentaProducto" required><br>
         
             <label for="categoria">Categoría:</label>
-<input id="categoria" name="categoria" required>
+            <select id="categoria" name="categoria" required>
+              <option value="1">Categoría 1</option>
+              <option value="2">Categoría 2</option>
+              <!-- Agrega más opciones según tus categorías -->
+            </select>
     <br>
 
         
@@ -49,9 +57,7 @@
         </form>
         </div>
       </div>
-      
-   
-    
+ 
   
 <div>
        <h1>Lista de Productos</h1>
@@ -76,7 +82,33 @@
     </table>
     </div>
 </div>
- 
+</div>
+    
+<script>
+        
+    document.getElementById('miFormulario').addEventListener('submit', function(event) {
+      event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+  
+      const formData = new FormData(event.target);
+      const productoData = {};
+      formData.forEach((value, key) => {
+        productoData[key] = value;
+      });
+  
+      // Realizar la solicitud POST al endpoint del controlador
+      axios.post('http://localhost:8080/entity/producto/nuevo', productoData)
+        .then(response => {
+          // La respuesta del servidor
+          console.log('Producto guardado:', response.data);
+          // Puedes hacer algo aquí después de guardar el producto, como mostrar un mensaje de éxito o redireccionar a otra página.
+        })
+        .catch(error => {
+          // Si ocurre un error al guardar el producto
+          console.error('Error al guardar el producto:', error);
+          // Puedes mostrar un mensaje de error en caso de que algo salga mal.
+        });
+    });
+      </script>
     
     <script>
         $(document).ready(function () {
