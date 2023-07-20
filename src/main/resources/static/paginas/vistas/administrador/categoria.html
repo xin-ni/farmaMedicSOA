@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,35 +19,29 @@
     <h1>Lista de Categorías</h1>
 <button>+ Añadir Categoria</button>
 <div>
-    <table id="tablaCategoria">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Estado</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Aquí se agregarán dinámicamente las filas de categorías -->
-    </tbody>
-</table>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se agregarán dinámicamente las filas de categorías -->
+            <tr th:each="categoria : ${categorias}">
+                <td th:text="${categoria.idCategoria}"></td>
+                <td th:text="${categoria.nombreCategoria}"></td>
+                <td th:text="${categoria.descripcionCategoria}"></td>
+                <td th:text="${categoria.estado}"></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 </div>
 
 
-
-<script>
-        $(document).ready(function() {
-            cargarTablaCategoria();
-        });
-
-        function cargarTablaCategoria() {
-            $.get("http://localhost:8080/entity/categoria/listarCatById", function(tablaCategoria) {
-                $("#tablaCategoria tbody").html(tablaCategoria);
-            });
-        }
-    </script> 
        </div>
 </body>
 </html>

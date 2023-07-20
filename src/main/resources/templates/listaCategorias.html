@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Head aquí -->
+</head>
+<body>
+    <h1>Lista de Categorías</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="categoria : ${categorias}">
+                <td th:text="${categoria.idCategoria}"></td>
+                <td th:text="${categoria.nombreCategoria}"></td>
+                <td th:text="${categoria.descripcionCategoria}"></td>
+                   <!-- Lógica condicional para mostrar "Activado" o "Desactivado" -->
+            <td>
+                <span th:text="${categoria.estado == 1 ? 'Activado' : 'Desactivado'}"></span>
+            </td>
+                <td>
+                    <a th:href="@{/entity/categorias/editar/{id}(id=${categoria.idCategoria})}">Editar</a>
+                    <a th:href="@{/entity/categorias/eliminar/{id}(id=${categoria.idCategoria})}">Eliminar</a>
+                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/entity/categorias/crear}">Agregar nueva categoría</a>
+</body>
+</html>

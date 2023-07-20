@@ -1,77 +1,55 @@
 package com.example.demo.controllers;
 
-import java.util.ArrayList;
-import java.util.Optional;
 
 import com.example.demo.models.categoriaModel;
 import com.example.demo.services.categoriaService;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/entity/categoria")
+@Controller
+@RequestMapping("/entity/categorias")
 public class categoriaController {
-@Autowired
-categoriaService categoriaService;
 
-@GetMapping()
-public ArrayList<categoriaModel> obtenerCategoria(){
-return categoriaService.obtenerCategoria();
-}
+    @Autowired
+    private categoriaService categoriaService;
 
-@PostMapping()
-public categoriaModel guardarCategoria(@RequestBody categoriaModel usuario){
-return this.categoriaService.guardarCategoria(usuario);
-}
-
-@GetMapping( path = "/{id}")
-public Optional<categoriaModel> obtenerCategoriaPorId(@PathVariable("id") int id) {
-return this.categoriaService.obtenerPorId(id);
-}
-
-/*@GetMapping("/query")
-public ArrayList<productoModel> obtenerUsuarioPorPrioridad(@RequestParam("prioridad") Integer prioridad){
-return this.productoService.obtenerPorPrioridad(prioridad);
-}*/
-
-@DeleteMapping( path = "/{id}")
-public String eliminarPorId(@PathVariable("id") int id){
-boolean ok = this.categoriaService.eliminarCategoria(id);
-if (ok){
-return "Se eliminó el usuario con id " + id;
-}else{
-return "No pudo eliminar el usuario con id" + id;
-}
-}
-
-
-
-//mostrar en la tabla el listado de categorias
-
-@GetMapping("/listarCatById")
-@ResponseBody
-public String generarTablaCategoria() {
-    StringBuilder tablaCategoria = new StringBuilder();
-
-    ArrayList<categoriaModel> categorias = categoriaService.obtenerCategoria();
-  
-    for (categoriaModel categoria : categorias) {
-        tablaCategoria.append("<tr>");
-        tablaCategoria.append("<td>").append(categoria.getIdCategoria()).append("</td>");
-        tablaCategoria.append("<td>").append(categoria.getNombreCategoria()).append("</td>");
-        tablaCategoria.append("<td>").append(categoria.getDescripcionCategoria()).append("</td>");
-        tablaCategoria.append("<td>").append(categoria.getEstado() == 0 ? "Activo" : "Inactivo").append("</td>");        
-        tablaCategoria.append("</tr>");
+    @GetMapping("/")
+    public String listarCategorias(Model model) {
+        model.addAttribute("categorias", categoriaService.obtenerCategorias());
+        return "listaCategorias";
     }
 
-    tablaCategoria.append("</tbody>");
-    tablaCategoria.append("</table>");
+    @GetMapping("/crear")
+    public String mostrarFormularioCreacion(Model model) {
+        model.addAttribute("categoria", new categoriaModel());
+        return "formularioCreacionCategoria";
+    }
 
-    return tablaCategoria.toString();
+    @PostMapping("/crear")
+    public String crearCategoria(@ModelAttribute categoriaModel categoria) {
+        categoria.setEstado(1); // Por ejemplo, asumimos que el valor por defecto es 1
+        categoriaService.guardarCategoria(categoria);
+        return "redirect:/entity/categorias/";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEdicion(@PathVariable int id, Model model) {
+        model.addAttribute("categoria", categoriaService.obtenerCategoriaPorId(id).orElse(null));
+        return "formularioEdicionCategoria";
+    }
+
+    @PostMapping("/editar/{id}")
+    public String editarCategoria(@PathVariable int id, @ModelAttribute categoriaModel categoria) {
+        categoria.setIdCategoria(id);
+        categoriaService.guardarCategoria(categoria);
+        return "redirect:/entity/categorias/";
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarCategoria(@PathVariable int id) {
+        categoriaService.eliminarCategoria(id);
+        return "redirect:/entity/categorias/";
+    }
 }
-
-
-}
-

@@ -1,45 +1,32 @@
 package com.example.demo.services;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 import com.example.demo.models.categoriaModel;
 import com.example.demo.repository.categoriaRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class categoriaService {
-@Autowired
-categoriaRepository categoriaRepository;
 
-public ArrayList<categoriaModel> obtenerCategoria(){
-return (ArrayList<categoriaModel>) categoriaRepository.findAll();
-}
+    @Autowired
+    private categoriaRepository categoriaRepository;
 
-public categoriaModel guardarCategoria(categoriaModel usuario){
-return categoriaRepository.save(usuario);
-}
+    public List<categoriaModel> obtenerCategorias() {
+        return (List<categoriaModel>) categoriaRepository.findAll();
+    }
 
-public Optional<categoriaModel> obtenerPorId(int id){
-return categoriaRepository.findById(id);
-}
+    public categoriaModel guardarCategoria(categoriaModel categoria) {
+        return categoriaRepository.save(categoria);
+    }
 
+    public Optional<categoriaModel> obtenerCategoriaPorId(int id) {
+        return categoriaRepository.findById(id);
+    }
 
-//public ArrayList<productoModel> obtenerPorPrioridad(Integer nombre) {
-//return productoRepository.findByPrioridad(nombre);
-//}
-
-public boolean eliminarCategoria(int id) {
-try{
-categoriaRepository.deleteById(id);
-return true;
-}catch(Exception err){
-return false;
-}
-}
-
-
-
+    public void eliminarCategoria(int id) {
+        categoriaRepository.deleteById(id);
+    }
 }
