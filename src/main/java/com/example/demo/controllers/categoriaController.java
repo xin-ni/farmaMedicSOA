@@ -18,6 +18,7 @@ public class categoriaController {
     @GetMapping("/")
     public String listarCategorias(Model model) {
         model.addAttribute("categorias", categoriaService.obtenerCategorias());
+        model.addAttribute("nuevaCategoria", new categoriaModel()); // Codigo importante para modal 
         return "listaCategorias";
     }
 

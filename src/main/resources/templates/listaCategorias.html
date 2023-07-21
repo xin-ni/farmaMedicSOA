@@ -38,24 +38,18 @@
     <!-- Modal para mostrar el formulario de creación -->
     <div id="modalCategoria" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="cerrarModal()">&times;</span>
+            <span class="close" onclick="cerrarModal()">&times;</span> <!--Importante para el modal de crear #1-->
             <h2>Crear nueva categoría</h2>
-              <!-- formulario - This application has no explicit mapping for /error, so you are seeing this as a fallback. -->
-            <form th:action="@{/entity/categorias/crear}" th:object="${categoria}" method="post">
-
+            <form th:action="@{/entity/categorias/crear}" th:object="${nuevaCategoria}" method="post">
                 <label for="nombreCategoria">Nombre:</label>
-                <input type="text" id="nombreCategoria" th:field="*{nombreCategoria}" required>
-                
+                <input type="text" id="nombreCategoria" th:field="*{nombreCategoria}" required>                
                 <label for="descripcionCategoria">Descripción:</label>
                 <input type="text" id="descripcionCategoria" th:field="*{descripcionCategoria}">
-                
-              
-                
                 <button type="submit">Guardar</button>
             </form>
         </div>
     </div>
-
+    <!-- Cierre del modal -->
     <script>
         function abrirModal() {
             document.getElementById("modalCategoria").style.display = "block";
