@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <!-- Head aquí -->
-</head>
-<body>
-  
-    <h1>Crear nueva categoría</h1>
+
     <form th:action="@{/entity/categorias/crear}" th:object="${categoria}" method="post">
 
         <label for="nombreCategoria">Nombre:</label>
@@ -18,5 +11,4 @@
         
         <button type="submit">Guardar</button>
     </form>
-</body>
-</html>
+
