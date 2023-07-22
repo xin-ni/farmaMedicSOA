@@ -21,44 +21,123 @@
                 <td th:text="${categoria.idCategoria}"></td>
                 <td th:text="${categoria.nombreCategoria}"></td>
                 <td th:text="${categoria.descripcionCategoria}"></td>
-                   <!-- Lógica condicional para mostrar "Activado" o "Desactivado" -->
-            <td>
-                <span th:text="${categoria.estado == 1 ? 'Activado' : 'Desactivado'}"></span>
-            </td>
+                <!-- Lógica condicional para mostrar "Activado" o "Desactivado" -->
                 <td>
-                    <a th:href="@{/entity/categorias/editar/{id}(id=${categoria.idCategoria})}">Editar</a>
-                    <a th:href="@{/entity/categorias/eliminar/{id}(id=${categoria.idCategoria})}">Eliminar</a>
-                    
+                    <span th:text="${categoria.estado == 1 ? 'Activado' : 'Desactivado'}"></span>
                 </td>
+                <td>
+                    <button class="editar-btn"
+                            data-id="${categoria.idCategoria}"
+                            data-nombre="${categoria.nombreCategoria}"
+                            data-descripcion="${categoria.descripcionCategoria}"
+                            data-estado="${categoria.estado}">
+                        Editar
+                    </button>
+                    <a th:href="@{/entity/categorias/eliminar/{id}(id=${categoria.idCategoria})}">Eliminar</a>
+                </td>
+                
             </tr>
         </tbody>
+        
+        
     </table>
     <button onclick="abrirModal()">Agregar nueva categoría</button>
 
-    <!-- Modal para mostrar el formulario de creación -->
-    <div id="modalCategoria" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="cerrarModal()">&times;</span> <!--Importante para el modal de crear #1-->
-            <h2>Crear nueva categoría</h2>
-            <form th:action="@{/entity/categorias/crear}" th:object="${nuevaCategoria}" method="post">
-                <label for="nombreCategoria">Nombre:</label>
-                <input type="text" id="nombreCategoria" th:field="*{nombreCategoria}" required>                
-                <label for="descripcionCategoria">Descripción:</label>
-                <input type="text" id="descripcionCategoria" th:field="*{descripcionCategoria}">
-                <button type="submit">Guardar</button>
-            </form>
-        </div>
+ <!-- Modal para mostrar el formulario de creación -->
+<div id="modalCategoria" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h2>Crear nueva categoría</h2>
+        <form th:action="@{/entity/categorias/crear}" th:object="${nuevaCategoria}" method="post">
+            <label for="nombreCategoria">Nombre:</label>
+            <input type="text" id="nombreCategoria" th:field="*{nombreCategoria}" required>
+            <label for="descripcionCategoria">Descripción:</label>
+            <input type="text" id="descripcionCategoria" th:field="*{descripcionCategoria}">
+            <button type="submit">Guardar</button>
+        </form>
     </div>
-    <!-- Cierre del modal -->
-    <script>
-        function abrirModal() {
-            document.getElementById("modalCategoria").style.display = "block";
-        }
+</div>
 
-        function cerrarModal() {
-            document.getElementById("modalCategoria").style.display = "none";
-        }
-    </script>
+<!-- Modal para mostrar el formulario de edición -->
+<div id="modalEditarCategoria" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalEditar()">&times;</span>
+        <h2 id="modalTitle">Editar categoría</h2>
+        <form id="formularioEditarCategoria" th:action="@{/entity/categorias/editar}" method="post">
+            <input type="hidden" id="editCategoriaId" name="idCategoria">
+            <label for="editNombreCategoria">Nombre:</label>
+            <input type="text" id="editNombreCategoria" name="nombreCategoria" required>
+            <label for="editDescripcionCategoria">Descripción:</label>
+            <input type="text" id="editDescripcionCategoria" name="descripcionCategoria">
+            <label for="editEstado">Estado:</label>
+            <input type="number" id="editEstado" name="estado" value="1" required>
+            <button type="submit" id="modalSubmitButton">Guardar</button>
+        </form>
+    </div>
+</div>
+<!-- Script para el modal de creación -->
+<script>
+    function abrirModal() {
+        document.getElementById("modalCategoria").style.display = "block";
+    }
+
+    function cerrarModal() {
+        document.getElementById("modalCategoria").style.display = "none";
+    }
+</script>
+
+<!-- Script para el modal de edición -->
+<script>
+    function abrirModalEditar() {
+        document.getElementById("modalEditarCategoria").style.display = "block";
+    }
+
+    function cerrarModalEditar() {
+        document.getElementById("modalEditarCategoria").style.display = "none";
+    }
+
+    function cargarDatosCategoria(id, nombre, descripcion, estado) {
+        document.getElementById("editCategoriaId").value = id;
+        document.getElementById("editNombreCategoria").value = nombre;
+        document.getElementById("editDescripcionCategoria").value = descripcion;
+        document.getElementById("editEstado").value = estado;
+        abrirModalEditar();
+    }
+</script>
+
+<script>
+    // Escuchamos el evento click en los botones con la clase "editar-btn"
+    const editarButtons = document.querySelectorAll(".editar-btn");
+    editarButtons.forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            // Obtenemos los datos del atributo "data-" de cada botón
+            const id = btn.getAttribute("data-id");
+            const nombre = btn.getAttribute("data-nombre");
+            const descripcion = btn.getAttribute("data-descripcion");
+            const estado = btn.getAttribute("data-estado");
+
+            // Hacemos la petición AJAX al controlador
+            fetch(`/entity/categorias/editar/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Actualizamos el formulario de edición con los datos recibidos
+                document.getElementById("editCategoriaId").value = data.idCategoria;
+                document.getElementById("editNombreCategoria").value = data.nombreCategoria;
+                document.getElementById("editDescripcionCategoria").value = data.descripcionCategoria;
+                document.getElementById("editEstado").value = data.estado;
+                abrirModalEditar();
+            })
+            .catch(error => {
+                console.error("Error al obtener los datos:", error);
+            });
+        });
+    });
+</script>
 
     <style>
         /* Estilos para el modal */

@@ -4,6 +4,8 @@ package com.example.demo.controllers;
 import com.example.demo.models.categoriaModel;
 import com.example.demo.services.categoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,13 +38,20 @@ public class categoriaController {
     }
 
     @GetMapping("/editar/{id}")
-    public String mostrarFormularioEdicion(@PathVariable int id, Model model) {
-        model.addAttribute("categoria", categoriaService.obtenerCategoriaPorId(id).orElse(null));
-        return "formularioEdicionCategoria";
+    @ResponseBody // Esta anotación indica que devolvemos una respuesta JSON
+    public ResponseEntity<categoriaModel> mostrarFormularioEdicion(@PathVariable int id) {
+        categoriaModel categoria = categoriaService.obtenerCategoriaPorId(id).orElse(null);
+        if (categoria == null) {
+            // Si la categoría no existe, retornar un error
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        // Retornamos la categoría como respuesta JSON
+        return new ResponseEntity<>(categoria, HttpStatus.OK);
     }
+    
 
-    @PostMapping("/editar/{id}")
-    public String editarCategoria(@PathVariable int id, @ModelAttribute categoriaModel categoria) {
+    @PostMapping("/editar")
+    public String editarCategoria(@RequestParam("idCategoria") int id, @ModelAttribute categoriaModel categoria) {
         categoria.setIdCategoria(id);
         categoriaService.guardarCategoria(categoria);
         return "redirect:/entity/categorias/";
@@ -53,4 +62,7 @@ public class categoriaController {
         categoriaService.eliminarCategoria(id);
         return "redirect:/entity/categorias/";
     }
+
+
+    
 }
