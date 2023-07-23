@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
@@ -11,8 +11,15 @@
 
 
     <nav id="navContainer">
-   
+
         <ul>
+            <li>
+                <a href="../../../../paginas/vistas/administrador/ventas.html">
+                    <div id="leftDiv"></div>
+                    <i class="fas fa-chart-bar"></i>Ventas
+                    <div id="rightDiv"></div>
+                </a>
+            </li>
             <li><a th:href="@{/entity/categorias/}">
                     <div id="leftDiv"></div>
                     <i class="fas fa-tags"></i>Categoria
@@ -23,6 +30,41 @@
                     <i class="fas fa-box"></i>Producto
                     <div id="rightDiv"></div>
                 </a></li>
+            <li>
+                <a href="#">
+                    <div id="leftDiv"></div>
+                    <i class="fas fa-boxes"></i>Inventario
+                    <div id="rightDiv"></div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div id="leftDiv"></div>
+                    <i class="fas fa-users"></i>Empleados
+                    <div id="rightDiv"></div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div id="leftDiv"></div>
+                    <i class="fas fa-shopping-cart"></i>Pedidos
+                    <div id="rightDiv"></div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div id="leftDiv"></div>
+                    <i class="fas fa-user"></i>Mi perfil
+                    <div id="rightDiv"></div>
+                </a>
+            </li>
+            <li id="cerrarSesion">
+                <a href="../../../../paginas/vistas/login.html">
+                    <div id="leftDiv"></div>
+                    <i class="fas fa-sign-out-alt"></i>Cerrar Sesión
+                    <div id="rightDiv"></div>
+                </a>
+            </li>
         </ul>
     </nav>
 </body>
