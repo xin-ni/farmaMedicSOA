@@ -42,7 +42,7 @@
 <td class="precioVenta" th:text="${producto.precioVentaProducto}"></td>
 
                 <td th:text="${producto.categoria.nombreCategoria}"></td>
-                <td th:text="${producto.fechaVencimiento}"></td>
+                <td th:text="${#dates.format(producto.fechaVencimiento, 'dd-MM-yyyy')}"></td>
                 <td th:text="${producto.stock}"></td>
                 <td>
                     <a th:href="@{/entity/productos/editar/{id}(id=${producto.idProducto})}"><img th:src="@{/paginas/imagen/editImg.png}" alt="editar">
