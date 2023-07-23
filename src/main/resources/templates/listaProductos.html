@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Head aquí -->
+    <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    
+</style>
 </head>
 <body>
+    <div class="contenedorInferior">
+
+ 
     <div th:replace="navbar.html"></div>
 
 
-    <h1>Lista de Productos</h1>
+    <h1>Lista de Productos</h1>    <a th:href="@{/entity/productos/crear}">Agregar nuevo
+    </a>
+    
     <table>
         <thead>
             <tr>
@@ -27,16 +36,50 @@
                 <td th:text="${producto.idProducto}"></td>
                 <td th:text="${producto.nombreProducto}"></td>
                 <td th:text="${producto.descripcionProducto}"></td>
-                <td th:text="${producto.precioCompraProducto}"></td>
-                <td th:text="${producto.precioVentaProducto}"></td>
+             <!-- Supongamos que tienes dos elementos <td> con las clases "precioCompra" y "precioVenta" donde deseas mostrar los precios -->
+<td class="precioCompra" th:text="${producto.precioCompraProducto}"></td>
+<td class="precioVenta" th:text="${producto.precioVentaProducto}"></td>
+
                 <td th:text="${producto.categoria.nombreCategoria}"></td>
                 <td th:text="${producto.fechaVencimiento}"></td>
                 <td th:text="${producto.stock}"></td>
                 <td>
-                    <a th:href="@{/entity/productos/editar/{id}(id=${producto.idProducto})}">Editar</a>
-                    <a th:href="@{/entity/productos/eliminar/{id}(id=${producto.idProducto})}">Eliminar</a>
+                    <a th:href="@{/entity/productos/editar/{id}(id=${producto.idProducto})}"><img th:src="@{/paginas/imagen/editImg.png}" alt="editar">
+                    </a>
+                    <a th:href="@{/entity/productos/eliminar/{id}(id=${producto.idProducto})}">
+                        <img th:src="@{/paginas/imagen/eliminar.png}" alt="eliminar">
+                    </a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <a th:href="@{/entity/productos/crear}">Agregar nuevo
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Obtener todos los elementos con la clase "precioCompra" y "precioVenta"
+        const precioCompraElements = document.querySelectorAll('.precioCompra');
+        const precioVentaElements = document.querySelectorAll('.precioVenta');
+
+        // Función para dar formato de moneda peruana a los elementos
+        function formatearMonedaPeruana(elements) {
+            elements.forEach(element => {
+                // Obtener el valor numérico del elemento
+                const precio = parseFloat(element.textContent);
+
+                // Formatear el valor como moneda peruana (S/)
+                const precioFormateado = new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN' }).format(precio);
+
+                // Asignar el valor formateado de moneda al elemento
+                element.textContent = precioFormateado;
+            });
+        }
+
+        // Llamar a la función para formatear los precios de compra y venta
+        formatearMonedaPeruana(precioCompraElements);
+        formatearMonedaPeruana(precioVentaElements);
+    });
+</script>
+
+</body>
+</html>

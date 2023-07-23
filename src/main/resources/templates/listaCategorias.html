@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Head aquí -->
+    <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <div class="contenedorInferior">
+
     <div th:replace="navbar.html"></div>
     <h1>Lista de Categorías</h1>
     <table>
@@ -31,9 +34,9 @@
                             data-nombre="${categoria.nombreCategoria}"
                             data-descripcion="${categoria.descripcionCategoria}"
                             data-estado="${categoria.estado}">
-                        Editar
+                            <img th:src="@{/paginas/imagen/editImg.png}" alt="editar">
                     </button>
-                    <a th:href="@{/entity/categorias/eliminar/{id}(id=${categoria.idCategoria})}">Eliminar</a>
+                    <a th:href="@{/entity/categorias/eliminar/{id}(id=${categoria.idCategoria})}"> <img th:src="@{/paginas/imagen/eliminar.png}" alt="eliminar"></a>
                 </td>
                 
             </tr>
@@ -74,6 +77,7 @@
             <button type="submit" id="modalSubmitButton">Guardar</button>
         </form>
     </div>
+</div>
 </div>
 <!-- Script para el modal de creación -->
 <script>

@@ -10,7 +10,7 @@ import com.example.demo.services.cargoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+
 @RestController
 @RequestMapping("/entity/cargo")
 public class cargoController {

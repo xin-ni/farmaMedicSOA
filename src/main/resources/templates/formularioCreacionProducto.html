@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <!-- Head aquí -->
-</head>
-<body>
-
-
     <h1>Crear nuevo producto</h1>
     <form th:action="@{/entity/productos/crear}" th:object="${producto}" method="post">
         <label for="nombreProducto">Nombre:</label>
@@ -15,10 +7,10 @@
         <input type="text" id="descripcionProducto" th:field="*{descripcionProducto}">
         
         <label for="precioCompraProducto">Precio de compra:</label>
-        <input type="number" id="precioCompraProducto" th:field="*{precioCompraProducto}" required>
+        <input type="text" id="precioCompraProducto" th:field="*{precioCompraProducto}" required>
         
         <label for="precioVentaProducto">Precio de venta:</label>
-        <input type="number" id="precioVentaProducto" th:field="*{precioVentaProducto}" required>
+        <input type="text" id="precioVentaProducto" th:field="*{precioVentaProducto}" required>
         
         <label for="categoria">Categoría:</label>
         <select id="categoria" th:field="*{categoria.idCategoria}" required>
@@ -33,5 +25,3 @@
         
         <button type="submit">Guardar</button>
     </form>
-</body>
-</html>
