@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Tus enlaces CSS y otras configuraciones aquí -->
+</head>
+
+<body>
+    <!-- Tu contenido HTML aquí -->
+
+    <!-- Tabla para mostrar los detalles de venta y pedidos -->
+    <h2>Detalles de Venta y Pedidos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID Detalle Venta/Pedido</th>
+                <th>ID Venta/Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Venta/Proveedor</th>
+                <!-- Agregar más columnas según los atributos que desees mostrar -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterar sobre la lista "inventario" y mostrar los detalles de venta y pedidos -->
+            <tr th:each="detalleVenta : ${detallesVenta}">
+                <td th:text="${detalleVenta.idDetalleVenta}"></td>
+                <td th:text="${detalleVenta.venta.idVenta}"></td>
+                <td th:text="${detalleVenta.producto.idProducto}"></td>
+                <td th:text="${detalleVenta.cantidad}"></td>
+                <td th:text="${detalleVenta.precioVenta}"></td>
+                <!-- Agregar más celdas según los atributos que desees mostrar -->
+            </tr>
+            <tr th:each="pedido : ${pedidos}">
+                <td th:text="${pedido.idPedido}"></td>
+                <td th:text="${pedido.producto.idProducto}"></td>
+                <td th:text="${pedido.cantidad}"></td>
+                <td th:text="${#dates.format(pedido.fecha, 'dd-MM-yyyy')}"></td>
+                <td th:text="${pedido.proveedor}"></td>
+                <!-- Agregar más celdas según los atributos que desees mostrar -->
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Aquí puedes agregar cualquier otro contenido que desees mostrar -->
+
+</body>
+
+</html>

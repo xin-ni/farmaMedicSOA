@@ -24,7 +24,7 @@
                 <td th:text="${venta.vendedor.idVendedor}"></td>
                 <td th:text="${venta.nombreCliente}"></td>
                 <td th:text="${#dates.format(venta.fechaRegistro, 'dd-MM-yyyy')}"></td>
-                <td th:text="${venta.totalVenta}"></td>
+                <td id="totalVenta" th:text="${venta.totalVenta}"></td>
             </tr>
         </tbody>
     </table>
@@ -129,5 +129,23 @@
             document.getElementById("modal").style.display = "none";
         }
     </script>
+   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Obtener el elemento span que contiene el total de venta
+        const totalVentaElement = document.getElementById('totalVenta');
+
+        // Obtener el valor numérico del total de venta
+        const totalVenta = parseFloat(totalVentaElement.textContent);
+
+        // Formatear el valor como moneda peruana (Soles)
+        const totalVentaFormateado = new Intl.NumberFormat('es-PE', {
+            style: 'currency',
+            currency: 'PEN'
+        }).format(totalVenta);
+
+        // Asignar el valor formateado de moneda al elemento span
+        totalVentaElement.textContent = totalVentaFormateado;
+    });
+</script>
 </body>
 </html>
