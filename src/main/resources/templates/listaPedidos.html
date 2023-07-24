@@ -5,6 +5,10 @@
     <title>Lista de Pedidos</title>
     <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+    th:href="@{/paginas/css/listaCategorias.css}"
+    rel="stylesheet"
+    type="text/css"/>
 </head>
 <body>
     <div th:replace="header.html"></div>
@@ -12,102 +16,120 @@
     <div class="contenedorInferior">
 
         <div th:replace="navbar.html"></div>
-    <h1>Lista de Pedidos</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID Pedido</th>
-                <th>Fecha</th>
-                <th>Producto</th>
-                <th>Descripción</th>
-                <th>Cantidad</th>
-                <th>Precio de Compra</th>
-                <th>Precio de Venta</th>
-                <th>Proveedor</th>
-                <th>Acciones</th>
-                <!-- Agrega más columnas si es necesario -->
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Iterar sobre la lista de pedidos y mostrar los datos en la tabla -->
-            <tr th:each="pedido : ${pedidos}">
-                <td th:text="${pedido.idPedido}"></td>
-                <td th:text="${pedido.fecha}"></td>
-                <td th:text="${pedido.producto.nombreProducto}"></td>
-                <td th:text="${pedido.producto.descripcionProducto}"></td>
-                <td th:text="${pedido.cantidad}"></td>
-                <td th:text="${pedido.producto.precioCompraProducto}"></td>
-                <td th:text="${pedido.producto.precioVentaProducto}"></td>
-                <td th:text="${pedido.proveedor}"></td>
-                <!-- Agrega más celdas si es necesario -->
-                <td>
-                    <!-- Agregamos los atributos "data-" para el botón de editar -->
-                    <button
-                        class="editar-btn"
-                        th:data-id="${pedido.idPedido}"
-                        th:data-fecha="${pedido.fecha}"
-                        th:data-idProducto="${pedido.producto.idProducto}"
-                        th:data-cantidad="${pedido.cantidad}"
-                        th:data-precioVenta="${pedido.producto.precioVentaProducto}"
-                        th:data-precioCompra="${pedido.producto.precioCompraProducto}"
-                        th:data-proveedor="${pedido.proveedor}"
-                        onclick="cargarDatosPedido(
-                            this.getAttribute('data-id'),
-                            this.getAttribute('data-fecha'),
-                            this.getAttribute('data-idProducto'),
-                            this.getAttribute('data-cantidad'),
+        <div class="contenedor-Info">
+        <div class="contenedor-infoCabezera">
+            <h1 class="text-titulo">Lista de Pedidos</h1>
+            <button class="boton-agregar" onclick="abrirModal()">Crear nuevo pedido</button>
+        </div>
+        <div class="contenedor-buscar">
+            <span class="opcion-buscar"> Buscar:</span>
+            <input class="buscar-input"  type="text" id="searchInput"  />
+        </div>
+          <div class="table-container">
+              <table id="tablaPedidos">
+                  <thead>
+                      <tr>
+                          <th>ID Pedido</th>
+                          <th>Fecha</th>
+                          <th>Producto</th>
+                          <th>Descripción</th>
+                          <th>Cantidad</th>
+                          <th>Precio de Compra</th>
+                          <th>Precio de Venta</th>
+                          <th>Proveedor</th>
+                          <th>Acciones</th>
+                          <!-- Agrega más columnas si es necesario -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Iterar sobre la lista de pedidos y mostrar los datos en la tabla -->
+                        <tr th:each="pedido : ${pedidos}">
+                            <td th:text="${pedido.idPedido}"></td>
+                            <td th:text="${pedido.fecha}"></td>
+                            <td th:text="${pedido.producto.nombreProducto}"></td>
+                            <td th:text="${pedido.producto.descripcionProducto}"></td>
+                            <td th:text="${pedido.cantidad}"></td>
+                            <td th:text="${pedido.producto.precioCompraProducto}"></td>
+                            <td th:text="${pedido.producto.precioVentaProducto}"></td>
+                            <td th:text="${pedido.proveedor}"></td>
+                            <!-- Agrega más celdas si es necesario -->
+                            <td>
+                                <!-- Agregamos los atributos "data-" para el botón de editar -->
+                                <button
+                                class="editar-btn"
+                                th:data-id="${pedido.idPedido}"
+                                th:data-fecha="${pedido.fecha}"
+                                th:data-idProducto="${pedido.producto.idProducto}"
+                                th:data-cantidad="${pedido.cantidad}"
+                                th:data-precioVenta="${pedido.producto.precioVentaProducto}"
+                                th:data-precioCompra="${pedido.producto.precioCompraProducto}"
+                                th:data-proveedor="${pedido.proveedor}"
+                                onclick="cargarDatosPedido(
+                                    this.getAttribute('data-id'),
+                                    this.getAttribute('data-fecha'),
+                                    this.getAttribute('data-idProducto'),
+                                    this.getAttribute('data-cantidad'),
                             this.getAttribute('data-precioVenta'),
                             this.getAttribute('data-precioCompra'),
                             this.getAttribute('data-proveedor')
-                        )"
+                            )"
                     >
-                        <img th:src="@{/paginas/imagen/editImg.png}" alt="editar" />
-                    </button>
-                    <a th:href="@{/entity/pedidos/eliminar/{id}(id=${pedido.idPedido})}">
-                        <img th:src="@{/paginas/imagen/eliminar.png}" alt="eliminar" />
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <button onclick="abrirModal()">Crear nuevo pedido</button>
+                    <img th:src="@{/paginas/imagen/editImg.png}" alt="editar" />
+                </button>
+                <a th:href="@{/entity/pedidos/eliminar/{id}(id=${pedido.idPedido})}">
+                    <img th:src="@{/paginas/imagen/eliminar.png}" alt="eliminar" />
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
 
+</div>
+    
     <!-- Modal para mostrar el formulario de creación -->
    <div id="modalPedido" class="modal">
        <div class="modal-content">
            <span class="close" onclick="cerrarModal()">&times;</span>
-           <h2>Crear nuev</h2>
+           <h2>Crear nuevo</h2>
            <form th:action="@{/entity/pedidos/crear}" method="post" th:object="${nuevoPedido}">
             <!-- Agrega aquí los campos del formulario -->
-            <div>
-                <label for="producto">Producto:</label>
-                <select id="producto" name="producto.idProducto" onchange="mostrarPrecio()">
-                    <option value="">Seleccionar</option> <!-- Opción vacía para seleccionar -->
-                    <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:data-precio-venta="${producto.precioVentaProducto}" th:data-precio-compra="${producto.precioCompraProducto}" th:text="${producto.nombreProducto}"></option>
-                </select>
+            <div class="formula-grupo">
+                <div class="nosexd">
+                    <label  class="grupo-label" for="producto">Producto:</label>
+                    <select class="input-pedido" id="producto" name="producto.idProducto" onchange="mostrarPrecio()">
+                        <option value="">Seleccionar</option> <!-- Opción vacía para seleccionar -->
+                        <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:data-precio-venta="${producto.precioVentaProducto}" th:data-precio-compra="${producto.precioCompraProducto}" th:text="${producto.nombreProducto}"></option>
+                    </select>
+                </div>
+                <div class="mnose2">
+                    <label class="grupo-label" for="cantidad">Cantidad:</label>
+                    <input class="input-pedido"type="number" id="cantidad" name="cantidad" required>
+                </div>
             </div>
-            <div>
-                <label for="cantidad">Cantidad:</label>
-                <input type="number" id="cantidad" name="cantidad" required>
+            <div class="formula-grupo">
+                <div class="nose3">
+                    <label class="grupo-label" for="fecha">Fecha del pedido:</label>
+                    <input class="input-pedido" readonly type="date" id="fecha" name="fecha" required>
+                </div>
+                <div class="nose5">
+                    <label class="grupo-label" for="proveedor">Proveedor:</label>
+                    <input class="input-pedido" type="text" id="proveedor" name="proveedor" required>
+                </div>
             </div>
-            <div>
-                <label for="fecha">Fecha del pedido:</label>
-                <input readonly type="date" id="fecha" name="fecha" required>
+
+            <div class="formula-grupo">
+                <div class="grupo-precio">
+                    <label class="grupo-label" for="precioVenta">Precio de Venta:</label>
+                    <span class="grupo-label" id="precioVentaSpan"></span> <!-- Campo para mostrar el valor de precioVenta -->
+                </div>
+                <div  class="grupo-precio">
+                <label class="grupo-label" for="precioCompra">Precio de Compra:</label>
+                <span class="grupo-label" id="precioCompraSpan"></span> <!-- Campo para mostrar el valor de precioCompra -->
             </div>
-            <div>
-                <label for="precioVenta">Precio de Venta:</label>
-                <span id="precioVentaSpan"></span> <!-- Campo para mostrar el valor de precioVenta -->
-            </div>
-            <div>
-                <label for="precioCompra">Precio de Compra:</label>
-                <span id="precioCompraSpan"></span> <!-- Campo para mostrar el valor de precioCompra -->
-            </div>
-            <div>
-                <label for="proveedor">Proveedor:</label>
-                <input type="text" id="proveedor" name="proveedor" required>
-            </div>
-            <button type="submit">Crear Pedido</button>
+        </div>
+            
+            <button class="boton-guardarP" type="submit">Crear Pedido</button>
         </form>
        </div>
    </div>
@@ -282,5 +304,31 @@ function mostrarPrecio() {
         fechaInput.value = fechaActual;
     });
 </script>
+
+<script>
+    // Función para realizar la búsqueda en tiempo real por fecha y producto
+    function buscarEnTiempoReal() {
+      var inputTexto = document.getElementById("searchInput").value.toLowerCase();
+      var tabla = document.getElementById("tablaPedidos");
+      var filas = tabla.getElementsByTagName("tr");
+  
+      // Recorrer todas las filas y ocultar las que no coinciden con el texto buscado
+      for (var i = 1; i < filas.length; i++) { // Iniciamos en 1 para omitir el encabezado de la tabla
+        var fechaFila = filas[i].getElementsByTagName("td")[1].textContent.toLowerCase(); // Índice 1 para obtener la fecha de la fila
+        var productoFila = filas[i].getElementsByTagName("td")[2].textContent.toLowerCase(); // Índice 2 para obtener el nombre del producto de la fila
+  
+        if (fechaFila.includes(inputTexto) || productoFila.includes(inputTexto)) {
+          filas[i].style.display = ""; // Mostrar la fila si la fecha o el nombre del producto contienen el texto buscado
+        } else {
+          filas[i].style.display = "none"; // Ocultar la fila si la fecha y el nombre del producto no contienen el texto buscado
+        }
+      }
+    }
+  
+    // Agregar el evento input al campo de búsqueda para ejecutar la búsqueda en tiempo real
+    document.getElementById("searchInput").addEventListener("input", buscarEnTiempoReal);
+  </script>
+  
+
 </body>
 </html>
