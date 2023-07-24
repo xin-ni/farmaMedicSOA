@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,43 +76,58 @@ public class ventaController {
         model.addAttribute("productos", productos);
         return "formularioVenta"; // Vista para el formulario de registro de ventas
     }
-    @PostMapping("/guardar")
-public String guardarVenta(@ModelAttribute ventaModel venta, HttpServletRequest request) {
-    // Obtener los detalles de la venta del formulario
-    String[] idProductos = request.getParameterValues("idProducto");
-    String[] cantidades = request.getParameterValues("cantidades");
-    String[] preciosVenta = request.getParameterValues("preciosVenta");
 
-    // Guardar la venta principal y obtener el ID de la venta recién guardada
-    ventaService.guardarVenta(venta);
-    int idVentaGuardada = venta.getIdVenta();
 
-    // Obtener el vendedor seleccionado por su id
-    int idVendedorSeleccionado = Integer.parseInt(request.getParameter("trabajador"));
-    vendedorModel vendedor = empleadoService.obtenerVendedorID(idVendedorSeleccionado).orElse(null);
 
-    // Establecer el vendedor en la venta
-    venta.setVendedor(vendedor);
+      @PostMapping("/guardar")
+    public String guardarVenta(@ModelAttribute ventaModel venta, HttpServletRequest request) {
+            // Obtener la fecha actual del sistema
+            Date fechaRegistro = new Date(); // 
+        // Obtener los detalles de la venta del formulario
+        String[] idProductos = request.getParameterValues("idProducto");
+        String[] cantidades = request.getParameterValues("cantidades");
+        String[] preciosVenta = request.getParameterValues("preciosVenta");
+        venta.setFechaRegistro(fechaRegistro);
 
-    // Guardar los detalles de la venta en la base de datos
-    for (int i = 0; i < idProductos.length; i++) {
-        detalleVentaModel detalleVenta = new detalleVentaModel();
+        // Calcular el total de la venta
+        float totalVenta = 0;
+        for (int i = 0; i < idProductos.length; i++) {
+            totalVenta += Float.parseFloat(preciosVenta[i]) * Integer.parseInt(cantidades[i]);
+        }
 
-        // Establecer la venta asociada al detalleVenta
-        detalleVenta.setVenta(venta);
+        // Establecer el total de la venta en el modelo ventaModel
+        venta.setTotalVenta(totalVenta);
 
-        // Obtener el producto seleccionado por su id
-        int idProductoSeleccionado = Integer.parseInt(idProductos[i]);
-        productoModel producto = productoService.obtenerProductoPorId(idProductoSeleccionado).orElse(null);
+        // Guardar la venta principal y obtener el ID de la venta recién guardada
+        ventaService.guardarVenta(venta);
+        int idVentaGuardada = venta.getIdVenta();
 
-        detalleVenta.setProducto(producto);
-        detalleVenta.setCantidad(Integer.parseInt(cantidades[i]));
-        detalleVenta.setPrecioVenta(Float.parseFloat(preciosVenta[i]));
-        detalleVentaService.guardarDetalleVenta(detalleVenta);
+        // Obtener el vendedor seleccionado por su id
+        int idVendedorSeleccionado = Integer.parseInt(request.getParameter("trabajador"));
+        vendedorModel vendedor = empleadoService.obtenerVendedorID(idVendedorSeleccionado).orElse(null);
+
+        // Establecer el vendedor en la venta
+        venta.setVendedor(vendedor);
+
+        // Guardar los detalles de la venta en la base de datos
+        for (int i = 0; i < idProductos.length; i++) {
+            detalleVentaModel detalleVenta = new detalleVentaModel();
+
+            // Establecer la venta asociada al detalleVenta
+            detalleVenta.setVenta(venta);
+
+            // Obtener el producto seleccionado por su id
+            int idProductoSeleccionado = Integer.parseInt(idProductos[i]);
+            productoModel producto = productoService.obtenerProductoPorId(idProductoSeleccionado).orElse(null);
+
+            detalleVenta.setProducto(producto);
+            detalleVenta.setCantidad(Integer.parseInt(cantidades[i]));
+            detalleVenta.setPrecioVenta(Float.parseFloat(preciosVenta[i]));
+            detalleVentaService.guardarDetalleVenta(detalleVenta);
+        }
+
+        return "redirect:/entity/venta/";
     }
-
-    return "redirect:/entity/venta/";
-}
 
     
     
