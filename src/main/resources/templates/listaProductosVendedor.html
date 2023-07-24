@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link th:href="@{/paginas/css/listaCategorias.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/paginas/css/modal.css}" rel="stylesheet" type="text/css" />
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div th:replace="header.html"></div>
+    <div class="contenedorInferior">
+        <div th:replace="navbarVendedor.html"></div>
+        <div class="contenedor-Info">
+            <div class="contenedor-infoCabezera">
+                <h1 class="text-titulo">Lista de Productos</h1>
+
+            </div>
+            <div class="contenedor-buscar">
+                <span class="opcion-buscar"> Buscar:</span>
+                <input class="buscar-input" type="text" id="searchInput">
+            </div>
+
+            <div class="table-container">
+
+                <table id="tablaProductoVendedor">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Fecha Vencimiento</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio Venta</th>
+                            <th>Categoría</th>
+                           
+                            <th>Stock</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="producto, productoCount : ${productos}">
+                            <td th:text="${productoCount.count}"></td>
+                          
+                <td hidden th:text="${producto.idProducto}"></td>
+                <td th:text="${#dates.format(producto.fechaVencimiento, 'dd-MM-yyyy')}"></td>
+                <td th:text="${producto.nombreProducto}"></td>
+                <td th:text="${producto.descripcionProducto}"></td>
+<td class="precioVenta" th:text="${producto.precioVentaProducto}"></td>
+                <td th:text="${producto.categoria.nombreCategoria}"></td>
+                <!-- ... Otras columnas de la tabla ... -->
+                <td style="text-align: center;">
+                    <strong><span th:text="${producto.stock}"></span></strong>
+                    <br/>
+                    <span th:class="${producto.stock &lt;= 25} ? 'texto-rojo' : (${producto.stock &gt; 25 and producto.stock &lt;= 50} ? 'texto-naranja' : 'texto-verde')">
+                        <!-- Mostrar el indicador según el valor del stock -->
+                        <span th:if="${producto.stock &lt;= 25}">POR AGOTARSE</span>
+                        <span th:if="${producto.stock &gt; 25 and producto.stock &lt;= 50}">STOCK LIMITADO</span>
+                        <span th:if="${producto.stock &gt; 50}">DISPONIBLE</span>
+                    </span>
+                </td>
+<!-- ... Otras columnas de la tabla ... -->
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Obtener todos los elementos con la clase "precioCompra" y "precioVenta"
+        const precioCompraElements = document.querySelectorAll('.precioCompra');
+        const precioVentaElements = document.querySelectorAll('.precioVenta');
+
+        // Función para dar formato de moneda peruana a los elementos
+        function formatearMonedaPeruana(elements) {
+            elements.forEach(element => {
+                // Obtener el valor numérico del elemento
+                const precio = parseFloat(element.textContent);
+
+                // Formatear el valor como moneda peruana (S/)
+                const precioFormateado = new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN' }).format(precio);
+
+                // Asignar el valor formateado de moneda al elemento
+                element.textContent = precioFormateado;
+            });
+        }
+
+        // Llamar a la función para formatear los precios de compra y venta
+        formatearMonedaPeruana(precioCompraElements);
+        formatearMonedaPeruana(precioVentaElements);
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Obtener el campo de entrada de búsqueda
+        const searchInput = document.getElementById('searchInput');
+
+        // Agregar un evento de escucha para el evento 'input'
+        searchInput.addEventListener('input', function () {
+            // Obtener el texto ingresado en el campo de búsqueda
+            const searchText = searchInput.value.toLowerCase();
+
+            // Obtener todas las filas de la tabla
+            const rows = document.querySelectorAll('#tablaProductoVendedor tbody tr');
+
+            // Filtrar las filas según el texto ingresado
+            rows.forEach(row => {
+                const nombreProducto = row.querySelector('td:nth-child(4)').textContent.toLowerCase(); // Reemplaza 3 por el índice de la columna de nombre del producto (contando desde 1)
+                if (nombreProducto.includes(searchText)) {
+                    row.style.display = 'table-row';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>

@@ -32,16 +32,16 @@ public class usuarioController {
             // Credenciales válidas, redireccionar según el idCargo
             int idCargo = usuario.getCargo().getIdCargo();
             if (idCargo == 1) {
-                return "redirect:/listaVentas";
+                return "redirect:/entity/categorias/";
             } else if (idCargo == 2) {
-                return "redirect:/vistaVendedor";
+                return "redirect:/entity/productos/productoStock";
             } else {
                 // Página predeterminada o manejo de error si no se encuentra el idCargo
                 return "redirect:/otraPagina";
             }
         } else {
             // Credenciales inválidas, mostrar mensaje de error en la página de inicio de sesión
-            model.addAttribute("error", "Credenciales inválidas. Por favor, intente de nuevo.");
+              model.addAttribute("error", "Credenciales inválidas. Por favor, intente de nuevo.");
             return "login";
         }
     }

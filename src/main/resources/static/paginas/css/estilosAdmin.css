@@ -293,3 +293,19 @@ flex-shrink: 0;
 
 .activo { color: green; }
 .desactivo { color: red; }
+
+
+
+
+/* Estilos para colores de texto */
+.texto-rojo {
+  color: red;
+}
+
+.texto-naranja {
+  color: orange;
+}
+
+.texto-verde {
+  color: green;
+}

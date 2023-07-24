@@ -13,23 +13,17 @@
     <nav id="navContainer">
 
         <ul>
-            <li>
-                <a href="">
-                    <div id="leftDiv"></div>
-                    <i class="fas fa-chart-bar"></i>Ventas
-                    <div id="rightDiv"></div>
-                </a>
-            </li>
+            <li><a th:href="@{/entity/productos/productoStock}">
+                <div id="leftDiv"></div>
+                <i class="fas fa-box"></i>Producto
+                <div id="rightDiv"></div>
+            </a></li>
             <li><a th:href="@{/entity/categorias/}">
                     <div id="leftDiv"></div>
                     <i class="fas fa-tags"></i>Categoria
                     <div id="rightDiv"></div>
                 </a></li>
-            <li><a th:href="@{/entity/productos/}">
-                    <div id="leftDiv"></div>
-                    <i class="fas fa-box"></i>Producto
-                    <div id="rightDiv"></div>
-                </a></li>
+           
             <li>
                 <a href="#">
                     <div id="leftDiv"></div>
@@ -37,20 +31,8 @@
                     <div id="rightDiv"></div>
                 </a>
             </li>
-            <li>
-                <a th:href="@{/entity/vendedor/}">
-                    <div id="leftDiv"></div>
-                    <i class="fas fa-users"></i>Empleados
-                    <div id="rightDiv"></div>
-                </a>
-            </li>
-            <li>
-                <a th:href="@{/entity/pedidos/}">
-                    <div id="leftDiv"></div>
-                    <i class="fas fa-shopping-cart"></i>Pedidos
-                    <div id="rightDiv"></div>
-                </a>
-            </li>
+           
+           
             <li>
                 <a href="#">
                     <div id="leftDiv"></div>
