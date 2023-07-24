@@ -8,15 +8,18 @@
     <meta charset="UTF-8">
     <title>Lista de Vendedores</title>
 </head>
-<body>
+<body style="background-color: rgba(148, 148, 148, 0.308);">
     <div th:replace="header.html"></div>
     <div class="contenedorInferior">
     <div th:replace="navbar.html"></div>
-    <h1>Lista de Vendedores</h1>
+    <div>
+         <h1>Lista de Vendedores</h1>
+         <button class="boton-agregar" onclick="abrirModalVendedor()">Agregar nuevo vendedor</button>
     
-    <!-- Botón para agregar nuevo vendedor -->
-    <button class="boton-agregar" onclick="abrirModalVendedor()">Agregar nuevo vendedor</button>
-    <table border="1">
+    </div>
+   
+   <div class="tablaVendedor">
+      <table border="1">
         <thead>
             <tr>
                 <th>ID</th>
@@ -45,6 +48,9 @@
             </tr>
         </tbody>
     </table>
+   </div>
+    
+  
   
 
     <!-- Modal para mostrar el formulario de creación de vendedores -->
