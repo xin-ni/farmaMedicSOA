@@ -14,7 +14,9 @@ public class usuarioService {
 
     @Autowired
     private usuarioRepository usuarioRepository;
-
+    public usuarioModel obtenerUsuarioPorEmail(String email) {
+        return usuarioRepository.findByEmail(email);
+    }
     public List<usuarioModel> obtenerUsuario() {
         return (List<usuarioModel>) usuarioRepository.findAll();
     }
@@ -30,6 +32,9 @@ public class usuarioService {
     public void eliminarUsuario(int id) {
         usuarioRepository.deleteById(id);
     }
-
+    public usuarioModel findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
+    }
+    
 
 }

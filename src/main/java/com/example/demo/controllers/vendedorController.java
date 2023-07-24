@@ -25,7 +25,8 @@ public class vendedorController {
 
    @GetMapping("/")
     public String listaVendedor(Model model) {
-        model.addAttribute("vendedor", vendedorService.obtenerVendedor());
+        List<vendedorModel> vendedores= vendedorService.obtenerVendedor();
+        model.addAttribute("vendedor", vendedores);
         model.addAttribute("nuevoVendedor", new vendedorModel()); // Codigo importante para modal 
         return "listaVendedor";
     }

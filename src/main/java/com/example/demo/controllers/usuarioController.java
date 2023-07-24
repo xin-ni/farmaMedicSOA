@@ -13,10 +13,39 @@ import org.springframework.web.bind.annotation.*;
 public class usuarioController {
 
 
-  @Autowired
+    @Autowired
     private usuarioService usuarioService;
 
+    // Resto de los métodos existentes en usuarioController...
+    @GetMapping("/login")
+    public String mostrarFormularioLogin(Model model) {
+        model.addAttribute("email", "");
+        model.addAttribute("pass", "");
+        return "login";
+    }
+    @PostMapping("/login")
+    public String login(@RequestParam("email") String email, @RequestParam("pass") String pass, Model model) {
 
+        // Lógica para verificar las credenciales del usuario
+        usuarioModel usuario = usuarioService.findByEmail(email);
+        if (usuario != null && usuario.getPass().equals(pass)) {
+            // Credenciales válidas, redireccionar según el idCargo
+            int idCargo = usuario.getCargo().getIdCargo();
+            if (idCargo == 1) {
+                return "redirect:/listaVentas";
+            } else if (idCargo == 2) {
+                return "redirect:/vistaVendedor";
+            } else {
+                // Página predeterminada o manejo de error si no se encuentra el idCargo
+                return "redirect:/otraPagina";
+            }
+        } else {
+            // Credenciales inválidas, mostrar mensaje de error en la página de inicio de sesión
+            model.addAttribute("error", "Credenciales inválidas. Por favor, intente de nuevo.");
+            return "login";
+        }
+    }
+    
 
     @GetMapping("/")
     public String listarUsuario(Model model) {

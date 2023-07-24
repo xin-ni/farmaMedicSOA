@@ -9,7 +9,8 @@
     <div th:if="${param.error}">
         <p style="color: red;">Credenciales inválidas. Por favor, intente de nuevo.</p>
     </div>
-    <form th:action="@{/login}" method="post">
+    <form th:action="@{/entity/usuario/login}" method="post">
+
         <label for="email">Email:</label>
         <input type="text" id="email" name="email" required>
         <br>
