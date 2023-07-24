@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.models.detalleVentaModel;
 import com.example.demo.repository.detalleVentaRepository;
-
 @Service
 public class detalleVentaService {
     private final detalleVentaRepository detalleVentaRepository;
@@ -18,7 +17,7 @@ public class detalleVentaService {
         this.detalleVentaRepository = detalleVentaRepository;
     }
 
-      public List<detalleVentaModel> obtenerDetalleVenta() {
+    public List<detalleVentaModel> obtenerDetalleVenta() {
         return (List<detalleVentaModel>) detalleVentaRepository.findAll();
     }
 
@@ -34,3 +33,4 @@ public class detalleVentaService {
         detalleVentaRepository.deleteById(id);
     }
 }
+

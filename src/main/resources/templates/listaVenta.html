@@ -73,12 +73,14 @@
                     </select>
                 </div>
                 <div>
-                    <label for="fechaVenta">Precio Venta:</label>
-                    <span style="height: 360px; width: 200px; background-color: gray;" id="precioVentaSpan" required></span>
+                    <label for="cantidades">Cantidad:</label>
+                    <input type="text" id="cantidades" name="cantidades" oninput="calcularTotal()" required>
                 </div>
                 <div>
-                    <label for="fechaVenta">Cantidad:</label>
-                    <input type="text" id="cantidad" oninput="calcularTotal()" required>
+                    <label for="precioVenta">Precio Venta:</label>
+                    <span style="height: 360px; width: 200px; background-color: gray;" id="precioVentaSpan" required></span>
+                    <input type="hidden" id="preciosVenta" name="preciosVenta">
+                    <input type="hidden" id="idProductoSeleccionado" name="idProductoSeleccionado">
                 </div>
                 <!-- Campitos del total -->
                 <h2>Total</h2>
@@ -163,21 +165,20 @@
     });
 </script>
 
-
 <script th:inline="javascript">
     function mostrarPrecioVenta() {
-
         const selectProducto = document.getElementById("idProducto");
         const idProductoSeleccionado = selectProducto.value;
 
-
         const precioVentaSpan = document.getElementById("precioVentaSpan");
-
+        const preciosVentaInput = document.getElementById("preciosVenta");
+        const idProductoSeleccionadoInput = document.getElementById("idProductoSeleccionado");
 
         if (idProductoSeleccionado === "") {
             precioVentaSpan.textContent = "";
+            preciosVentaInput.value = "";
+            idProductoSeleccionadoInput.value = "";
         } else {
-
             const precioVentaProducto = selectProducto.options[selectProducto.selectedIndex].dataset.precioVenta;
 
             // Formatear el precioVentaProducto como moneda peruana
@@ -187,20 +188,22 @@
             });
             const precioVentaFormateado = formatter.format(precioVentaProducto);
 
-            precioVentaSpan.textContent =precioVentaFormateado;
+            precioVentaSpan.textContent = precioVentaFormateado;
+
+            // Establecer los valores en los campos ocultos
+            preciosVentaInput.value = precioVentaProducto;
+            idProductoSeleccionadoInput.value = idProductoSeleccionado;
+
             calcularTotal();
         }
     }
 
     function calcularTotal() {
-
-        const cantidadInput = document.getElementById("cantidad");
+        const cantidadInput = document.getElementById("cantidades");
         const cantidad = cantidadInput.value;
 
-
-        const selectProducto = document.getElementById("idProducto");
-        const precioVentaProducto = selectProducto.options[selectProducto.selectedIndex].dataset.precioVenta;
-
+        const preciosVentaInput = document.getElementById("preciosVenta");
+        const precioVentaProducto = parseFloat(preciosVentaInput.value);
 
         const total = cantidad * precioVentaProducto;
 
@@ -214,5 +217,6 @@
         totalInput.value = totalFormateado;
     }
 </script>
+
 </body>
 </html>
