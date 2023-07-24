@@ -13,6 +13,9 @@
     <div class="contenedorInferior">
     <div th:replace="navbar.html"></div>
     <h1>Lista de Vendedores</h1>
+    
+    <!-- Botón para agregar nuevo vendedor -->
+    <button class="boton-agregar" onclick="abrirModalVendedor()">Agregar nuevo vendedor</button>
     <table border="1">
         <thead>
             <tr>
@@ -42,8 +45,47 @@
             </tr>
         </tbody>
     </table>
+  
 
-    <a href="/vendedores/agregar">Agregar Vendedor</a>
+    <!-- Modal para mostrar el formulario de creación de vendedores -->
+<div id="modalVendedor" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalVendedor()">&times;</span>
+        <h2 style="text-align: center;">Crear nuevo vendedor</h2>
+        <form class="formularioVendedor" th:action="@{/entity/vendedor/guardar}" th:object="${nuevoVendedor}" method="post">
+            <label for="nombres">Nombres:</label>
+            <input type="text" id="nombres" th:field="*{nombres}" required/>
+
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" th:field="*{apellidos}" required/>
+
+            <label for="dni">DNI:</label>
+            <input type="text" id="dni" th:field="*{DNI}" required/>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" th:field="*{telefono}" required/>
+
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" th:field="*{direccion}" required/>
+
+            <!-- Agrega otros campos del formulario aquí -->
+
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</div>
+
+
+    <!-- Script para el modal de creación de vendedor -->
+    <script>
+        function abrirModalVendedor() {
+            document.getElementById("modalVendedor").style.display = "block";
+        }
+
+        function cerrarModalVendedor() {
+            document.getElementById("modalVendedor").style.display = "none";
+        }
+    </script>
 </div>
 </body>
 </html>

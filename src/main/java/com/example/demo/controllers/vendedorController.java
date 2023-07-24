@@ -34,7 +34,7 @@ public class vendedorController {
     @GetMapping("/agregar")
     public String mostrarFormularioAgregar(Model model) {
         model.addAttribute("vendedor", new vendedorModel());
-        return "";
+        return "formularioCreacionVendedor";
     }
 
     @PostMapping("/guardar")
@@ -42,7 +42,6 @@ public class vendedorController {
         vendedorService.guardarVendedor(vendedor);
         return "redirect:/entity/vendedor/";
     }
-
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable int id, Model model) {
         Optional<vendedorModel> vendedor = vendedorService.obtenerVendedorID(id);
