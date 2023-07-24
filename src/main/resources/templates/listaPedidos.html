@@ -148,7 +148,7 @@
         </div>
         <div>
           <label for="editProducto">Producto:</label>
-          <select id="editProducto" name="producto.idProducto">
+          <select id="editProducto" name="producto.idProducto" onchange="mostrarPrecio()">
             <option value="">Seleccionar</option> <!-- Opción vacía para seleccionar -->
             <option
               th:each="producto : ${productos}"
@@ -182,8 +182,8 @@
   
   <!-- Script para el modal de edición de pedidos -->
   <script>
-    // Script para el modal de edición de pedidos
-    function abrirModalEditar() {
+     // Script para el modal de edición de pedidos
+     function abrirModalEditar() {
         document.getElementById("modalEditarPedido").style.display = "block";
     }
 
@@ -194,13 +194,49 @@
     function cargarDatosPedido(id, fecha, idProducto, cantidad, precioVenta, precioCompra, proveedor) {
         document.getElementById("editPedidoId").value = id;
         document.getElementById("editFechaPedido").value = fecha;
-        document.getElementById("editProducto").value = idProducto;
         document.getElementById("editCantidad").value = cantidad;
+        document.getElementById("editProveedor").value = proveedor;
+
+        // Seleccionar el producto en el combo box
+        var productoSelect = document.getElementById("editProducto");
+        for (var i = 0; i < productoSelect.options.length; i++) {
+            if (productoSelect.options[i].value === idProducto) {
+                productoSelect.options[i].selected = true;
+                break;
+            }
+        }
+
+        // Actualizar los precios de venta y compra en el modal
+        var selectedOption = productoSelect.options[productoSelect.selectedIndex];
+        var precioVenta = selectedOption.getAttribute("data-precio-venta");
+        var precioCompra = selectedOption.getAttribute("data-precio-compra");
         document.getElementById("editPrecioVentaSpan").innerText = precioVenta;
         document.getElementById("editPrecioCompraSpan").innerText = precioCompra;
-        document.getElementById("editProveedor").value = proveedor;
+
         abrirModalEditar();
     }
+
+    
+    function mostrarPrecio() {
+        var select = document.getElementById("editProducto");
+        var selectedOption = select.options[select.selectedIndex];
+        var precioVenta = selectedOption.getAttribute("data-precio-venta");
+        var precioCompra = selectedOption.getAttribute("data-precio-compra");
+        
+        if (selectedOption.value === "") {
+         
+            document.getElementById("editPrecioVentaSpan").innerText = "";
+            document.getElementById("editPrecioCompraSpan").innerText = "";
+        } else {
+
+            document.getElementById("editPrecioVentaSpan").innerText = precioVenta;
+            document.getElementById("editPrecioCompraSpan").innerText = precioCompra;
+        }
+    }
+
+  
+    var editProductoSelect = document.getElementById("editProducto");
+    editProductoSelect.addEventListener("change", mostrarPrecio);
 
     // Escuchamos el evento click en los botones con la clase "editar-btn"
     const editarButtons = document.querySelectorAll(".editar-btn");
