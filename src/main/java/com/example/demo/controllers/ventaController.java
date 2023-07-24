@@ -76,39 +76,43 @@ public class ventaController {
         return "formularioVenta"; // Vista para el formulario de registro de ventas
     }
     @PostMapping("/guardar")
-    public String guardarVenta(@ModelAttribute ventaModel venta, HttpServletRequest request) {
-        // Obtener los detalles de la venta del formulario
-        String[] idProductos = request.getParameterValues("idProducto");
-        String[] cantidades = request.getParameterValues("cantidades");
-        String[] preciosVenta = request.getParameterValues("preciosVenta");
-    
-        // Guardar la venta principal y obtener el ID de la venta recién guardada
-        ventaService.guardarVenta(venta);
-        int idVentaGuardada = venta.getIdVenta();
-    
-        // Obtener el vendedor seleccionado por su id
-        int idVendedorSeleccionado = Integer.parseInt(request.getParameter("trabajador"));
-        vendedorModel vendedor = empleadoService.obtenerVendedorID(idVendedorSeleccionado).orElse(null);
-    
-        // Guardar los detalles de la venta en la base de datos
-        for (int i = 0; i < idProductos.length; i++) {
-            detalleVentaModel detalleVenta = new detalleVentaModel();
-    
-            // Establecer la venta asociada al detalleVenta
-            detalleVenta.setVenta(venta);
-    
-            // Obtener el producto seleccionado por su id
-            int idProductoSeleccionado = Integer.parseInt(idProductos[i]);
-            productoModel producto = productoService.obtenerProductoPorId(idProductoSeleccionado).orElse(null);
-    
-            detalleVenta.setProducto(producto);
-            detalleVenta.setCantidad(Integer.parseInt(cantidades[i]));
-            detalleVenta.setPrecioVenta(Float.parseFloat(preciosVenta[i]));
-            detalleVentaService.guardarDetalleVenta(detalleVenta);
-        }
-    
-        return "redirect:/entity/venta/";
+public String guardarVenta(@ModelAttribute ventaModel venta, HttpServletRequest request) {
+    // Obtener los detalles de la venta del formulario
+    String[] idProductos = request.getParameterValues("idProducto");
+    String[] cantidades = request.getParameterValues("cantidades");
+    String[] preciosVenta = request.getParameterValues("preciosVenta");
+
+    // Guardar la venta principal y obtener el ID de la venta recién guardada
+    ventaService.guardarVenta(venta);
+    int idVentaGuardada = venta.getIdVenta();
+
+    // Obtener el vendedor seleccionado por su id
+    int idVendedorSeleccionado = Integer.parseInt(request.getParameter("trabajador"));
+    vendedorModel vendedor = empleadoService.obtenerVendedorID(idVendedorSeleccionado).orElse(null);
+
+    // Establecer el vendedor en la venta
+    venta.setVendedor(vendedor);
+
+    // Guardar los detalles de la venta en la base de datos
+    for (int i = 0; i < idProductos.length; i++) {
+        detalleVentaModel detalleVenta = new detalleVentaModel();
+
+        // Establecer la venta asociada al detalleVenta
+        detalleVenta.setVenta(venta);
+
+        // Obtener el producto seleccionado por su id
+        int idProductoSeleccionado = Integer.parseInt(idProductos[i]);
+        productoModel producto = productoService.obtenerProductoPorId(idProductoSeleccionado).orElse(null);
+
+        detalleVenta.setProducto(producto);
+        detalleVenta.setCantidad(Integer.parseInt(cantidades[i]));
+        detalleVenta.setPrecioVenta(Float.parseFloat(preciosVenta[i]));
+        detalleVentaService.guardarDetalleVenta(detalleVenta);
     }
+
+    return "redirect:/entity/venta/";
+}
+
     
     
 
