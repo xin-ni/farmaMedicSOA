@@ -309,3 +309,46 @@ flex-shrink: 0;
 .texto-verde {
   color: green;
 }
+
+/* Modal pedido */
+.formula-grupo{
+  display: flex;
+  margin-bottom: 20px;
+}
+.grupo-label{
+  color: #094558;
+  font-family: Nunito;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.input-pedido{
+  border-radius: 5px;
+  border-right: 1px solid #268916;
+  border-bottom: 1px solid #268916;
+  background: #EEE;
+  border-top: none;
+  border-left: none;
+  width: 150px ;
+  height: 47px;
+}
+.grupo-precio{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.boton-guardarP{
+  border-radius: 10px;
+  background: #094558;
+  width: 349px;
+  height: 46.5px;
+  color: #FFF;
+  text-align: center;
+  font-family: Nunito;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-left: 30px;
+}
