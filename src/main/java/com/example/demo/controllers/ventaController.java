@@ -82,20 +82,24 @@ public class ventaController {
         String[] cantidades = request.getParameterValues("cantidades"); // Asegúrate de utilizar el nombre correcto del campo
         String[] preciosVenta = request.getParameterValues("preciosVenta"); // Asegúrate de utilizar el nombre correcto del campo
     
+        // Guardar la venta principal y obtener el ID de la venta recién guardada
         ventaService.guardarVenta(venta);
-
+        int idVentaGuardada = venta.getIdVenta();
+    
         // Guardar los detalles de la venta en la base de datos
         for (int i = 0; i < idProductos.length; i++) {
             detalleVentaModel detalleVenta = new detalleVentaModel();
-            detalleVenta.setIdDetalleVenta(venta.getIdVenta());
+            detalleVenta.setVenta(venta); // Establecer la venta asociada al detalleVenta
             detalleVenta.setProducto(Integer.parseInt(idProductos[i]));
             detalleVenta.setCantidad(Integer.parseInt(cantidades[i]));
             detalleVenta.setPrecioVenta(Float.parseFloat(preciosVenta[i]));
             detalleVentaService.guardarDetalleVenta(detalleVenta);
         }
-
+    
         return "redirect:/entity/venta/";
     }
+    
+    
 
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable int id, Model model) {
