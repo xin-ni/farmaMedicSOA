@@ -5,9 +5,14 @@ import java.util.Optional;
 
 import com.example.demo.models.vendedorModel;
 import com.example.demo.models.ventaModel;
+import com.example.demo.models.detalleVentaModel;
 import com.example.demo.models.productoModel;
 import com.example.demo.services.vendedorService;
 import com.example.demo.services.ventaService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import com.example.demo.services.detalleVentaService;
 import com.example.demo.services.productoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +32,8 @@ public class ventaController {
     private ventaService ventaService;
     @Autowired
     private vendedorService empleadoService; // Inyección del servicio de empleados
-
+    @Autowired
+    private detalleVentaService detalleVentaService; // Inyecta
 
     @GetMapping("/")
     public String listaVendedor(Model model) {
@@ -70,10 +76,25 @@ public class ventaController {
         return "formularioVenta"; // Vista para el formulario de registro de ventas
     }
     @PostMapping("/guardar")
-    public String guardarVenta(@ModelAttribute ventaModel venta) {
+    public String guardarVenta(@ModelAttribute ventaModel venta, HttpServletRequest request) {
+        // Obtener los detalles de la venta del formulario
+        String[] idProductos = request.getParameterValues("idProducto");
+        String[] cantidades = request.getParameterValues("cantidades"); // Asegúrate de utilizar el nombre correcto del campo
+        String[] preciosVenta = request.getParameterValues("preciosVenta"); // Asegúrate de utilizar el nombre correcto del campo
+    
         ventaService.guardarVenta(venta);
-        return "redirect:/bss/venta/";
-        
+
+        // Guardar los detalles de la venta en la base de datos
+        for (int i = 0; i < idProductos.length; i++) {
+            detalleVentaModel detalleVenta = new detalleVentaModel();
+            detalleVenta.setIdDetalleVenta(venta.getIdVenta());
+            detalleVenta.setProducto(Integer.parseInt(idProductos[i]));
+            detalleVenta.setCantidad(Integer.parseInt(cantidades[i]));
+            detalleVenta.setPrecioVenta(Float.parseFloat(preciosVenta[i]));
+            detalleVentaService.guardarDetalleVenta(detalleVenta);
+        }
+
+        return "redirect:/entity/venta/";
     }
 
     @GetMapping("/editar/{id}")
