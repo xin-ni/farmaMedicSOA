@@ -120,15 +120,20 @@ display: flex;
 
 .grupo-label {
   display: block;
-  font-weight: bold;
+
   margin-bottom: 5px;
 }
 
+
+
 .input-pedido {
+  border: none;
+  border-bottom: 1px solid rgb(105, 175, 0);
+  border-right:1px solid rgb(105, 175, 0);
   background-color:rgba(165, 165, 165, 0.349);
   width: 100%;
   padding: 5px;
-  border: 1px solid #ccc;
+ 
   border-radius: 5px;
 }
 
@@ -149,7 +154,7 @@ width: 162px;
 
 .nose5 {
   flex: 1;
-  margin-left: 45px;
+  margin-left: 25px;
 }
 
 .formula-grupo {
@@ -170,15 +175,23 @@ margin-left: 25px;
   width: 172px;
  
 }
+#fecha{
+  width: 152px;
+}
 
 .boton-guardarP {
-  background-color: #4CAF50;
+
+  justify-content: center;
+  width: 200px;
+  display: flex;
+  margin: auto;
+  background-color: #00303f;
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 /* Additional styling for the price spans */
@@ -189,7 +202,9 @@ margin-left: 25px;
 }
 
 .preciove{
-  padding-left: 10px;
+border-bottom:1px solid rgb(105, 175, 0);
+border-right:1px solid rgb(105, 175, 0);
+padding-left: 10px;
   padding-right: 10px;
   width: 140px;
   align-items: center;
@@ -198,6 +213,8 @@ margin-left: 25px;
 
 }
 .precioco{
+  border-bottom: 1px solid rgb(105, 175, 0);
+  border-right:1px solid rgb(105, 175, 0);
   padding-left: 10px;
   padding-right: 10px;
   width: 125px;

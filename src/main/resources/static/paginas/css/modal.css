@@ -74,7 +74,7 @@
   .modal-categoria{
     display: flex;
     flex-direction: column;
-    margin-left: 70px;
+    margin-left: 20px;
   }
   .input-firstG{
     border-radius: 5px;
@@ -83,16 +83,22 @@
     background: #EEE;
     border-top: none;
     border-left: none;
-    width: 228px;
+    width: 232px;
     height: 47px;
   }
   .text-form{
-    color: #094558;
+    color: #00010294;
     font-family: Nunito;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+    font-size: 17px;
+ 
+  }
+
+  .text-form1{
+    color: #00010294;
+    font-family: Nunito;
+    font-size: 17px;
+    margin-left: 20px;
+ 
   }
   .modal-fechaNac{
     width: 350px;
@@ -118,6 +124,10 @@
     border-left: none;
   }
   .boton-guardarF{
+    align-items: center;
+    display: flex;
+    margin: auto;
+    justify-content: center;
     border-radius: 10px;
     background: #094558;
     width: 349px;
@@ -129,15 +139,21 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    margin-left: 100px;
+    
   }
   .input-modalT{
-    height: 60px;
+    margin-left: 20px;
+    height: 47px;
     border-radius: 5px;
     border-right: 1px solid #268916;
     border-bottom: 1px solid #268916;
     background: #EEE;
     border-top: none;
     border-left: none;
-    width: 530px;
+    width: 400px;
   }
+  #descripcionProducto{
+    width: 350px;
+  }
+
+  

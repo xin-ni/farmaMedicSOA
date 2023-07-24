@@ -10,28 +10,29 @@
     <meta charset="UTF-8">
     <title>Formulario de Registro de Venta</title>
 </head>
+
 <body>
     <div th:replace="header.html"></div>
     <div class="contenedorInferior">
-    <div th:replace="navbar.html"></div>
-<h1>Administrar Ventas</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID Venta</th>
-                <th>ID Vendedor</th>
-                <th>Nombre Cliente</th>
-                <th>Fecha Registro</th>
-                <th>Total Venta</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Iterar sobre la lista de ventas y mostrar los detalles -->
-            <tr th:each="venta : ${ventas}">
-                <td th:text="${venta.idVenta}"></td>
-                <td th:text="${venta.vendedor.nombres}"></td>
-                <td th:text="${venta.nombreCliente}"></td>
-                <td th:text="${#dates.format(venta.fechaRegistro, 'dd-MM-yyyy')}"></td>
+        <div th:replace="navbar.html"></div>
+        <h1>Administrar Ventas</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Venta</th>
+                    <th>ID Vendedor</th>
+                    <th>Nombre Cliente</th>
+                    <th>Fecha Registro</th>
+                    <th>Total Venta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iterar sobre la lista de ventas y mostrar los detalles -->
+                <tr th:each="venta : ${ventas}">
+                    <td th:text="${venta.idVenta}"></td>
+                    <td th:text="${venta.vendedor.nombres}"></td>
+                    <td th:text="${venta.nombreCliente}"></td>
+                    <td th:text="${#dates.format(venta.fechaRegistro, 'dd-MM-yyyy')}"></td>
                 <td id="totalVenta" th:text="${venta.totalVenta}"></td>
             </tr>
         </tbody>
@@ -65,20 +66,27 @@
                 <h2>Productos</h2>
                 <div>
                     <label for="idProducto">Producto:</label>
-                    <select id="idProducto" name="idProducto" required>
+                    <select id="idProducto" name="idProducto" required onchange="mostrarPrecioVenta()">
                         <option value="">Selecciona un producto</option>
                         <!-- Iterar sobre la lista de productos y mostrarlos en el combo -->
-                        <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:text="${producto.descripcionProducto}"></option>
-
+                        <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:data-precio-venta="${producto.precioVentaProducto}" th:text="${producto.nombreProducto}"></option>
                     </select>
                 </div>
-    
+                <div>
+                    <label for="fechaVenta">Precio Venta:</label>
+                    <span style="height: 360px; width: 200px; background-color: gray;" id="precioVentaSpan" required></span>
+                </div>
+                <div>
+                    <label for="fechaVenta">Cantidad:</label>
+                    <input type="text" id="cantidad" oninput="calcularTotal()" required>
+                </div>
                 <!-- Campitos del total -->
                 <h2>Total</h2>
                 <div>
                     <label for="total">Total:</label>
-                    <input type="number" id="total" name="total" readonly>
+                    <input type="text" id="total" name="total" readonly>
                 </div>
+                
     
                 <!-- Botón de registrar -->
                 <button type="submit">Registrar</button>
@@ -153,6 +161,58 @@
         // Asignar el valor formateado de moneda al elemento span
         totalVentaElement.textContent = totalVentaFormateado;
     });
+</script>
+
+
+<script th:inline="javascript">
+    function mostrarPrecioVenta() {
+
+        const selectProducto = document.getElementById("idProducto");
+        const idProductoSeleccionado = selectProducto.value;
+
+
+        const precioVentaSpan = document.getElementById("precioVentaSpan");
+
+
+        if (idProductoSeleccionado === "") {
+            precioVentaSpan.textContent = "";
+        } else {
+
+            const precioVentaProducto = selectProducto.options[selectProducto.selectedIndex].dataset.precioVenta;
+
+            // Formatear el precioVentaProducto como moneda peruana
+            const formatter = new Intl.NumberFormat("es-PE", {
+                style: "currency",
+                currency: "PEN",
+            });
+            const precioVentaFormateado = formatter.format(precioVentaProducto);
+
+            precioVentaSpan.textContent =precioVentaFormateado;
+            calcularTotal();
+        }
+    }
+
+    function calcularTotal() {
+
+        const cantidadInput = document.getElementById("cantidad");
+        const cantidad = cantidadInput.value;
+
+
+        const selectProducto = document.getElementById("idProducto");
+        const precioVentaProducto = selectProducto.options[selectProducto.selectedIndex].dataset.precioVenta;
+
+
+        const total = cantidad * precioVentaProducto;
+
+        const formatter = new Intl.NumberFormat("es-PE", {
+            style: "currency",
+            currency: "PEN",
+        });
+        const totalFormateado = formatter.format(total);
+
+        const totalInput = document.getElementById("total");
+        totalInput.value = totalFormateado;
+    }
 </script>
 </body>
 </html>

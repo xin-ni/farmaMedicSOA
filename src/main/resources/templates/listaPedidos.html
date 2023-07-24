@@ -49,13 +49,14 @@
                             <td th:text="${pedido.producto.nombreProducto}"></td>
                             <td th:text="${pedido.producto.descripcionProducto}"></td>
                             <td th:text="${pedido.cantidad}"></td>
-                            <td th:text="${pedido.producto.precioCompraProducto}"></td>
-                            <td th:text="${pedido.producto.precioVentaProducto}"></td>
+                            <td class="precioCompra" th:text="${pedido.producto.precioCompraProducto}"></td>
+                            <td class="precioVenta" th:text="${pedido.producto.precioVentaProducto}"></td>
+                            
                             <td th:text="${pedido.proveedor}"></td>
                             <!-- Agrega más celdas si es necesario -->
                             <td>
                                 <!-- Agregamos los atributos "data-" para el botón de editar -->
-                                <button
+                                <button style="background-color: transparent; border: none;"
                                 class="editar-btn"
                                 th:data-id="${pedido.idPedido}"
                                 th:data-fecha="${pedido.fecha}"
@@ -277,7 +278,39 @@
     });
 </script>
 
-  
+<script>
+    // Function to format the price in Peruvian currency (S/.)
+    function formatPeruvianCurrency(price) {
+        const formatter = new Intl.NumberFormat('es-PE', {
+            style: 'currency',
+            currency: 'PEN'
+        });
+
+        return formatter.format(price);
+    }
+
+    // Function to update prices in Peruvian currency
+    function updatePrices() {
+        const precioCompraCells = document.querySelectorAll('.precioCompra');
+        const precioVentaCells = document.querySelectorAll('.precioVenta');
+
+        precioCompraCells.forEach(cell => {
+            const price = parseFloat(cell.textContent);
+            cell.textContent = formatPeruvianCurrency(price);
+        });
+
+        precioVentaCells.forEach(cell => {
+            const price = parseFloat(cell.textContent);
+            cell.textContent = formatPeruvianCurrency(price);
+        });
+    }
+
+    // Call the function when the document is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        updatePrices();
+    });
+</script>
+
 
 <script th:inline="javascript">
 function mostrarPrecio() {
@@ -330,6 +363,34 @@ function mostrarPrecio() {
     document.getElementById("searchInput").addEventListener("input", buscarEnTiempoReal);
   </script>
   
+<!-- ... Your form HTML ... -->
+
+<script>
+    // Function to format the price in Peruvian currency (S/.)
+    function formatPeruvianCurrency(price) {
+        const formatter = new Intl.NumberFormat('es-PE', {
+            style: 'currency',
+            currency: 'PEN'
+        });
+
+        return formatter.format(price);
+    }
+
+    // Function to update the price span with the formatted price
+    function mostrarPrecio() {
+        const productoSelect = document.getElementById('producto');
+        const precioVentaSpan = document.getElementById('precioVentaSpan');
+        const precioCompraSpan = document.getElementById('precioCompraSpan');
+
+        const selectedOption = productoSelect.options[productoSelect.selectedIndex];
+        const precioVenta = selectedOption.getAttribute('data-precio-venta');
+        const precioCompra = selectedOption.getAttribute('data-precio-compra');
+
+        precioVentaSpan.textContent = formatPeruvianCurrency(precioVenta);
+        precioCompraSpan.textContent = formatPeruvianCurrency(precioCompra);
+    }
+</script>
+
 
 </body>
 </html>
