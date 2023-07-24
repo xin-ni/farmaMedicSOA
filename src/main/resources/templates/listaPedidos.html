@@ -182,62 +182,42 @@
   
   <!-- Script para el modal de edición de pedidos -->
   <script>
+    // Script para el modal de edición de pedidos
     function abrirModalEditar() {
-      document.getElementById("modalEditarPedido").style.display = "block";
+        document.getElementById("modalEditarPedido").style.display = "block";
     }
-  
+
     function cerrarModalEditar() {
-      document.getElementById("modalEditarPedido").style.display = "none";
+        document.getElementById("modalEditarPedido").style.display = "none";
     }
-  
-    function cargarDatosPedido(
-      id,
-      fecha,
-      idProducto,
-      cantidad,
-      precioVenta,
-      precioCompra,
-      proveedor
-    ) {
-      // Rellenar los campos del formulario con los datos del pedido
-      document.getElementById("editPedidoId").value = id;
-      document.getElementById("editFechaPedido").value = fecha;
-      document.getElementById("editProducto").value = idProducto;
-      document.getElementById("editCantidad").value = cantidad;
-      document.getElementById("editPrecioVentaSpan").innerText = precioVenta;
-      document.getElementById("editPrecioCompraSpan").innerText = precioCompra;
-      document.getElementById("editProveedor").value = proveedor;
-      abrirModalEditar();
+
+    function cargarDatosPedido(id, fecha, idProducto, cantidad, precioVenta, precioCompra, proveedor) {
+        document.getElementById("editPedidoId").value = id;
+        document.getElementById("editFechaPedido").value = fecha;
+        document.getElementById("editProducto").value = idProducto;
+        document.getElementById("editCantidad").value = cantidad;
+        document.getElementById("editPrecioVentaSpan").innerText = precioVenta;
+        document.getElementById("editPrecioCompraSpan").innerText = precioCompra;
+        document.getElementById("editProveedor").value = proveedor;
+        abrirModalEditar();
     }
-  </script>
-  
-  <script>
+
     // Escuchamos el evento click en los botones con la clase "editar-btn"
     const editarButtons = document.querySelectorAll(".editar-btn");
     editarButtons.forEach((btn) => {
-      btn.addEventListener("click", (event) => {
-        // Obtenemos los datos del atributo "data-" de cada botón
-        const id = btn.dataset.id;
-        const fecha = btn.dataset.fecha;
-        const idProducto = btn.dataset.idProducto;
-        const cantidad = btn.dataset.cantidad;
-        const precioVenta = btn.dataset.precioVenta;
-        const precioCompra = btn.dataset.precioCompra;
-        const proveedor = btn.dataset.proveedor;
-  
-        // Llamamos a la función que carga los datos en el formulario
-        cargarDatosPedido(
-          id,
-          fecha,
-          idProducto,
-          cantidad,
-          precioVenta,
-          precioCompra,
-          proveedor
-        );
-      });
+        btn.addEventListener("click", (event) => {
+            const id = btn.dataset.id;
+            const fecha = btn.dataset.fecha;
+            const idProducto = btn.dataset.idProducto;
+            const cantidad = btn.dataset.cantidad;
+            const precioVenta = btn.dataset.precioVenta;
+            const precioCompra = btn.dataset.precioCompra;
+            const proveedor = btn.dataset.proveedor;
+            cargarDatosPedido(id, fecha, idProducto, cantidad, precioVenta, precioCompra, proveedor);
+        });
     });
-  </script>
+</script>
+
   
 
 <script th:inline="javascript">

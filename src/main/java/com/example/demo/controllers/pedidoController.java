@@ -51,24 +51,22 @@ public class pedidoController {
     }
 
     @GetMapping("/editar/{id}")
-    @ResponseBody // Esta anotación indica que devolvemos una respuesta JSON
-    public ResponseEntity<pedidoModel> mostrarFormularioEdicion(@PathVariable int id) {
-        pedidoModel pedido = pedidoService.obtenerPedidoPorId(id).orElse(null);
-        if (pedido == null) {
-            // Si la categoría no existe, retornar un error
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        // Retornamos la categoría como respuesta JSON
-        return new ResponseEntity<>(pedido, HttpStatus.OK);
+@ResponseBody
+public ResponseEntity<pedidoModel> mostrarFormularioEdicion(@PathVariable int id) {
+    pedidoModel pedido = pedidoService.obtenerPedidoPorId(id).orElse(null);
+    if (pedido == null) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    return new ResponseEntity<>(pedido, HttpStatus.OK);
+}
     
 
-    @PostMapping("/editar")
-    public String editarPedido(@RequestParam("idPedido") int id, @ModelAttribute pedidoModel pedido) {
-        pedido.setIdPedido(id);
-        pedidoService.guardarPedido(pedido);
-        return "redirect:/entity/pedidos/";
-    }
+@PostMapping("/editar")
+public String editarPedido(@RequestParam("idPedido") int id, @ModelAttribute pedidoModel pedido) {
+    pedido.setIdPedido(id);
+    pedidoService.guardarPedido(pedido);
+    return "redirect:/entity/pedidos/";
+}
 
     @GetMapping("/eliminar/{id}")
     public String eliminarPedido(@PathVariable int id) {
