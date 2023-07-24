@@ -54,7 +54,7 @@
                 <td th:text="${producto.stock}"></td>
                 <td>
                     <!-- Agregar botón para abrir el modal de edición -->
-                    <button style="background-color: transparent; border: none;" class="editar-btn"
+                    <button style="background-color: transparent; border: none; padding: 0px;"  class="editar-btn"
                             th:data-id="${producto.idProducto}"
                             th:data-nombre="${producto.nombreProducto}"
                             th:data-descripcion="${producto.descripcionProducto}"
@@ -132,28 +132,48 @@
 <div id="modalEditarProducto" class="modal">
     <div class="modal-content">
         <span class="close" onclick="cerrarModalEditar()">&times;</span>
-        <h2 id="modalTitle">Editar producto</h2>
+        <h2 style="text-align: center;" id="modalTitle">Editar producto</h2>
         <form class="formularioProducto" id="formularioEditarProducto" th:action="@{/entity/productos/editar}" style="padding: 20px;" method="post">
             <input type="hidden" id="editProductoId" name="idProducto" />
-            <label for="editNombreProducto">Nombre:</label>
-            <input type="text" id="editNombreProducto" name="nombreProducto" required />
-            <label for="editDescripcionProducto">Descripción:</label>
-            <input type="text" id="editDescripcionProducto" name="descripcionProducto" />
-            <label for="editPrecioCompraProducto">Precio de compra:</label>
-            <input type="text" id="editPrecioCompraProducto" name="precioCompraProducto" required />
-            <label for="editPrecioVentaProducto">Precio de venta:</label>
-            <input type="text" id="editPrecioVentaProducto" name="precioVentaProducto" required />
-            <label for="editCategoria">Categoría:</label>
-            <select id="editCategoria" name="categoria.idCategoria" required>
-                <!-- Aquí cargamos las categorías disponibles -->
-                <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombreCategoria}"></option>
-            </select>
-            <label for="editFechaVencimiento">Fecha de vencimiento:</label>
-            <input type="date" id="editFechaVencimiento" name="fechaVencimiento" required />
-            <label for="editStock">Stock:</label>
-            <input type="number" id="editStock" name="stock" required />
+            <div class="form-group">
+                <label for="editNombreProducto">Nombre:</label>
+                <input type="text" id="editNombreProducto" name="nombreProducto" required />
+            </div>
+            <div class="form-group">
+                <label for="editDescripcionProducto">Descripción:</label>
+                <input type="text" id="editDescripcionProducto" name="descripcionProducto" />
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="editPrecioCompraProducto">P. Compra:</label>
+                    <input type="text" id="editPrecioCompraProducto" name="precioCompraProducto" required />
+                </div>
+                <div class="form-group">
+                    <label for="editPrecioVentaProducto">P. Venta:</label>
+                    <input type="text" id="editPrecioVentaProducto" name="precioVentaProducto" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="editCategoria">Categoría:</label>
+                <select id="editCategoria" name="categoria.idCategoria" required>
+                    <!-- Aquí cargamos las categorías disponibles -->
+                    <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombreCategoria}"></option>
+                </select>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="editStock">Stock:</label>
+                    <input type="number" id="editStock" name="stock" required />
+                </div>
+                <div class="form-group">
+                    <label for="editFechaVencimiento">Vencimiento:</label>
+                    <input type="date" id="editFechaVencimiento" name="fechaVencimiento" required />
+                </div>
+            </div>
             <button type="submit" id="modalSubmitButton">Guardar</button>
         </form>
+        
+        
     </div>
 </div>
 
