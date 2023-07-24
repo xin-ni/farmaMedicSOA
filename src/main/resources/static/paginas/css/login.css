@@ -9,7 +9,7 @@
 }
 .container__Login {
   background: #fff;
-  box-shadow: 0px 8px 53px 0px rgba(18, 148, 140, 0.31),
+  box-shadow: 0px 8px 53px 0px rgba(18, 148, 46, 0.31),
     0px 4px 9px 0px rgba(0, 0, 0, 0.1);
   width: 590px;
   height: 635px;
@@ -24,7 +24,9 @@
 }
 .login__image {
   display: flex;
-  padding-left: 118px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .login__tittle {
   margin: 0;
@@ -46,18 +48,20 @@
   line-height: normal;
 }
 .container__LoginInput {
+  gap: 20px;
   width: 100%;
   position: relative;
   margin: 30px 0;
-  border-bottom: 2px solid #31afa4;
+  border-bottom: 2px solid #31af3b;
   & label {
+    
     width: 100%;
     position: absolute;
     top: 50%;
     left: 5px;
     transform: translateY(-50%);
     font-size: 16px;
-    color: rgba(0, 0, 0, 0.44);
+    color: #022d35;
     pointer-events: none;
     transition: 0.5s;
     font-family: Public Sans;
@@ -65,9 +69,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    & i {
-      margin-left: 200px;
-    }
+  
   }
 }
 .container__LoginInput input {
@@ -95,11 +97,11 @@
   height: 51.216px;
   border-radius: 10px;
   border: 1px solid rgba(13, 180, 170, 0.98);
-  background: rgba(64, 185, 178, 0.35);
+  background-color: #022d35;
   width: 288.089px px;
   height: 51.216px;
   margin-top: 61px;
-  color: rgba(24, 46, 44, 0.98);
+  color: white;
   text-align: center;
   font-family: Roboto;
   font-size: 15.365px;

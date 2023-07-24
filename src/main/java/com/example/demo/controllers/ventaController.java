@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-import com.example.demo.models.vendedorModel;
-import com.example.demo.services.vendedorService;
+import com.example.demo.models.ventaModel;
+import com.example.demo.services.ventaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,42 +17,42 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/entity/vendedor")
-public class vendedorController {
+@RequestMapping("/entity/venta")
+public class ventaController {
 
     @Autowired
-    private vendedorService vendedorService;
+    private ventaService ventaService;
 
-   @GetMapping("/")
+    @GetMapping("/")
     public String listaVendedor(Model model) {
-        List<vendedorModel> vendedores= vendedorService.obtenerVendedor();
-        model.addAttribute("vendedor", vendedores);
-        model.addAttribute("nuevoVendedor", new vendedorModel()); // Codigo importante para modal 
-        return "listaVendedor";
+        List<ventaModel> ventas = ventaService.obtenerVenta();
+        model.addAttribute("ventas", ventas);
+        model.addAttribute("nuevaVenta", new ventaModel()); // Codigo importante para modal 
+        return "listaVenta";
     }
 
     @GetMapping("/agregar")
     public String mostrarFormularioAgregar(Model model) {
-        model.addAttribute("vendedor", new vendedorModel());
+        model.addAttribute("venta", new ventaModel());
         return "";
     }
 
     @PostMapping("/guardar")
-    public String guardarVendedor(@ModelAttribute vendedorModel vendedor) {
-        vendedorService.guardarVendedor(vendedor);
-        return "redirect:/entity/vendedor/";
+    public String guardarVenta(@ModelAttribute ventaModel venta) {
+        ventaService.guardarVenta(venta);
+        return "redirect:/bss/venta/";
     }
 
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable int id, Model model) {
-        Optional<vendedorModel> vendedor = vendedorService.obtenerVendedorID(id);
-        vendedor.ifPresent(v -> model.addAttribute("vendedor", v));
+        Optional<ventaModel> venta = ventaService.obtenerVentaId(id);
+        venta.ifPresent(v -> model.addAttribute("venta", v));
         return "";
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminarVendedor(@PathVariable int id) {
-        vendedorService.eliminarVendedor(id);
+    public String eliminarVenta(@PathVariable int id) {
+        ventaService.eliminarVenta(id);
         return "redirect:/entity/vendedor/";
     }
 }

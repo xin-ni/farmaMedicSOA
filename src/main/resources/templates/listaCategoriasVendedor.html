@@ -19,15 +19,12 @@
 
   <body>
     <div th:replace="header.html"></div>
-
     <div class="contenedorInferior">
-      <div th:replace="navbar.html"></div>
+        <div th:replace="navbarVendedor.html"></div>
       <div class="contenedor-Info">
         <div class="contenedor-infoCabezera">
           <h1 class="text-titulo">Lista de Categorías</h1>
-          <button class="boton-agregar" onclick="abrirModal()">
-            Agregar nueva categoría
-          </button>
+
         </div>
         <div class="contenedor-buscar">
           <span class="opcion-buscar"> Buscar:</span>
@@ -41,7 +38,7 @@
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Estado</th>
-                <th>Acciones</th>
+           
               </tr>
             </thead>
             <tbody>
@@ -55,26 +52,7 @@
       th:classappend="${categoria.estado == 1 ? 'activo' : 'desactivo'}"></span>
 
                 </td>
-                <td>
-                  <button style="border: none; color: transparent;"
-                    class="editar-btn"
-                    th:data-id="${categoria.idCategoria}"
-                    th:data-nombre="${categoria.nombreCategoria}"
-                    th:data-descripcion="${categoria.descripcionCategoria}"
-                    th:data-estado="${categoria.estado}"
-                    onclick="cargarDatosCategoria(this.getAttribute('data-id'), this.getAttribute('data-nombre'), this.getAttribute('data-descripcion'), this.getAttribute('data-estado'))"
-                  >
-                    <img   th:src="@{/paginas/imagen/editImg.png}" alt="editar" />
-                  </button>
-                  <a
-                    th:href="@{/entity/categorias/eliminar/{id}(id=${categoria.idCategoria})}"
-                  >
-                    <img
-                      th:src="@{/paginas/imagen/eliminar.png}"
-                      alt="eliminar"
-                    />
-                  </a>
-                </td>
+          
               </tr>
             </tbody>
           </table>
@@ -85,7 +63,7 @@
       <div id="modalCategoria" class="modal">
         <div class="modal-content">
           <span class="close" onclick="cerrarModal()">&times;</span>
-          <h2 style="text-align: center;">Crear nueva categoría</h2>
+          <h2>Crear nueva categoría</h2>
           <form
             class="formularioCategoria"
             th:action="@{/entity/categorias/crear}"
@@ -114,7 +92,7 @@
       <div id="modalEditarCategoria" class="modal">
         <div class="modal-content">
           <span class="close" onclick="cerrarModalEditar()">&times;</span>
-          <h2 id="modalTitle" style="text-align: center;">Editar categoría</h2>
+          <h2 id="modalTitle">Editar categoría</h2>
           <form
             class="formularioCategoria"
             id="formularioEditarCategoria"
@@ -136,7 +114,7 @@
               name="descripcionCategoria"
             />
             <label for="editEstado">Estado:</label>
-            <select id="editEstado" name="estado" class="combobox" required>
+            <select id="editEstado" name="estado" required>
               <option value="1">Activado</option>
               <option value="0">Desactivado</option>
             </select>

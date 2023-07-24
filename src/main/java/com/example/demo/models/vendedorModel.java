@@ -33,4 +33,5 @@ public class vendedorModel {
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private usuarioModel usuario;
+
 }

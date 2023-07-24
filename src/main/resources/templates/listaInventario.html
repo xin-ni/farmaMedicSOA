@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link th:href="@{/paginas/css/listaCategorias.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/paginas/css/modal.css}" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+<body>
+    <div th:replace="header.html"></div>
+    <div class="contenedorInferior">
+        <div th:replace="navbar.html"></div>
+        <h2>Detalles de Venta y Pedidos</h2>
+        <table>
+            <thead>
+                <tr>
+
+                    <th>N°</th>
+                    <th>Fecha</th>
+                    <th>Producto</th>
+                    <th>Categoria</th>
+                    <th>Cantidad</th>
+                    <th>Movimiento</th>
+                    <th>Usuario</th>
+                    <!-- Agregar más columnas según los atributos que desees mostrar -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iterar sobre la lista "inventario" y mostrar los detalles de venta y pedidos -->
+                <tr th:each="detalleVenta : ${detallesVenta}">
+                    <td th:text="${detalleVenta.idDetalleVenta}"></td>
+                    <td id="fechaInventario" th:text="${#dates.format(detalleVenta.venta.fechaRegistro, 'dd-MM-yyyy')}"></td>
+                <td th:text="${detalleVenta.producto.nombreProducto}"></td>
+                <td th:text="${detalleVenta.producto.categoria.nombreCategoria}"></td>
+                <td th:text="${detalleVenta.cantidad}"></td>
+                <td style="color: red;">Salida</td>
+                <td th:text="${detalleVenta.venta.vendedor.nombres}"></td>
+                <!-- Agregar más celdas según los atributos que desees mostrar -->
+            </tr>
+            <tr th:each="pedido : ${pedidos}">
+                <td id="fechaInventario" th:text="${pedido.idPedido}"></td>
+                <td th:text="${#dates.format(pedido.fecha, 'dd-MM-yyyy')}"></td>
+                <td th:text="${pedido.producto.nombreProducto}"></td>
+                <td th:text="${pedido.producto.categoria.nombreCategoria}"></td>
+                <td th:text="${pedido.cantidad}"></td>
+                <td style="color: green;">Entrada</td>
+                <td th:text="${pedido.proveedor}"></td>
+                
+                <!-- Agregar más celdas según los atributos que desees mostrar -->
+            </tr>
+        </tbody>
+    </table>
+</div>
+    <!-- Aquí puedes agregar cualquier otro contenido que desees mostrar -->
+
+</body>
+
+</html>

@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,13 +18,17 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ventaModels {
+public class ventaModel {
        @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private int idVenta;
-    private int idVendedor;
+     @ManyToOne
+    @JoinColumn(name = "idVendedor")
+    private vendedorModel vendedor;
     private String nombreCliente;
     private Date fechaRegistro;
     private double totalVenta;
+
+
 }

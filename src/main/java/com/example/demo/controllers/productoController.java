@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 
-import com.example.demo.models.categoriaModel;
 import com.example.demo.models.productoModel;
 import com.example.demo.services.categoriaService;
 import com.example.demo.services.productoService;
@@ -24,7 +23,6 @@ public class productoController {
 
     @Autowired
     private productoService productoService;
-    private categoriaService categoriaService;
 
 
     @GetMapping("/")

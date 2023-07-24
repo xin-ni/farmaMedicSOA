@@ -245,11 +245,12 @@ flex-shrink: 0;
 .formularioCategoria {
   max-width: 400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px;
 
   border-radius: 5px;
 
 }
+
 
 /* Estilos para etiquetas del formulario */
 .formularioCategoria label {
@@ -273,8 +274,25 @@ flex-shrink: 0;
   outline: none;
 }
 
+/* Estilos para campos de entrada de texto */
+.combobox {
+  border: none;
+  width: 361px;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #b6b6b63a;
+  border-bottom: 2px solid #268916;
+  border-right: 2px solid #268916;
+  border-radius: 3px;
+  font-size: 18px;
+  outline: none;
+}
+
 /* Estilos para el botón de guardar */
 .formularioCategoria button[type="submit"] {
+  justify-content: center;
+  display: flex;
+  margin: auto;
   background-color: #094558;
   color: #fff;
   padding: 10px 20px;
