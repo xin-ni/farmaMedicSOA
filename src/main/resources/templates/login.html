@@ -2,22 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
+    <link th:href="@{/paginas/css/login.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <h2>Login</h2>
-    <!-- Manejo de mensajes de error -->
-    <div th:if="${param.error}">
-        <p style="color: red;">Credenciales inválidas. Por favor, intente de nuevo.</p>
-    </div>
-    <form th:action="@{/entity/usuario/login}" method="post">
 
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" required>
-        <br>
-        <label for="pass">Contraseña:</label>
-        <input type="password" id="pass" name="pass" required>
-        <br>
-        <input type="submit" value="Ingresar">
+    <div class="container">
+        <div class="container__Login">
+          <div class="container__LoginForm">
+             
+    <form th:action="@{/entity/usuario/login}" method="post">
+        <img class="login__image" th:src="@{/paginas/imagen/logoFarmaMedic.png}" alt="eliminar" />
+<h2 class="login__tittle">Iniciar sesión</h2>
+<p class="login__paragraph">
+  Por favor, complete los siguientes campos antes de comenzar
+</p>
+<div class="container__LoginInput">
+       
+        <input class="container__Input" type="text" id="email" name="email" required>
+        <label  for="email"><i class="fa-solid fa-user" style="color: #083452"></i>Email:</label>
+    </div>
+    <div class="container__LoginInput">
+       
+        <input  class="container__Input" type="password" id="pass" name="pass" required>
+        <label for="pass"> <i class="fa-solid fa-eye-slash" style="color: #021635"></i>Contraseña:</label>
+        </div>
+
+            <input  class="container__button" type="submit" value="Ingresar">
     </form>
+</div>
+</div>
+</div>
+<script
+src="https://kit.fontawesome.com/b9a2b0c154.js"
+crossorigin="anonymous"
+></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Pedidos</title>
-    <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/paginas/css/pedido.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
     th:href="@{/paginas/css/listaCategorias.css}"
@@ -92,9 +92,9 @@
        <div class="modal-content">
            <span class="close" onclick="cerrarModal()">&times;</span>
            <h2>Crear nuevo</h2>
-           <form th:action="@{/entity/pedidos/crear}" method="post" th:object="${nuevoPedido}">
+           <form th:action="@{/entity/pedidos/crear}" method="post" class="formularioPedido" th:object="${nuevoPedido}">
             <!-- Agrega aquí los campos del formulario -->
-            <div class="formula-grupo">
+            <div class="formulariogrupo">
                 <div class="nosexd">
                     <label  class="grupo-label" for="producto">Producto:</label>
                     <select class="input-pedido" id="producto" name="producto.idProducto" onchange="mostrarPrecio()">
@@ -107,7 +107,17 @@
                     <input class="input-pedido"type="number" id="cantidad" name="cantidad" required>
                 </div>
             </div>
-            <div class="formula-grupo">
+            <div class="formulariogrupo">
+                <div class="grupo-precioC">
+                    <label class="grupo-label" for="precioVenta">Precio de Venta:</label>
+                    <div class="preciove"><span class="grupo-label" id="precioVentaSpan"></span> </div><!-- Campo para mostrar el valor de precioVenta -->
+                </div>
+                <div  class="grupo-precioV">
+                <label class="grupo-label" for="precioCompra">Precio de Compra:</label>
+                <div class="precioco"><span class="grupo-label" id="precioCompraSpan"></span> </div><!-- Campo para mostrar el valor de precioCompra -->
+            </div>
+        </div>
+            <div class="formulariogrupo">
                 <div class="nose3">
                     <label class="grupo-label" for="fecha">Fecha del pedido:</label>
                     <input class="input-pedido" readonly type="date" id="fecha" name="fecha" required>
@@ -118,16 +128,7 @@
                 </div>
             </div>
 
-            <div class="formula-grupo">
-                <div class="grupo-precio">
-                    <label class="grupo-label" for="precioVenta">Precio de Venta:</label>
-                    <span class="grupo-label" id="precioVentaSpan"></span> <!-- Campo para mostrar el valor de precioVenta -->
-                </div>
-                <div  class="grupo-precio">
-                <label class="grupo-label" for="precioCompra">Precio de Compra:</label>
-                <span class="grupo-label" id="precioCompraSpan"></span> <!-- Campo para mostrar el valor de precioCompra -->
-            </div>
-        </div>
+            
             
             <button class="boton-guardarP" type="submit">Crear Pedido</button>
         </form>

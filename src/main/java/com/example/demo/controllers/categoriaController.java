@@ -84,6 +84,12 @@ public class categoriaController {
         return "redirect:/entity/categorias/";
     }
 
+ @GetMapping("/vendedor")
+    public String listarCategoriasVendedror(Model model) {
+        model.addAttribute("categorias", categoriaService.obtenerCategorias());
+        model.addAttribute("nuevaCategoria", new categoriaModel()); // Codigo importante para modal 
+        return "listaCategoriasVendedor";
+    }
 
     
 }
