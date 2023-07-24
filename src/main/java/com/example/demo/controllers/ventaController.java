@@ -155,5 +155,22 @@ public class ventaController {
         ventaService.eliminarVenta(id);
         return "redirect:/entity/vendedor/";
     }
+
+
+     @GetMapping("/admin")
+    public String listaventa(Model model) {
+        List<ventaModel> ventas = ventaService.obtenerVenta();
+        model.addAttribute("ventas", ventas);
+        model.addAttribute("nuevaVenta", new ventaModel());
+
+        // Obtener la lista de empleados y agregarla al modelo
+        List<vendedorModel> empleados = empleadoService.obtenerVendedor();
+        model.addAttribute("empleados", empleados);
+        
+                // Obtener la lista de productos y agregarla al modelo
+                List<productoModel> productos = productoService.obtenerProductos();
+                model.addAttribute("productos", productos);
+        return "listaVentaAdmin";
+    }
     
 }
