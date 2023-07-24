@@ -290,3 +290,6 @@ flex-shrink: 0;
 .formularioCategoria button[type="submit"]:hover {
   background-color: #062c38;
 }
+
+.activo { color: green; }
+.desactivo { color: red; }

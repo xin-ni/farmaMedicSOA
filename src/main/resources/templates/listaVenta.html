@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Registro de Venta</title>
+</head>
+<body>
+   
+    <button onclick="abrirModalVentas()">Abrir Modal</button>
+
+  
+    <div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+        <div style="background-color: white; width: 80%; max-width: 600px; margin: 100px auto; padding: 20px;">
+            <h1>Registro de Venta</h1>
+            <form>
+              
+                <h2>Registrar Venta</h2>
+                <div>
+                    <label for="trabajador">Trabajador:</label>
+                    <input type="text" id="trabajador" name="trabajador" required>
+                </div>
+                <div>
+                    <label for="nombreCliente">Nombre del Cliente:</label>
+                    <input type="text" id="nombreCliente" name="nombreCliente" required>
+                </div>
+                <div>
+                    <label for="fechaVenta">Fecha de Venta:</label>
+                    <input type="date" id="fechaVenta" name="fechaVenta" value="<%= LocalDate.now() %>" required>
+                </div>
+
+                <!-- Campito de los productos -->
+                <h2>Productos</h2>
+                <div id="productosContainer">
+                    <div class="producto">
+                        <label for="nombreProducto">Nombre del Producto:</label>
+                        <input type="text" class="nombreProducto" name="nombreProducto" required>
+                        <label for="precio">Precio:</label>
+                        <input type="number" class="precio" name="precio" required>
+                        <label for="cantidad">Cantidad:</label>
+                        <input type="number" class="cantidad" name="cantidad" required>
+                        <label for="stock">Stock:</label>
+                        <input type="number" class="stock" name="stock" required>
+                        <button type="button" onclick="agregarProducto()">+</button>
+                    </div>
+                </div>
+
+                <!-- Campitos del total -->
+                <h2>Total</h2>
+                <div>
+                    <label for="total">Total:</label>
+                    <input type="number" id="total" name="total" readonly>
+                </div>
+
+                <!-- Botón de registrar -->
+                <button type="submit">Registrar</button>
+            </form>
+            <button onclick="cerrarModalVentas()">Cerrar Modal</button>
+        </div>
+    </div>
+
+    <script>
+        // Contador para dar un identificador único a cada grupo de campos de productos
+        let productoCounter = 1;
+
+        // Función para agregar un nuevo grupo de campos de productos
+        function agregarProducto() {
+            const productosContainer = document.getElementById("productosContainer");
+
+            const nuevoProducto = document.createElement("div");
+            nuevoProducto.className = "producto";
+
+            nuevoProducto.innerHTML = `
+                <label for="nombreProducto">Nombre del Producto:</label>
+                <input type="text" class="nombreProducto" name="nombreProducto" required>
+                <label for="precio">Precio:</label>
+                <input type="number" class="precio" name="precio" required>
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" class="cantidad" name="cantidad" required>
+                <label for="stock">Stock:</label>
+                <input type="number" class="stock" name="stock" required>
+                <button type="button" onclick="agregarProducto()">+</button>
+            `;
+
+            productosContainer.appendChild(nuevoProducto);
+        }
+
+        document.getElementById("productosContainer").addEventListener("change", calcularTotal);
+
+        function calcularTotal() {
+            const precios = document.querySelectorAll(".precio");
+            const cantidades = document.querySelectorAll(".cantidad");
+
+            let total = 0;
+            for (let i = 0; i < precios.length; i++) {
+                total += parseFloat(precios[i].value) * parseInt(cantidades[i].value);
+            }
+
+            document.getElementById("total").value = total;
+        }
+
+        function abrirModalVentas() {
+            document.getElementById("modal").style.display = "block";
+        }
+
+        function cerrarModalVentas() {
+            document.getElementById("modal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
