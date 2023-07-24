@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -30,5 +31,10 @@ public class ventaModel {
     private Date fechaRegistro;
     private double totalVenta;
 
+    @Transient
+    private String trabajador; // Campo adicional para almacenar el nomb
+    
+    @Transient
+    private String producto; // Campo adicional para almacenar el nombre del producto relacionado con la venta
 
 }

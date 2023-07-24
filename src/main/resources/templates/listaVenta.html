@@ -43,11 +43,15 @@
     <div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
         <div style="background-color: white; width: 80%; max-width: 600px; margin: 100px auto; padding: 20px;">
             <h1>Registro de Venta</h1>
-            <form th:action="@{/ventas}" method="post">
+            <form th:action="@{/entity/venta/guardar}" method="post">
                 <h2>Registrar Venta</h2>
                 <div>
                     <label for="trabajador">Trabajador:</label>
-                    <input type="text" id="trabajador" name="trabajador" required>
+                    <select id="trabajador" name="trabajador" required>
+                        <option value="">Selecciona un trabajador</option>
+                        <!-- Iterar sobre la lista de empleados y mostrarlos en el combo -->
+                        <option th:each="empleado : ${empleados}" th:value="${empleado.nombres}" th:text="${empleado.nombres}"></option>
+                    </select>
                 </div>
                 <div>
                     <label for="nombreCliente">Nombre del Cliente:</label>
@@ -58,20 +62,15 @@
                     <input type="date" id="fechaVenta" name="fechaVenta" value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required>
                 </div>
     
-                <!-- Campito de los productos -->
                 <h2>Productos</h2>
-                <div id="productosContainer">
-                    <div class="producto" th:each="producto, index : ${productos}">
-                        <label th:for="'nombreProducto' + ${index}">Nombre del Producto:</label>
-                        <input type="text" th:id="'nombreProducto' + ${index}" th:name="'nombreProducto[' + ${index.index} + ']'" required>
-                        <label th:for="'precio' + ${index}">Precio:</label>
-                        <input type="number" th:id="'precio' + ${index}" th:name="'precio[' + ${index.index} + ']'" required>
-                        <label th:for="'cantidad' + ${index}">Cantidad:</label>
-                        <input type="number" th:id="'cantidad' + ${index}" th:name="'cantidad[' + ${index.index} + ']'" required>
-                        <label th:for="'stock' + ${index}">Stock:</label>
-                        <input type="number" th:id="'stock' + ${index}" th:name="'stock[' + ${index.index} + ']'" required>
-                        <button type="button" onclick="agregarProducto()">+</button>
-                    </div>
+                <div>
+                    <label for="idProducto">Producto:</label>
+                    <select id="idProducto" name="idProducto" required>
+                        <option value="">Selecciona un producto</option>
+                        <!-- Iterar sobre la lista de productos y mostrarlos en el combo -->
+                        <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:text="${producto.descripcionProducto}"></option>
+
+                    </select>
                 </div>
     
                 <!-- Campitos del total -->
