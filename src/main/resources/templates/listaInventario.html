@@ -5,6 +5,7 @@
     <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link th:href="@{/paginas/css/listaCategorias.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/paginas/css/inventarioEstilos.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/paginas/css/modal.css}" rel="stylesheet" type="text/css" />
 
 
@@ -14,8 +15,12 @@
     <div th:replace="header.html"></div>
     <div class="contenedorInferior">
         <div th:replace="navbar.html"></div>
-        <h2>Detalles de Venta y Pedidos</h2>
-        <table>
+        <div class="contenedorMovimientos">
+        <div class="tituloMovimiento">
+             <h2 style="margin-left: 60px;">Movimientos (Entradas y Salidas) </h2>
+        </div>
+       <div class="contenedorTablaInventario">
+         <table>
             <thead>
                 <tr>
 
@@ -54,6 +59,8 @@
             </tr>
         </tbody>
     </table>
+       </div>
+    </div>
 </div>
     <!-- Aquí puedes agregar cualquier otro contenido que desees mostrar -->
 

@@ -30,4 +30,6 @@ public class detalleVentaModel {
     private productoModel producto;
     private int cantidad;
     private double precioVenta;
+    public void setProducto(int parseInt) {
+    }
 }
