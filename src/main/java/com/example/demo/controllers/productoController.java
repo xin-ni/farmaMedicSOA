@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 
+import com.example.demo.models.categoriaModel;
 import com.example.demo.models.productoModel;
 import com.example.demo.services.categoriaService;
 import com.example.demo.services.productoService;
@@ -23,14 +24,23 @@ public class productoController {
 
     @Autowired
     private productoService productoService;
-
+    @Autowired
+    private categoriaService categoriaService;
+    
 
     @GetMapping("/")
     public String listarProductos(Model model) {
-        model.addAttribute("productos", productoService.obtenerProductos());
-        model.addAttribute("nuevoProducto", new productoModel()); // Codigo importante para modal 
+        List<productoModel> productos = productoService.obtenerProductos();
+        List<categoriaModel> categorias = categoriaService.obtenerCategorias(); // Obtiene la lista de categorías
+    
+        // Agrega las listas de productos y categorías al modelo
+        model.addAttribute("productos", productos);
+        model.addAttribute("categorias", categorias);
+        model.addAttribute("nuevoProducto", new productoModel()); // Codigo importante para modal
+    
         return "listaProductos";
     }
+    
 
     @GetMapping("/crear")
     public String mostrarFormularioCreacion(Model model) {
