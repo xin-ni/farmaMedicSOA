@@ -45,18 +45,29 @@
                 <td th:text="${producto.idProducto}"></td>
                 <td th:text="${producto.nombreProducto}"></td>
                 <td th:text="${producto.descripcionProducto}"></td>
-             <!-- Supongamos que tienes dos elementos <td> con las clases "precioCompra" y "precioVenta" donde deseas mostrar los precios -->
-<td class="precioCompra" th:text="${producto.precioCompraProducto}"></td>
-<td class="precioVenta" th:text="${producto.precioVentaProducto}"></td>
+                <!-- Supongamos que tienes dos elementos <td> con las clases "precioCompra" y "precioVenta" donde deseas mostrar los precios -->
+                <td class="precioCompra" th:text="${producto.precioCompraProducto}"></td>
+                <td class="precioVenta" th:text="${producto.precioVentaProducto}"></td>
 
                 <td th:text="${producto.categoria.nombreCategoria}"></td>
                 <td th:text="${#dates.format(producto.fechaVencimiento, 'dd-MM-yyyy')}"></td>
                 <td th:text="${producto.stock}"></td>
                 <td>
-                    <a th:href="@{/entity/productos/editar/{id}(id=${producto.idProducto})}"><img th:src="@{/paginas/imagen/editImg.png}" alt="editar">
-                    </a>
+                    <!-- Agregar botón para abrir el modal de edición -->
+                    <button class="editar-btn"
+                            th:data-id="${producto.idProducto}"
+                            th:data-nombre="${producto.nombreProducto}"
+                            th:data-descripcion="${producto.descripcionProducto}"
+                            th:data-precio-compra="${producto.precioCompraProducto}"
+                            th:data-precio-venta="${producto.precioVentaProducto}"
+                            th:data-categoria="${producto.categoria.idCategoria}"
+                            th:data-fecha-vencimiento="${#dates.format(producto.fechaVencimiento, 'yyyy-MM-dd')}"
+                            th:data-stock="${producto.stock}"
+                            onclick="cargarDatosProducto(this.getAttribute('data-id'), this.getAttribute('data-nombre'), this.getAttribute('data-descripcion'), this.getAttribute('data-precio-compra'), this.getAttribute('data-precio-venta'), this.getAttribute('data-categoria'), this.getAttribute('data-fecha-vencimiento'), this.getAttribute('data-stock'))">
+                        <img th:src="@{/paginas/imagen/editImg.png}" alt="editar" />
+                    </button>
                     <a th:href="@{/entity/productos/eliminar/{id}(id=${producto.idProducto})}">
-                        <img th:src="@{/paginas/imagen/eliminar.png}" alt="eliminar">
+                        <img th:src="@{/paginas/imagen/eliminar.png}" alt="eliminar" />
                     </a>
                 </td>
             </tr>
@@ -117,6 +128,75 @@
         </form>
     </div>
 </div>
+<!-- Modal para mostrar el formulario de edición -->
+<div id="modalEditarProducto" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalEditar()">&times;</span>
+        <h2 id="modalTitle">Editar producto</h2>
+        <form class="formularioProducto" id="formularioEditarProducto" th:action="@{/entity/productos/editar}" method="post">
+            <input type="hidden" id="editProductoId" name="idProducto" />
+            <label for="editNombreProducto">Nombre:</label>
+            <input type="text" id="editNombreProducto" name="nombreProducto" required />
+            <label for="editDescripcionProducto">Descripción:</label>
+            <input type="text" id="editDescripcionProducto" name="descripcionProducto" />
+            <label for="editPrecioCompraProducto">Precio de compra:</label>
+            <input type="text" id="editPrecioCompraProducto" name="precioCompraProducto" required />
+            <label for="editPrecioVentaProducto">Precio de venta:</label>
+            <input type="text" id="editPrecioVentaProducto" name="precioVentaProducto" required />
+            <label for="editCategoria">Categoría:</label>
+            <select id="editCategoria" name="categoria.idCategoria" required>
+                <!-- Aquí cargamos las categorías disponibles -->
+                <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombreCategoria}"></option>
+            </select>
+            <label for="editFechaVencimiento">Fecha de vencimiento:</label>
+            <input type="date" id="editFechaVencimiento" name="fechaVencimiento" required />
+            <label for="editStock">Stock:</label>
+            <input type="number" id="editStock" name="stock" required />
+            <button type="submit" id="modalSubmitButton">Guardar</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function abrirModalEditar() {
+        document.getElementById("modalEditarProducto").style.display = "block";
+    }
+
+    function cerrarModalEditar() {
+        document.getElementById("modalEditarProducto").style.display = "none";
+    }
+
+    function cargarDatosProducto(id, nombre, descripcion, precioCompra, precioVenta, categoriaId, fechaVencimiento, stock) {
+        document.getElementById("editProductoId").value = id;
+        document.getElementById("editNombreProducto").value = nombre;
+        document.getElementById("editDescripcionProducto").value = descripcion;
+        document.getElementById("editPrecioCompraProducto").value = precioCompra;
+        document.getElementById("editPrecioVentaProducto").value = precioVenta;
+        document.getElementById("editCategoria").value = categoriaId; // Asignar el valor del id de categoría al select
+        document.getElementById("editFechaVencimiento").value = fechaVencimiento;
+        document.getElementById("editStock").value = stock;
+        abrirModalEditar();
+    }
+
+    // Escuchamos el evento click en los botones con la clase "editar-btn"
+    const editarButtons = document.querySelectorAll(".editar-btn");
+    editarButtons.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+            // Obtenemos los datos del atributo "data-" de cada botón
+            const id = btn.dataset.id;
+            const nombre = btn.dataset.nombre;
+            const descripcion = btn.dataset.descripcion;
+            const precioCompra = btn.dataset.precioCompra;
+            const precioVenta = btn.dataset.precioVenta;
+            const categoriaId = btn.dataset.categoria; // Obtenemos el ID de la categoría
+            const fechaVencimiento = btn.dataset.fechaVencimiento;
+            const stock = btn.dataset.stock;
+
+            // Llamamos a la función que carga los datos en el formulario
+            cargarDatosProducto(id, nombre, descripcion, precioCompra, precioVenta, categoriaId, fechaVencimiento, stock);
+        });
+    });
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

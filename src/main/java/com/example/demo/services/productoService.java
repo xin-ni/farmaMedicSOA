@@ -25,6 +25,11 @@ public class productoService {
         return productoRepository.findById(id);
     }
 
+    // Agregar método para editar producto
+    public productoModel editarProducto(productoModel producto) {
+        return productoRepository.save(producto);
+    }
+
     public void eliminarProducto(int id) {
         productoRepository.deleteById(id);
     }

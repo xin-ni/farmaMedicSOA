@@ -3,6 +3,9 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.categoriaModel;
 import com.example.demo.services.categoriaService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +32,13 @@ public class categoriaController {
         model.addAttribute("categoria", new categoriaModel());
         return "formularioCreacionCategoria";
     }
-
+    @GetMapping("/categorias")
+    @ResponseBody
+    public ResponseEntity<List<categoriaModel>> obtenerCategorias() {
+        List<categoriaModel> categorias = categoriaService.obtenerCategorias();
+        return new ResponseEntity<>(categorias, HttpStatus.OK);
+    }
+    
     @PostMapping("/crear")
     public String crearCategoria(@ModelAttribute categoriaModel categoria) {
         categoria.setEstado(1); // Por ejemplo, asumimos que el valor por defecto es 1
