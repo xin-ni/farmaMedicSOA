@@ -67,11 +67,10 @@ public class productoController {
         model.addAttribute("categorias", categoriasActivas);
         return "formularioEdicionProducto";
     }
-
     @PostMapping("/editar/{id}")
     public String editarProducto(@PathVariable int id, @ModelAttribute productoModel producto) {
         producto.setIdProducto(id);
-        productoService.guardarProducto(producto);
+        productoService.editarProducto(producto);
         return "redirect:/entity/productos/";
     }
 
