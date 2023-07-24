@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Vendedores</title>
+</head>
+<body>
+    <h1>Lista de Vendedores</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Fecha de Creación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="vendedor : ${vendedores}">
+                <td th:text="${vendedor.idVendedor}"></td>
+                <td th:text="${vendedor.nombres}"></td>
+                <td th:text="${vendedor.apellidos}"></td>
+                <td th:text="${vendedor.DNI}"></td>
+                <td th:text="${vendedor.telefono}"></td>
+                <td th:text="${vendedor.direccion}"></td>
+                <td th:text="${vendedor.fechaCreacion}"></td>
+                <td>
+                    <a th:href="@{/vendedores/editar/{id}(id=${vendedor.idVendedor})}">Editar</a>
+                    <a th:href="@{/vendedores/eliminar/{id}(id=${vendedor.idVendedor})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/vendedores/agregar">Agregar Vendedor</a>
+</body>
+</html>

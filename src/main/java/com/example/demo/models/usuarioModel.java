@@ -29,4 +29,7 @@ public class usuarioModel {
      @Column(name = "email")
      private String email;
      private String pass;
+     public static Object obtenerUsuarioId(int id) {
+          return null;
+     }
 }
