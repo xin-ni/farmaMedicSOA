@@ -21,7 +21,7 @@
         </div>
         <div class="contenedor-buscar">
             <span class="opcion-buscar"> Buscar:</span>
-            <input type="text" id="searchInput" placeholder="Buscar por nombre">
+            <input class="buscar-input"  type="text" id="searchInput" >
         </div>
         
         <div class="table-container">
@@ -77,11 +77,11 @@
         <form th:action="@{/entity/productos/crear}" th:object="${nuevoProducto}" method="post">
             <div class="first-group">
                 <div class="modal-nombre">
-                    <label for="nombreProducto">Nombre:</label>
+                    <label class="text-form" for="nombreProducto">Nombre:</label>
                     <input class="input-firstG" type="text" id="nombreProducto" th:field="*{nombreProducto}" required>
                 </div>
                 <div class="modal-categoria">
-                    <label for="categoria">Categoría:</label>
+                    <label class="text-form" for="categoria">Categoría:</label>
                     <select class="input-firstG" id="categoria" th:field="*{categoria.idCategoria}" required>
                         <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombreCategoria}"></option>
                     </select>
@@ -90,30 +90,30 @@
 
         <div class="second-group">
                 <div class="modal-priceC">
-                    <label for="precioCompraProducto">Precio de compra:</label>
-                    <input class="input-modalT" type="text" id="precioCompraProducto" th:field="*{precioCompraProducto}" required>
+                    <label class="text-form"  for="precioCompraProducto">Precio de compra:</label>
+                    <input class="input-price" type="text" id="precioCompraProducto" th:field="*{precioCompraProducto}" required>
                 </div>                
                 <div class="modal-priceV">
-                    <label for="precioVentaProducto">Precio de venta:</label>
-                    <input class="input-modalT" type="text" id="precioVentaProducto" th:field="*{precioVentaProducto}" required>
+                    <label class="text-form" for="precioVentaProducto">Precio de venta:</label>
+                    <input class="input-price" type="text" id="precioVentaProducto" th:field="*{precioVentaProducto}" required>
                 </div>
             <div class="modal-fechaNac">
-                <label for="fechaVencimiento">Fecha de vencimiento:</label>
-                <input class="input-modalT" type="date" id="fechaVencimiento" th:field="*{fechaVencimiento}" required>
+                <label class="text-form" for="fechaVencimiento">Fecha de vencimiento:</label>
+                <input class="input-fechaVen" type="date" id="fechaVencimiento" th:field="*{fechaVencimiento}" required>
             </div>
         </div>
           
             <div class="modal-stock">
-                <label for="stock">Stock:</label>
-                <input class="input-modalT" type="number" id="stock" th:field="*{stock}" required>
+                <label class="text-form" for="stock">Stock:</label>
+                <input class="input-price" type="number" id="stock" th:field="*{stock}" required>
             </div>
 
             <div class="modal-descripcion">
-                <label for="descripcionProducto">Descripción:</label>
+                <label class="text-form" for="descripcionProducto">Descripción:</label>
                 <input class="input-modalT" type="text" id="descripcionProducto" th:field="*{descripcionProducto}">
             </div>
             
-            <button type="submit">Guardar</button>
+            <button class="boton-guardarF" type="submit">Guardar</button>
         </form>
     </div>
 </div>
@@ -152,5 +152,19 @@
         document.getElementById("modalCategoria").style.display = "none";
     }
 </script>
+<script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      const rows = document.querySelectorAll('tbody tr');
+  
+      rows.forEach(function(row) {
+        const nombre = row.children[1].textContent.toLowerCase();
+        row.style.display = nombre.includes(query) ? 'table-row' : 'none';
+      });
+    });
+  </script>
+  
+
+
 </body>
 </html>
