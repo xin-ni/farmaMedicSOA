@@ -1,6 +1,8 @@
 package com.example.demo.models;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +30,7 @@ public class ventaModel {
     @JoinColumn(name = "idVendedor")
     private vendedorModel vendedor;
     private String nombreCliente;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaRegistro;
     private double totalVenta;
 
