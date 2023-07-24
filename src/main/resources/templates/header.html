@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+     <!-- Resto del encabezado... -->
+     <script th:inline="javascript">
+        /* Recuperar el valor del atributo 'nombreUsuario' del modelo y mostrarlo en la consola del navegador */
+        var nombreUsuario = /*[[${nombreUsuario}]]*/ null;
+        console.log("Nombre de administradorasdasd: " + nombreUsuario);
+    </script>
     <title>Header</title>
     <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -18,8 +24,8 @@
             <div id="contenedorCargoNombre">
             
                 <div class="contectado">
-                    <div class="conectadoContenedor"></div>
-                    <p id="nombreAdministradorHeader">Nombre: Juana la cubana</p>
+                    <!-- Utilizamos la sintaxis de Thymeleaf para mostrar el nombre del usuario -->
+                    <p id="nombreUsuarioHeader" th:text="${nombreUsuario}"></p>
                 </div>
            
                 <div class="contenedorCargo">

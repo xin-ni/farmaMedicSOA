@@ -32,4 +32,5 @@ public class usuarioModel {
      public static Object obtenerUsuarioId(int id) {
           return null;
      }
+     
 }
