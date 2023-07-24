@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.models.detalleVentaModel;
-import com.example.demo.repository.detalleVentaRepository;
-@Service
+import com.example.demo.repository.detalleVentaRepository;@Service
 public class detalleVentaService {
     private final detalleVentaRepository detalleVentaRepository;
 
@@ -27,6 +26,11 @@ public class detalleVentaService {
 
     public Optional<detalleVentaModel> obtenerDetalleVentaId(int id) {
         return detalleVentaRepository.findById(id);
+    }
+
+    // Agregar este nuevo método para obtener los detalles de una venta por su ID de venta
+    public List<detalleVentaModel> obtenerDetallesVentaPorIdVenta(int idVenta) {
+        return detalleVentaRepository.findByVentaIdVenta(idVenta);
     }
 
     public void eliminarDetalleVenta(int id) {

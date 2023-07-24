@@ -24,6 +24,7 @@
                     <th>Nombre Cliente</th>
                     <th>Fecha Registro</th>
                     <th>Total Venta</th>
+                    <th>Ver detalle</th> <!-- Nueva columna -->
                 </tr>
             </thead>
             <tbody>
@@ -33,68 +34,79 @@
                     <td th:text="${venta.vendedor.nombres}"></td>
                     <td th:text="${venta.nombreCliente}"></td>
                     <td th:text="${#dates.format(venta.fechaRegistro, 'dd-MM-yyyy')}"></td>
-                <td id="totalVenta" th:text="${venta.totalVenta}"></td>
-            </tr>
-        </tbody>
-    </table>
-   
-    <button onclick="abrirModalVentas()">Agregar venta</button>
+                    <td id="totalVenta" th:text="${venta.totalVenta}"></td>
+                    <td>
+                        <button th:onclick="'verDetalleVenta(' + ${venta.idVenta} + ')'" >Ver detalle</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-  
-    <div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
-        <div style="background-color: white; width: 80%; max-width: 600px; margin: 100px auto; padding: 20px;">
-            <h1>Registro de Venta</h1>
-            <form th:action="@{/entity/venta/guardar}" method="post">
-                <h2>Registrar Venta</h2>
-                <div>
-                    <label for="trabajador">Trabajador:</label>
-                    <select id="trabajador" name="trabajador" required>
-                        <option value="">Selecciona un trabajador</option>
-                        <!-- Iterar sobre la lista de empleados y mostrarlos en el combo -->
-                        <option th:each="empleado : ${empleados}" th:value="${empleado.idVendedor}" th:text="${empleado.nombres}"></option>
-                    </select>
-                </div>
-                
-                <div>
-                    <label for="nombreCliente">Nombre del Cliente:</label>
-                    <input type="text" id="nombreCliente" name="nombreCliente" required>
-                </div>
-               
-                <h2>Productos</h2>
-                <div>
-                    <label for="idProducto">Producto:</label>
-                    <select id="idProducto" name="idProducto" required onchange="mostrarPrecioVenta()">
-                        <option value="">Selecciona un producto</option>
-                        <!-- Iterar sobre la lista de productos y mostrarlos en el combo -->
-                        <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:data-precio-venta="${producto.precioVentaProducto}" th:text="${producto.nombreProducto}"></option>
-                    </select>
-                </div>
-                <div>
-                    <label for="cantidades">Cantidad:</label>
-                    <input type="text" id="cantidades" name="cantidades" oninput="calcularTotal()" required>
-                </div>
-                <div>
-                    <label for="precioVenta">Precio Venta:</label>
-                    <span style="height: 360px; width: 200px; background-color: gray;" id="precioVentaSpan" required></span>
-                    <input type="hidden" id="preciosVenta" name="preciosVenta">
-                    <input type="hidden" id="idProductoSeleccionado" name="idProductoSeleccionado">
-                </div>
-                <!-- Campitos del total -->
-                <h2>Total</h2>
-<div>
-    <label for="total">Total:</label>
-    <input type="text" id="total" name="total" readonly>
-</div>
-                
-    
-                <!-- Botón de registrar -->
-                <button type="submit">Registrar</button>
-            </form>
-            <button onclick="cerrarModalVentas()">Cerrar Modal</button>
-        </div>
+        <button onclick="abrirModalVentas()">Agregar venta</button>
+<!-- Modal para mostrar el detalle de la venta -->
+<div id="modalDetalleVenta" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+    <div style="background-color: white; width: 80%; max-width: 600px; margin: 100px auto; padding: 20px;">
+        <h2>Detalle de la Venta</h2>
+        <!-- Aquí mostrarás la información de la venta seleccionada -->
+        <div id="detalleVentaInfo"></div>
+        <button onclick="cerrarModalDetalleVenta()">Cerrar</button>
     </div>
-    
 </div>
+
+        <div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+            <div style="background-color: white; width: 80%; max-width: 600px; margin: 100px auto; padding: 20px;">
+                <h1>Registro de Venta</h1>
+                <form th:action="@{/entity/venta/guardar}" method="post">
+                    <h2>Registrar Venta</h2>
+                    <div>
+                        <label for="trabajador">Trabajador:</label>
+                        <select id="trabajador" name="trabajador" required>
+                            <option value="">Selecciona un trabajador</option>
+                            <!-- Iterar sobre la lista de empleados y mostrarlos en el combo -->
+                            <option th:each="empleado : ${empleados}" th:value="${empleado.idVendedor}" th:text="${empleado.nombres}"></option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="nombreCliente">Nombre del Cliente:</label>
+                        <input type="text" id="nombreCliente" name="nombreCliente" required>
+                    </div>
+
+                    <h2>Productos</h2>
+                    <div>
+                        <label for="idProducto">Producto:</label>
+                        <select id="idProducto" name="idProducto" required onchange="mostrarPrecioVenta()">
+                            <option value="">Selecciona un producto</option>
+                            <!-- Iterar sobre la lista de productos y mostrarlos en el combo -->
+                            <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:data-precio-venta="${producto.precioVentaProducto}" th:text="${producto.nombreProducto}"></option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="cantidades">Cantidad:</label>
+                        <input type="text" id="cantidades" name="cantidades" oninput="calcularTotal()" required>
+                    </div>
+                    <div>
+                        <label for="precioVenta">Precio Venta:</label>
+                        <span style="height: 360px; width: 200px; background-color: gray;" id="precioVentaSpan" required></span>
+                        <input type="hidden" id="preciosVenta" name="preciosVenta">
+                        <input type="hidden" id="idProductoSeleccionado" name="idProductoSeleccionado">
+                    </div>
+                    <!-- Campitos del total -->
+                    <h2>Total</h2>
+                    <div>
+                        <label for="total">Total:</label>
+                        <input type="text" id="total" name="total" readonly>
+                    </div>
+
+
+                    <!-- Botón de registrar -->
+                    <button type="submit">Registrar</button>
+                </form>
+                <button onclick="cerrarModalVentas()">Cerrar Modal</button>
+            </div>
+        </div>
+
+    </div>
     <script>
         // Contador para dar un identificador único a cada grupo de campos de productos
         let productoCounter = 1;
@@ -142,78 +154,92 @@
         function cerrarModalVentas() {
             document.getElementById("modal").style.display = "none";
         }
+
+        function verDetalleVenta(idVenta) {
+        // Obtener la información de los detalles de la venta mediante una llamada AJAX al nuevo endpoint
+        fetch(`/entity/venta/detalle/${idVenta}`)
+            .then(response => response.json())
+            .then(data => {
+                // Construir el contenido HTML de los detalles de la venta
+                let detalleVentaHTML = '';
+                data.forEach(detalle => {
+                    detalleVentaHTML += `
+                        <p>ID Producto: ${detalle.producto.idProducto}</p>
+                        <p>Nombre Producto: ${detalle.producto.nombreProducto}</p>
+                        <p>Cantidad: ${detalle.cantidad}</p>
+                        <p>Precio Venta: ${detalle.precioVenta}</p>
+                        <!-- Otras propiedades del detalle de venta... -->
+                        <hr>
+                    `;
+                });
+
+                // Mostrar los detalles de la venta en el modal
+                const detalleVentaInfo = document.getElementById("detalleVentaInfo");
+                detalleVentaInfo.innerHTML = detalleVentaHTML;
+
+                // Mostrar el modal
+                document.getElementById("modalDetalleVenta").style.display = "block";
+            })
+            .catch(error => console.error('Error al obtener los detalles de la venta', error));
+    }
+
+    function cerrarModalDetalleVenta() {
+        document.getElementById("modalDetalleVenta").style.display = "none";
+    }
     </script>
-   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Obtener el elemento span que contiene el total de venta
-        const totalVentaElement = document.getElementById('totalVenta');
+    <script th:inline="javascript">
+        function mostrarPrecioVenta() {
+            const selectProducto = document.getElementById("idProducto");
+            const idProductoSeleccionado = selectProducto.value;
 
-        // Obtener el valor numérico del total de venta
-        const totalVenta = parseFloat(totalVentaElement.textContent);
+            const precioVentaSpan = document.getElementById("precioVentaSpan");
+            const preciosVentaInput = document.getElementById("preciosVenta");
+            const idProductoSeleccionadoInput = document.getElementById("idProductoSeleccionado");
 
-        // Formatear el valor como moneda peruana (Soles)
-        const totalVentaFormateado = new Intl.NumberFormat('es-PE', {
-            style: 'currency',
-            currency: 'PEN'
-        }).format(totalVenta);
+            if (idProductoSeleccionado === "") {
+                precioVentaSpan.textContent = "";
+                preciosVentaInput.value = "";
+                idProductoSeleccionadoInput.value = "";
+            } else {
+                const precioVentaProducto = selectProducto.options[selectProducto.selectedIndex].dataset.precioVenta;
 
-        // Asignar el valor formateado de moneda al elemento span
-        totalVentaElement.textContent = totalVentaFormateado;
-    });
-</script>
+                // Formatear el precioVentaProducto como moneda peruana
+                const formatter = new Intl.NumberFormat("es-PE", {
+                    style: "currency",
+                    currency: "PEN",
+                });
+                const precioVentaFormateado = formatter.format(precioVentaProducto);
 
-<script th:inline="javascript">
-    function mostrarPrecioVenta() {
-        const selectProducto = document.getElementById("idProducto");
-        const idProductoSeleccionado = selectProducto.value;
+                precioVentaSpan.textContent = precioVentaFormateado;
 
-        const precioVentaSpan = document.getElementById("precioVentaSpan");
-        const preciosVentaInput = document.getElementById("preciosVenta");
-        const idProductoSeleccionadoInput = document.getElementById("idProductoSeleccionado");
+                // Establecer los valores en los campos ocultos
+                preciosVentaInput.value = precioVentaProducto;
+                idProductoSeleccionadoInput.value = idProductoSeleccionado;
 
-        if (idProductoSeleccionado === "") {
-            precioVentaSpan.textContent = "";
-            preciosVentaInput.value = "";
-            idProductoSeleccionadoInput.value = "";
-        } else {
-            const precioVentaProducto = selectProducto.options[selectProducto.selectedIndex].dataset.precioVenta;
+                calcularTotal();
+            }
+        }
 
-            // Formatear el precioVentaProducto como moneda peruana
+        function calcularTotal() {
+            const cantidadInput = document.getElementById("cantidades");
+            const cantidad = cantidadInput.value;
+
+            const preciosVentaInput = document.getElementById("preciosVenta");
+            const precioVentaProducto = parseFloat(preciosVentaInput.value);
+
+            const total = cantidad * precioVentaProducto;
+
             const formatter = new Intl.NumberFormat("es-PE", {
                 style: "currency",
                 currency: "PEN",
             });
-            const precioVentaFormateado = formatter.format(precioVentaProducto);
+            const totalFormateado = formatter.format(total);
 
-            precioVentaSpan.textContent = precioVentaFormateado;
-
-            // Establecer los valores en los campos ocultos
-            preciosVentaInput.value = precioVentaProducto;
-            idProductoSeleccionadoInput.value = idProductoSeleccionado;
-
-            calcularTotal();
+            const totalInput = document.getElementById("total");
+            totalInput.value = totalFormateado;
         }
-    }
-
-    function calcularTotal() {
-        const cantidadInput = document.getElementById("cantidades");
-        const cantidad = cantidadInput.value;
-
-        const preciosVentaInput = document.getElementById("preciosVenta");
-        const precioVentaProducto = parseFloat(preciosVentaInput.value);
-
-        const total = cantidad * precioVentaProducto;
-
-        const formatter = new Intl.NumberFormat("es-PE", {
-            style: "currency",
-            currency: "PEN",
-        });
-        const totalFormateado = formatter.format(total);
-
-        const totalInput = document.getElementById("total");
-        totalInput.value = totalFormateado;
-    }
-</script>
+    </script>
 
 </body>
+
 </html>

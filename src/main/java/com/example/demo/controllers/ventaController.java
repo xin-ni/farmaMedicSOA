@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import com.example.demo.services.detalleVentaService;
 import com.example.demo.services.productoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/entity/venta")
@@ -51,7 +53,16 @@ public class ventaController {
                 model.addAttribute("productos", productos);
         return "listaVenta";
     }
- 
+    
+    @GetMapping("/detalle/{idVenta}")
+    @ResponseBody
+    public ResponseEntity<List<detalleVentaModel>> obtenerDetalleVenta(@PathVariable int idVenta) {
+        List<detalleVentaModel> detallesVenta = detalleVentaService.obtenerDetallesVentaPorIdVenta(idVenta);
+        return ResponseEntity.ok(detallesVenta);
+    }
+    
+
+
     @GetMapping("/listaVentas")
     public String mostrarListaVentas(Model model) {
         List<ventaModel> ventas = ventaService.obtenerVenta();
@@ -144,4 +155,5 @@ public class ventaController {
         ventaService.eliminarVenta(id);
         return "redirect:/entity/vendedor/";
     }
+    
 }
