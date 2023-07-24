@@ -37,8 +37,8 @@ public class productoController {
     @GetMapping("/")
     public String listarProductos(Model model) {
         List<productoModel> productos = productoService.obtenerProductos();
-        List<categoriaModel> categorias = categoriaService.obtenerCategorias(); // Obtiene la lista de categorías
-    
+        List<categoriaModel> categorias = categoriaService.obtenerCategoriasActivas(); // Cambio realizado aquí
+        
         // Agrega las listas de productos y categorías al modelo
         model.addAttribute("productos", productos);
         model.addAttribute("categorias", categorias);
@@ -64,7 +64,9 @@ public class productoController {
     @GetMapping("/editar/{id}")
     @ResponseBody
     public ResponseEntity<productoModel> mostrarFormularioEdicion(@PathVariable int id) {
+        //productoModel producto = productoService.obtenerProductoPorId(id).orElse(null);
         productoModel producto = productoService.obtenerProductoPorId(id).orElse(null);
+
         if (producto == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -45,6 +45,21 @@ public class pedidoController {
 
     @PostMapping("/crear")
     public String crearPedido(@ModelAttribute pedidoModel pedido) {
+
+         // Obtener el producto seleccionado en el pedido por su ID
+    productoModel producto = productoService.obtenerProductoPorId(pedido.getProducto().getIdProducto()).orElse(null);
+
+    if (producto != null) {
+        // Obtener la cantidad ingresada en el pedido
+        int cantidadPedido = pedido.getCantidad();
+
+        // Actualizar el stock del producto sumándole la cantidad del pedido
+        producto.setStock(producto.getStock() + cantidadPedido);
+
+        // Guardar el producto actualizado en la base de datos
+        productoService.guardarProducto(producto);
+    }
+
         pedidoService.guardarPedido(pedido);
         return "redirect:/entity/pedidos/";
     }

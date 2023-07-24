@@ -33,5 +33,8 @@ public class productoService {
     public void eliminarProducto(int id) {
         productoRepository.deleteById(id);
     }
-
+    
+    public List<productoModel> obtenerProductosActivosPorId(int id) {
+        return productoRepository.findByStockGreaterThanAndIdProducto(id, 0);
+    }
 }
