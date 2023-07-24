@@ -15,7 +15,7 @@
     <div th:replace="navbar.html"></div>
     <div class="contenedor-Info">
         <div class="contenedor-infoCabezera">
-            <h1 class="text-titulo">Lista de Productos</h1>    
+            <h1  class="text-titulo">Lista de Productos</h1>    
             <button class="boton-agregar" onclick="abrirModal()">Agregar nuevo Producto
             </button>
         </div>
@@ -54,7 +54,7 @@
                 <td th:text="${producto.stock}"></td>
                 <td>
                     <!-- Agregar botón para abrir el modal de edición -->
-                    <button class="editar-btn"
+                    <button style="background-color: transparent; border: none;" class="editar-btn"
                             th:data-id="${producto.idProducto}"
                             th:data-nombre="${producto.nombreProducto}"
                             th:data-descripcion="${producto.descripcionProducto}"
@@ -84,8 +84,8 @@
 <div id="modalCategoria" class="modal">
     <div class="modal-contentP">
         <span class="close" onclick="cerrarModal()">&times;</span>
-        <h1>Crear nuevo producto</h1>
-        <form th:action="@{/entity/productos/crear}" th:object="${nuevoProducto}" method="post">
+        <h1 style="text-align: center;">Crear nuevo producto</h1>
+        <form th:action="@{/entity/productos/crear}" th:object="${nuevoProducto}" method="post" style="padding: 20px;">
             <div class="first-group">
                 <div class="modal-nombre">
                     <label class="text-form" for="nombreProducto">Nombre:</label>
@@ -113,17 +113,17 @@
                 <input class="input-fechaVen" type="date" id="fechaVencimiento" th:field="*{fechaVencimiento}" required>
             </div>
         </div>
-          
+        <div class="second-group">
             <div class="modal-stock">
                 <label class="text-form" for="stock">Stock:</label>
                 <input class="input-price" type="number" id="stock" th:field="*{stock}" required>
             </div>
 
             <div class="modal-descripcion">
-                <label class="text-form" for="descripcionProducto">Descripción:</label>
+                <label class="text-form1" for="descripcionProducto">Descripción:</label>
                 <input class="input-modalT" type="text" id="descripcionProducto" th:field="*{descripcionProducto}">
             </div>
-            
+        </div>
             <button class="boton-guardarF" type="submit">Guardar</button>
         </form>
     </div>
@@ -133,7 +133,7 @@
     <div class="modal-content">
         <span class="close" onclick="cerrarModalEditar()">&times;</span>
         <h2 id="modalTitle">Editar producto</h2>
-        <form class="formularioProducto" id="formularioEditarProducto" th:action="@{/entity/productos/editar}" method="post">
+        <form class="formularioProducto" id="formularioEditarProducto" th:action="@{/entity/productos/editar}" style="padding: 20px;" method="post">
             <input type="hidden" id="editProductoId" name="idProducto" />
             <label for="editNombreProducto">Nombre:</label>
             <input type="text" id="editNombreProducto" name="nombreProducto" required />
