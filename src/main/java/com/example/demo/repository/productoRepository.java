@@ -6,4 +6,8 @@ import com.example.demo.models.productoModel;
 
 @Repository
 public interface productoRepository extends CrudRepository<productoModel, Integer> {
+
+    static productoModel findByNombreProducto(String nombreProducto) {
+        return null;
+    }
 }

@@ -25,6 +25,7 @@
                 <th>Precio de Compra</th>
                 <th>Precio de Venta</th>
                 <th>Proveedor</th>
+                <th>Acciones</th>
                 <!-- Agrega más columnas si es necesario -->
             </tr>
         </thead>
@@ -40,6 +41,33 @@
                 <td th:text="${pedido.producto.precioVentaProducto}"></td>
                 <td th:text="${pedido.proveedor}"></td>
                 <!-- Agrega más celdas si es necesario -->
+                <td>
+                    <!-- Agregamos los atributos "data-" para el botón de editar -->
+                    <button
+                        class="editar-btn"
+                        th:data-id="${pedido.idPedido}"
+                        th:data-fecha="${pedido.fecha}"
+                        th:data-idProducto="${pedido.producto.idProducto}"
+                        th:data-cantidad="${pedido.cantidad}"
+                        th:data-precioVenta="${pedido.producto.precioVentaProducto}"
+                        th:data-precioCompra="${pedido.producto.precioCompraProducto}"
+                        th:data-proveedor="${pedido.proveedor}"
+                        onclick="cargarDatosPedido(
+                            this.getAttribute('data-id'),
+                            this.getAttribute('data-fecha'),
+                            this.getAttribute('data-idProducto'),
+                            this.getAttribute('data-cantidad'),
+                            this.getAttribute('data-precioVenta'),
+                            this.getAttribute('data-precioCompra'),
+                            this.getAttribute('data-proveedor')
+                        )"
+                    >
+                        <img th:src="@{/paginas/imagen/editImg.png}" alt="editar" />
+                    </button>
+                    <a th:href="@{/entity/pedidos/eliminar/{id}(id=${pedido.idPedido})}">
+                        <img th:src="@{/paginas/imagen/eliminar.png}" alt="eliminar" />
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -93,6 +121,125 @@
         document.getElementById("modalPedido").style.display = "none";
     }
 </script>
+
+<!--Inicio de modulos de Editar pedido -->
+<!-- Modal para mostrar el formulario de edición de pedidos -->
+<div id="modalEditarPedido" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModalEditar()">&times;</span>
+      <h2 id="modalTitle">Editar pedido</h2>
+      <form
+        class="formularioPedido"
+        id="formularioEditarPedido"
+        th:action="@{/entity/pedidos/editar}"
+        method="post"
+      >
+        <!-- Agrega aquí los campos del formulario para editar el pedido -->
+        <input type="hidden" id="editPedidoId" name="idPedido" />
+        <div>
+          <label for="editFechaPedido">Fecha del pedido:</label>
+          <input
+            readonly
+            type="date"
+            id="editFechaPedido"
+            name="fecha"
+            required
+          />
+        </div>
+        <div>
+          <label for="editProducto">Producto:</label>
+          <select id="editProducto" name="producto.idProducto">
+            <option value="">Seleccionar</option> <!-- Opción vacía para seleccionar -->
+            <option
+              th:each="producto : ${productos}"
+              th:value="${producto.idProducto}"
+              th:data-precio-venta="${producto.precioVentaProducto}"
+              th:data-precio-compra="${producto.precioCompraProducto}"
+              th:text="${producto.nombreProducto}"
+            ></option>
+          </select>
+        </div>
+        <div>
+          <label for="editCantidad">Cantidad:</label>
+          <input type="number" id="editCantidad" name="cantidad" required />
+        </div>
+        <div>
+          <label for="editPrecioVenta">Precio de Venta:</label>
+          <span id="editPrecioVentaSpan"></span> <!-- Campo para mostrar el valor de precioVenta -->
+        </div>
+        <div>
+          <label for="editPrecioCompra">Precio de Compra:</label>
+          <span id="editPrecioCompraSpan"></span> <!-- Campo para mostrar el valor de precioCompra -->
+        </div>
+        <div>
+          <label for="editProveedor">Proveedor:</label>
+          <input type="text" id="editProveedor" name="proveedor" required />
+        </div>
+        <button type="submit" id="modalSubmitButton">Guardar</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Script para el modal de edición de pedidos -->
+  <script>
+    function abrirModalEditar() {
+      document.getElementById("modalEditarPedido").style.display = "block";
+    }
+  
+    function cerrarModalEditar() {
+      document.getElementById("modalEditarPedido").style.display = "none";
+    }
+  
+    function cargarDatosPedido(
+      id,
+      fecha,
+      idProducto,
+      cantidad,
+      precioVenta,
+      precioCompra,
+      proveedor
+    ) {
+      // Rellenar los campos del formulario con los datos del pedido
+      document.getElementById("editPedidoId").value = id;
+      document.getElementById("editFechaPedido").value = fecha;
+      document.getElementById("editProducto").value = idProducto;
+      document.getElementById("editCantidad").value = cantidad;
+      document.getElementById("editPrecioVentaSpan").innerText = precioVenta;
+      document.getElementById("editPrecioCompraSpan").innerText = precioCompra;
+      document.getElementById("editProveedor").value = proveedor;
+      abrirModalEditar();
+    }
+  </script>
+  
+  <script>
+    // Escuchamos el evento click en los botones con la clase "editar-btn"
+    const editarButtons = document.querySelectorAll(".editar-btn");
+    editarButtons.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        // Obtenemos los datos del atributo "data-" de cada botón
+        const id = btn.dataset.id;
+        const fecha = btn.dataset.fecha;
+        const idProducto = btn.dataset.idProducto;
+        const cantidad = btn.dataset.cantidad;
+        const precioVenta = btn.dataset.precioVenta;
+        const precioCompra = btn.dataset.precioCompra;
+        const proveedor = btn.dataset.proveedor;
+  
+        // Llamamos a la función que carga los datos en el formulario
+        cargarDatosPedido(
+          id,
+          fecha,
+          idProducto,
+          cantidad,
+          precioVenta,
+          precioCompra,
+          proveedor
+        );
+      });
+    });
+  </script>
+  
+
 <script th:inline="javascript">
 function mostrarPrecio() {
         var select = document.getElementById("producto");
