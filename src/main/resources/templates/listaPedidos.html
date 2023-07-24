@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Lista de Pedidos</title>
     <link th:href="@{/paginas/css/pedido.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/paginas/css/editarPedido.css}" rel="stylesheet" type="text/css"/>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
     th:href="@{/paginas/css/listaCategorias.css}"
@@ -151,7 +153,7 @@
 <div id="modalEditarPedido" class="modal">
     <div class="modal-content">
       <span class="close" onclick="cerrarModalEditar()">&times;</span>
-      <h2 id="modalTitle">Editar pedido</h2>
+      <h2 id="modalTitle" style="text-align: center;">Editar pedido</h2>
       <form
         class="formularioPedido"
         id="formularioEditarPedido"
@@ -187,14 +189,17 @@
           <label for="editCantidad">Cantidad:</label>
           <input type="number" id="editCantidad" name="cantidad" required />
         </div>
-        <div>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
           <label for="editPrecioVenta">Precio de Venta:</label>
           <span id="editPrecioVentaSpan"></span> <!-- Campo para mostrar el valor de precioVenta -->
         </div>
         <div>
           <label for="editPrecioCompra">Precio de Compra:</label>
           <span id="editPrecioCompraSpan"></span> <!-- Campo para mostrar el valor de precioCompra -->
+        </div> 
         </div>
+       
         <div>
           <label for="editProveedor">Proveedor:</label>
           <input type="text" id="editProveedor" name="proveedor" required />

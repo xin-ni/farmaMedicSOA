@@ -124,7 +124,7 @@ display: flex;
   margin-bottom: 5px;
 }
 
-
+#fecha
 
 .input-pedido {
   border: none;
@@ -145,8 +145,11 @@ display: flex;
 .nosexd {
   flex: 1;
 }
-.nosexd select{
+.nosexd #producto{
 width: 162px;
+border-right: 1px solid  rgb(105, 175, 0);
+border-bottom: 1px solid  rgb(105, 175, 0);
+background-color: rgba(165, 165, 165, 0.349);
 }
 .nose3 {
   flex: 1;
@@ -175,8 +178,24 @@ margin-left: 25px;
   width: 172px;
  
 }
+#cantidad{
+  border-right: 1px solid  rgb(105, 175, 0);
+  border-bottom: 1px solid  rgb(105, 175, 0);
+  background-color: rgba(165, 165, 165, 0.349);
+}
+#proveedor{
+  border: none;
+  width: 138px;
+  height: 26px;
+  border-right: 1px solid  rgb(105, 175, 0);
+  border-bottom: 1px solid  rgb(105, 175, 0);
+  background-color: rgba(165, 165, 165, 0.349);
+}
 #fecha{
   width: 152px;
+  border-right: 1px solid  rgb(105, 175, 0);
+  border-bottom: 1px solid  rgb(105, 175, 0);
+  background-color: rgba(165, 165, 165, 0.349);
 }
 
 .boton-guardarP {
@@ -223,3 +242,7 @@ padding-left: 10px;
   background-color: rgba(165, 165, 165, 0.349);
 
 }
+
+
+/*editar pedido*/
+
