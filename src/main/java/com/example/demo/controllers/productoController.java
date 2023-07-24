@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 
+import com.example.demo.models.categoriaModel;
 import com.example.demo.models.productoModel;
 import com.example.demo.services.categoriaService;
 import com.example.demo.services.productoService;
@@ -24,17 +25,14 @@ public class productoController {
     @Autowired
     private productoService productoService;
     private categoriaService categoriaService;
+
+
     @GetMapping("/")
     public String listarProductos(Model model) {
         model.addAttribute("productos", productoService.obtenerProductos());
-        model.addAttribute("nuevoProducto", new productoModel());
-    
-        // Agregar la lista de categorías al modelo
-        model.addAttribute("categorias", categoriaService.obtenerCategorias());
-    
+        model.addAttribute("nuevoProducto", new productoModel()); // Codigo importante para modal 
         return "listaProductos";
     }
-    
 
     @GetMapping("/crear")
     public String mostrarFormularioCreacion(Model model) {
@@ -73,16 +71,17 @@ public class productoController {
         return "redirect:/entity/productos/";
     }
 
-    @GetMapping("/productoVendedor")
-    public String listarProductoVendedor(Model model) {
-        List<productoModel> productos = productoService.obtenerProductos();
+   @GetMapping("/vendedor")
+    public String listarProducto(Model model) {
+      List<productoModel> productos = productoService.obtenerProductos();
+
+        // Ordenar la lista de productos por stock (de menor a mayor)
+        Collections.sort(productos, Comparator.comparingInt(productoModel::getStock));
+
+        model.addAttribute("productos", productos);
         model.addAttribute("nuevoProducto", new productoModel());
-     Collections.sort(productos, Comparator.comparingInt(productoModel::getStock));
-        // Agregar la lista de categorías al modelo
-        model.addAttribute("categorias", categoriaService.obtenerCategorias());
-    
+       
         return "listaProductosVendedor";
     }
-
 
 }

@@ -34,7 +34,7 @@ public class usuarioController {
             if (idCargo == 1) {
                 return "redirect:/entity/categorias/";
             } else if (idCargo == 2) {
-                return "redirect:/entity/productos/productoVendedor";
+                return "redirect:/entity/productos/vendedor";
             } else {
                 // Página predeterminada o manejo de error si no se encuentra el idCargo
                 return "redirect:/otraPagina";
