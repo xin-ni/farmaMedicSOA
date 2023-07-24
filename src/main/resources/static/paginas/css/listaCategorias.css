@@ -39,25 +39,7 @@
   tbody tr {
     display: table-row;
   }
-  
-  /* Estilos para los enlaces (botones) */
-  a {
-    display: inline-block;
-    margin: 0 5px;
-    padding: 5px;
-    text-decoration: none;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  a img {
-    vertical-align: middle;
-    margin-right: 5px;
-  }
-
-
-  
+ 
   
   /* aca lo personalizado */
   .contenedor-Info{
@@ -104,10 +86,10 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    & input{
-        width: 426px;
-    height: 38px;
+  }
+  .buscar-input{
     border-radius: 10px;
     background: #FFF;
-    }
+    width: 426px;
+    height: 38px;
   }

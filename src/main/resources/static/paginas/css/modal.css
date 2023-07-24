@@ -15,7 +15,7 @@
   .modal-contentP {
     border-radius: 10px 0px 0px 10px;
     background: #FFF;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
     max-width: 550px;
@@ -74,5 +74,70 @@
   .modal-categoria{
     display: flex;
     flex-direction: column;
-    margin-left: 30px;
+    margin-left: 70px;
+  }
+  .input-firstG{
+    border-radius: 5px;
+    border-right: 1px solid #268916;
+    border-bottom: 1px solid #268916;
+    background: #EEE;
+    border-top: none;
+    border-left: none;
+    width: 228px;
+    height: 47px;
+  }
+  .text-form{
+    color: #094558;
+    font-family: Nunito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  .modal-fechaNac{
+    width: 350px;
+  }
+  .input-price{
+    width: 113px;
+    height: 47px;
+    border-radius: 5px;
+    border-right: 1px solid #268916;
+    border-bottom: 1px solid #268916;
+    background: #EEE;
+    border-top: none;
+    border-left: none;
+  }
+  .input-fechaVen{
+    width: 197px;
+    height: 47px;
+    border-radius: 5px;
+    border-right: 1px solid #268916;
+    border-bottom: 1px solid #268916;
+    background: #EEE;
+    border-top: none;
+    border-left: none;
+  }
+  .boton-guardarF{
+    border-radius: 10px;
+    background: #094558;
+    width: 349px;
+    height: 46.5px;
+    color: #FFF;
+    text-align: center;
+    font-family: Nunito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: 100px;
+  }
+  .input-modalT{
+    height: 60px;
+    border-radius: 5px;
+    border-right: 1px solid #268916;
+    border-bottom: 1px solid #268916;
+    background: #EEE;
+    border-top: none;
+    border-left: none;
+    width: 530px;
   }
