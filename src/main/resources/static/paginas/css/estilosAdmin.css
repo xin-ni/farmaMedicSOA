@@ -327,3 +327,7 @@ flex-shrink: 0;
 .texto-verde {
   color: green;
 }
+
+#nombreProducto{
+  height: 35px;
+}
