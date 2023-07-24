@@ -32,10 +32,14 @@ public String login(@RequestParam("email") String email, @RequestParam("pass") S
         int idCargo = usuario.getCargo().getIdCargo();
         if (idCargo == 1) {
             // Obtener el nombre del administrador desde la tabla correspondiente
-            String nombreAdministrador = usuarioService.obtenerNombreAdministradorPorEmail(email);
-            model.addAttribute("nombreUsuario", nombreAdministrador);
-            System.out.println("Nombre de administrador: " + nombreAdministrador); // Agrega esta línea para imprimir el nombre del administrador en la consola
-            return "redirect:/entity/categorias/";
+           // Controlador
+
+    String nombreAdministrador = usuarioService.obtenerNombreAdministradorPorEmail(email);
+    model.addAttribute("nombreUsuario", nombreAdministrador);
+    System.out.println("Nombre de administrador: " + nombreAdministrador); // Agrega esta línea para imprimir el nombre del administrador en la consola
+    return "redirect:/entity/categorias/";
+
+
         } else if (idCargo == 2) {
             // Obtener el nombre del vendedor desde la tabla correspondiente
             String nombreVendedor = usuarioService.obtenerNombreVendedorPorEmail(email);
