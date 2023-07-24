@@ -78,6 +78,7 @@
     width: 246px;
     height: 44px;
     margin-top: 40px;
+    cursor:pointer;
   }
   .opcion-buscar{
     margin-left: 76px;

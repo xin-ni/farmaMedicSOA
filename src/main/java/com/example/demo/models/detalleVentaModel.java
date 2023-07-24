@@ -32,4 +32,7 @@ public class detalleVentaModel {
     private double precioVenta;
     public void setProducto(int parseInt) {
     }
+    public void setProducto(productoModel producto) {
+        this.producto = producto;
+    }
 }

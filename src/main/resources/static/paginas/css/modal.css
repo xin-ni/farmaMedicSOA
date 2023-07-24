@@ -39,10 +39,10 @@
   
 
   
-  button:hover {
+  /* button:hover {
     background-color: #45a049;
   }
-  
+   */
   /* Responsive Styling */
   @media screen and (max-width: 600px) {
     .modal-content {

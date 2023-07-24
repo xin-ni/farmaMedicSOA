@@ -28,4 +28,7 @@ public class vendedorService {
         vendedorRepository.deleteById(id);
     }
 
+    public vendedorModel obtenerVendedorPorId(int id) {
+        return vendedorRepository.findById(id).orElse(null);
+    }
 }
