@@ -1,0 +1,25 @@
+/* Estilos para el contenedor de movimientos */
+.contenedorMovimientos {
+    display: flex;
+    flex-direction: column;
+    margin: 20px; /* Puedes ajustar el margen según tus necesidades */
+}
+
+/* Estilos para el título de los movimientos */
+.tituloMovimiento {
+    margin-bottom: 10px;
+}
+
+/* Estilos para el contenedor de la tabla de inventario */
+.contenedorTablaInventario {
+   width: 1500px;
+}
+/* Estilos para la tabla */
+table {
+font-size: 18px;   
+}
+
+/* Estilos para las celdas de la tabla (opcional) */
+table th, table td {
+    /* Agrega aquí los estilos específicos que desees para las celdas de la tabla */
+}
