@@ -6,8 +6,30 @@
     <title>Formulario de Registro de Venta</title>
 </head>
 <body>
+<h1>Administrar Ventas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID Venta</th>
+                <th>ID Vendedor</th>
+                <th>Nombre Cliente</th>
+                <th>Fecha Registro</th>
+                <th>Total Venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterar sobre la lista de ventas y mostrar los detalles -->
+            <tr th:each="venta : ${ventas}">
+                <td th:text="${venta.idVenta}"></td>
+                <td th:text="${venta.vendedor.idVendedor}"></td>
+                <td th:text="${venta.nombreCliente}"></td>
+                <td th:text="${#dates.format(venta.fechaRegistro, 'dd-MM-yyyy')}"></td>
+                <td th:text="${venta.totalVenta}"></td>
+            </tr>
+        </tbody>
+    </table>
    
-    <button onclick="abrirModalVentas()">Abrir Modal</button>
+    <button onclick="abrirModalVentas()">Agregar venta</button>
 
   
     <div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
