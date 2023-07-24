@@ -51,9 +51,10 @@
                     <select id="trabajador" name="trabajador" required>
                         <option value="">Selecciona un trabajador</option>
                         <!-- Iterar sobre la lista de empleados y mostrarlos en el combo -->
-                        <option th:each="empleado : ${empleados}" th:value="${empleado.nombres}" th:text="${empleado.nombres}"></option>
+                        <option th:each="empleado : ${empleados}" th:value="${empleado.idVendedor}" th:text="${empleado.nombres}"></option>
                     </select>
                 </div>
+                
                 <div>
                     <label for="nombreCliente">Nombre del Cliente:</label>
                     <input type="text" id="nombreCliente" name="nombreCliente" required>
