@@ -145,6 +145,7 @@
             <input type="text" id="editPrecioVentaProducto" name="precioVentaProducto" required />
             <label for="editCategoria">Categoría:</label>
             <select id="editCategoria" name="categoria.idCategoria" required>
+                <!-- Aquí cargamos las categorías disponibles -->
                 <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombreCategoria}"></option>
             </select>
             <label for="editFechaVencimiento">Fecha de vencimiento:</label>
@@ -157,14 +158,6 @@
 </div>
 
 <script>
-    function abrirModal() {
-        document.getElementById("modalCategoria").style.display = "block";
-    }
-
-    function cerrarModal() {
-        document.getElementById("modalCategoria").style.display = "none";
-    }
-
     function abrirModalEditar() {
         document.getElementById("modalEditarProducto").style.display = "block";
     }
@@ -173,13 +166,13 @@
         document.getElementById("modalEditarProducto").style.display = "none";
     }
 
-    function cargarDatosProducto(id, nombre, descripcion, precioCompra, precioVenta, categoria, fechaVencimiento, stock) {
+    function cargarDatosProducto(id, nombre, descripcion, precioCompra, precioVenta, categoriaId, fechaVencimiento, stock) {
         document.getElementById("editProductoId").value = id;
         document.getElementById("editNombreProducto").value = nombre;
         document.getElementById("editDescripcionProducto").value = descripcion;
         document.getElementById("editPrecioCompraProducto").value = precioCompra;
         document.getElementById("editPrecioVentaProducto").value = precioVenta;
-        document.getElementById("editCategoria").value = categoria;
+        document.getElementById("editCategoria").value = categoriaId; // Asignar el valor del id de categoría al select
         document.getElementById("editFechaVencimiento").value = fechaVencimiento;
         document.getElementById("editStock").value = stock;
         abrirModalEditar();
@@ -195,16 +188,14 @@
             const descripcion = btn.dataset.descripcion;
             const precioCompra = btn.dataset.precioCompra;
             const precioVenta = btn.dataset.precioVenta;
-            const categoria = btn.dataset.categoria;
+            const categoriaId = btn.dataset.categoria; // Obtenemos el ID de la categoría
             const fechaVencimiento = btn.dataset.fechaVencimiento;
             const stock = btn.dataset.stock;
 
             // Llamamos a la función que carga los datos en el formulario
-            cargarDatosProducto(id, nombre, descripcion, precioCompra, precioVenta, categoria, fechaVencimiento, stock);
+            cargarDatosProducto(id, nombre, descripcion, precioCompra, precioVenta, categoriaId, fechaVencimiento, stock);
         });
     });
-
-    // Otras funciones JavaScript si es necesario
 </script>
 
 <script>
