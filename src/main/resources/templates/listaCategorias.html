@@ -51,9 +51,9 @@
                 <td th:text="${categoria.descripcionCategoria}"></td>
                 <!-- Lógica condicional para mostrar "Activado" o "Desactivado" -->
                 <td>
-                  <span
-                    th:text="${categoria.estado == 1 ? 'Activado' : 'Desactivado'}"
-                  ></span>
+                  <span th:text="${categoria.estado == 1 ? 'Activado' : 'Desactivado'}"
+      th:classappend="${categoria.estado == 1 ? 'activo' : 'desactivo'}"></span>
+
                 </td>
                 <td>
                   <button
