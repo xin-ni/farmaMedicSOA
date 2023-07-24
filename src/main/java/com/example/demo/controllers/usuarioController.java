@@ -37,7 +37,7 @@ public String login(@RequestParam("email") String email, @RequestParam("pass") S
     String nombreAdministrador = usuarioService.obtenerNombreAdministradorPorEmail(email);
     model.addAttribute("nombreUsuario", nombreAdministrador);
     System.out.println("Nombre de administrador: " + nombreAdministrador); // Agrega esta línea para imprimir el nombre del administrador en la consola
-    return "redirect:/entity/categorias/";
+    return "redirect:/entity/venta/admin";
 
 
         } else if (idCargo == 2) {
