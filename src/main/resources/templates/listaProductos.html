@@ -3,6 +3,8 @@
 <head>
     <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link th:href="@{/paginas/css/listaCategorias.css}" rel="stylesheet" type="text/css"/>   
+    <link th:href="@{/paginas/css/modal.css}" rel="stylesheet" type="text/css"/>   
 <style>
     
 </style>
@@ -10,20 +12,26 @@
 <body>
     <div th:replace="header.html"></div>
     <div class="contenedorInferior">
-
- 
     <div th:replace="navbar.html"></div>
+    <div class="contenedor-Info">
+        <div class="contenedor-infoCabezera">
+            <h1 class="text-titulo">Lista de Productos</h1>    
+            <button class="boton-agregar" onclick="abrirModal()">Agregar nuevo Producto
+            </button>
+        </div>
+        <div class="contenedor-buscar">
+            <span class="opcion-buscar"> Buscar:</span>
+            <input type="text" id="searchInput" placeholder="Buscar por nombre">
+        </div>
+        
+        <div class="table-container">
 
-
-    <h1>Lista de Productos</h1>    <a onclick="abrirModal()">Agregar nuevo
-    </a>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
                 <th>Precio Compra</th>
                 <th>Precio Venta</th>
                 <th>Categoría</th>
@@ -55,38 +63,55 @@
         </tbody>
     </table>
 </div>
+</div>
+</div>
 
 
 
 </div>
 
 <div id="modalCategoria" class="modal">
-    <div class="modal-content">
+    <div class="modal-contentP">
         <span class="close" onclick="cerrarModal()">&times;</span>
         <h1>Crear nuevo producto</h1>
         <form th:action="@{/entity/productos/crear}" th:object="${nuevoProducto}" method="post">
-            <label for="nombreProducto">Nombre:</label>
-            <input type="text" id="nombreProducto" th:field="*{nombreProducto}" required>
-            
-            <label for="descripcionProducto">Descripción:</label>
-            <input type="text" id="descripcionProducto" th:field="*{descripcionProducto}">
-            
-            <label for="precioCompraProducto">Precio de compra:</label>
-            <input type="text" id="precioCompraProducto" th:field="*{precioCompraProducto}" required>
-            
-            <label for="precioVentaProducto">Precio de venta:</label>
-            <input type="text" id="precioVentaProducto" th:field="*{precioVentaProducto}" required>
-            
-            <label for="categoria">Categoría:</label>
-            <select id="categoria" th:field="*{categoria.idCategoria}" required>
-                <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombreCategoria}"></option>
-            </select>
-            
-            <label for="fechaVencimiento">Fecha de vencimiento:</label>
-            <input type="date" id="fechaVencimiento" th:field="*{fechaVencimiento}" required>
-            
-            <label for="stock">Stock:</label>
-            <input type="number" id="stock" th:field="*{stock}" required>
+            <div class="first-group">
+                <div class="modal-nombre">
+                    <label for="nombreProducto">Nombre:</label>
+                    <input class="input-firstG" type="text" id="nombreProducto" th:field="*{nombreProducto}" required>
+                </div>
+                <div class="modal-categoria">
+                    <label for="categoria">Categoría:</label>
+                    <select class="input-firstG" id="categoria" th:field="*{categoria.idCategoria}" required>
+                        <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombreCategoria}"></option>
+                    </select>
+            </div>
+        </div>
+
+        <div class="second-group">
+                <div class="modal-priceC">
+                    <label for="precioCompraProducto">Precio de compra:</label>
+                    <input class="input-modalT" type="text" id="precioCompraProducto" th:field="*{precioCompraProducto}" required>
+                </div>                
+                <div class="modal-priceV">
+                    <label for="precioVentaProducto">Precio de venta:</label>
+                    <input class="input-modalT" type="text" id="precioVentaProducto" th:field="*{precioVentaProducto}" required>
+                </div>
+            <div class="modal-fechaNac">
+                <label for="fechaVencimiento">Fecha de vencimiento:</label>
+                <input class="input-modalT" type="date" id="fechaVencimiento" th:field="*{fechaVencimiento}" required>
+            </div>
+        </div>
+          
+            <div class="modal-stock">
+                <label for="stock">Stock:</label>
+                <input class="input-modalT" type="number" id="stock" th:field="*{stock}" required>
+            </div>
+
+            <div class="modal-descripcion">
+                <label for="descripcionProducto">Descripción:</label>
+                <input class="input-modalT" type="text" id="descripcionProducto" th:field="*{descripcionProducto}">
+            </div>
             
             <button type="submit">Guardar</button>
         </form>
