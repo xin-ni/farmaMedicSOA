@@ -1,0 +1,127 @@
+.ContenedorVentas {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+/* Estilos para el contenedor del título y el botón */
+.tituloButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f2f2f2;
+}
+
+/* Estilos para el botón "Agregar venta" */
+.botonADd button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
+
+.tablaVentas table {
+ 
+    border-collapse: collapse;
+}
+
+.tablaVentas th, .tablaVentas td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.tablaVentas th {
+    background-color: #f2f2f2;
+}
+
+
+
+
+/* Estilos para el botón de registrar */
+form button {
+    background-color: #094558;
+    color: #FFF;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+
+
+
+.formvenatas {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos para las etiquetas del formulario */
+.formvenatas label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2b2b2b;
+    font-weight: bold;
+}
+
+/* Estilos para los campos de entrada de texto */
+.formvenatas input[type="text"],
+.formvenatas select {
+    width: 100%;
+    height: 30px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* Estilos para los elementos de selección (select) */
+.formvenatas select {
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+    background-color: #f5f5f5;
+}
+
+/* Estilos para el botón de registro */
+.formvenatas button {
+    background-color: #094558;
+    color: #FFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos para el título "Productos" */
+.formvenatas h2 {
+    color: #094558;
+}
+
+/* Estilos para el span que muestra el precio de venta */
+.formvenatas #precioVentaSpan {
+    display: inline-block;
+    height: 30px;
+    width: 200px;
+    background-color: rgba(128, 128, 128, 0.377);
+    margin-bottom: 10px;
+    padding: 8px;
+    color: #094558;
+    font-weight: bold;
+}
