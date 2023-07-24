@@ -52,10 +52,22 @@ public class categoriaController {
 
     @PostMapping("/editar")
     public String editarCategoria(@RequestParam("idCategoria") int id, @ModelAttribute categoriaModel categoria) {
+        // Obtenemos el valor seleccionado del combo (Activado = 1, Desactivado = 0)
+        int estadoSeleccionado = categoria.getEstado();
+    
+        // Convertimos el valor seleccionado del combo al valor numérico correcto (1 o 0)
+        // Aquí puedes ajustar según necesites, si el combo usa otros valores distintos a 1 y 0
+        if (estadoSeleccionado == 1) {
+            categoria.setEstado(1); // Activado
+        } else {
+            categoria.setEstado(0); // Desactivado
+        }
+    
         categoria.setIdCategoria(id);
         categoriaService.guardarCategoria(categoria);
         return "redirect:/entity/categorias/";
     }
+    
 
     @GetMapping("/eliminar/{id}")
     public String eliminarCategoria(@PathVariable int id) {
