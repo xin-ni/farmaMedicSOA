@@ -21,56 +21,6 @@
     <div th:replace="header.html"></div>
 
     <div class="contenedorInferior">
-<<<<<<< HEAD
-
-        <div th:replace="navbar.html"></div>
-        <div class="contenedor-Info">
-            <div class="contenedor-infoCabezera">
-                <h1 class="text-titulo">Lista de Categorías</h1>
-                <button class="boton-agregar" onclick="abrirModal()">Agregar nueva categoría</button>
-            </div>
-            <div class="contenedor-buscar">
-                <span class="opcion-buscar"> Buscar:</span>
-                <input class="buscar-input"  type="text" id="searchInput" placeholder="Buscar por nombre">
-            </div>
-            <div class="table-container">
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="categoria : ${categorias}">
-                            <td th:text="${categoria.idCategoria}"></td>
-                            <td th:text="${categoria.nombreCategoria}"></td>
-                            <td th:text="${categoria.descripcionCategoria}"></td>
-                            <!-- Lógica condicional para mostrar "Activado" o "Desactivado" -->
-                            <td>
-                                <span th:text="${categoria.estado == 1 ? 'Activado' : 'Desactivado'}"></span>
-                            </td>
-                            <td>
-                                <button class="editar-btn"
-                                data-id="${categoria.idCategoria}"
-                                data-nombre="${categoria.nombreCategoria}"
-                                data-descripcion="${categoria.descripcionCategoria}"
-                                data-estado="${categoria.estado}">
-                                <img th:src="@{/paginas/imagen/editImg.png}" alt="editar">
-                            </button>
-                            <a th:href="@{/entity/categorias/eliminar/{id}(id=${categoria.idCategoria})}"> <img th:src="@{/paginas/imagen/eliminar.png}" alt="eliminar"></a>
-                        </td>
-                        
-                    </tr>
-                </tbody>
-                
-                
-            </table>
-=======
       <div th:replace="navbar.html"></div>
       <div class="contenedor-Info">
         <div class="contenedor-infoCabezera">
@@ -78,11 +28,10 @@
           <button class="boton-agregar" onclick="abrirModal()">
             Agregar nueva categoría
           </button>
->>>>>>> fce6a6e7efc77491bdaed551e9b1c014d191780d
         </div>
         <div class="contenedor-buscar">
           <span class="opcion-buscar"> Buscar:</span>
-          <input type="text" id="searchInput" placeholder="Buscar por nombre" />
+          <input class="buscar-input"  type="text" id="searchInput"  />
         </div>
         <div class="table-container">
           <table>
