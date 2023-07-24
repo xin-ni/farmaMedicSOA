@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.categoriaModel;
 import com.example.demo.models.pedidoModel;
 import com.example.demo.models.productoModel;
 import com.example.demo.services.pedidoService;
