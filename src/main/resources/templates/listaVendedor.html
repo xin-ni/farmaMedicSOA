@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/paginas/css/vendedorEstilos.css}" rel="stylesheet" type="text/css" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link th:href="@{/paginas/css/listaCategorias.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/paginas/css/modal.css}" rel="stylesheet" type="text/css" />
@@ -12,43 +14,51 @@
     <div th:replace="header.html"></div>
     <div class="contenedorInferior">
     <div th:replace="navbar.html"></div>
-    <div>
-         <h1>Lista de Vendedores</h1>
-         <button class="boton-agregar" onclick="abrirModalVendedor()">Agregar nuevo vendedor</button>
-    
+    <div class="contenedorGenerarVentas">
+        <div class="titulo-boton" style="display: flex; margin: auto;">
+            <h1 style="margin-left: 70px;">Lista de Vendedores</h1>
+            <button class="boton-agregar" onclick="abrirModalVendedor()">Agregar nuevo vendedor</button>
+       
+       </div>
+      
+      <div class="tablaVendedor" style="background-color: white; display: flex; margin: auto;">
+         <table border="1">
+           <thead>
+               <tr>
+                   <th>ID</th>
+                   <th>Nombres</th>
+                   <th>Apellidos</th>
+                   <th>DNI</th>
+                   <th>Teléfono</th>
+                   <th>Dirección</th>
+                   <th>Fecha de Creación</th>
+                   <th>Acciones</th>
+               </tr>
+           </thead>
+           <tbody>
+               <tr th:each="vendedor : ${vendedor}">
+                   <td th:text="${vendedor.idVendedor}"></td>
+                   <td th:text="${vendedor.nombres}"></td>
+                   <td th:text="${vendedor.apellidos}"></td>
+                   <td th:text="${vendedor.DNI}"></td>
+                   <td th:text="${vendedor.telefono}"></td>
+                   <td th:text="${vendedor.direccion}"></td>
+                   <td th:text="${vendedor.fechaCreacion}"></td>
+                  
+                    <td>
+                        <!-- Agregar botón para abrir el modal de edición -->
+                        <button style="background-color: transparent; border: none;">
+                            <img th:src="@{/paginas/imagen/editImg.png}" alt="editar" />
+                        </button>
+                        <a>
+                            <img th:src="@{/paginas/imagen/eliminar.png}" alt="eliminar" />
+                        </a>
+            </td>
+               </tr>
+           </tbody>
+       </table>
+      </div>
     </div>
-   
-   <div class="tablaVendedor">
-      <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>DNI</th>
-                <th>Teléfono</th>
-                <th>Dirección</th>
-                <th>Fecha de Creación</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="vendedor : ${vendedor}">
-                <td th:text="${vendedor.idVendedor}"></td>
-                <td th:text="${vendedor.nombres}"></td>
-                <td th:text="${vendedor.apellidos}"></td>
-                <td th:text="${vendedor.DNI}"></td>
-                <td th:text="${vendedor.telefono}"></td>
-                <td th:text="${vendedor.direccion}"></td>
-                <td th:text="${vendedor.fechaCreacion}"></td>
-                <td>
-                    <a th:href="@{/vendedores/editar/{id}(id=${vendedor.idVendedor})}">Editar</a>
-                    <a th:href="@{/vendedores/eliminar/{id}(id=${vendedor.idVendedor})}">Eliminar</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-   </div>
     
   
   

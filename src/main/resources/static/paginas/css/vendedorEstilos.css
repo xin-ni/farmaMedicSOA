@@ -1,0 +1,84 @@
+/* Estilos para el contenedor del título y botón */
+.titulo-boton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el botón */
+.boton-agregar {
+    padding: 10px 20px;
+
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.boton-agregar:hover{
+    background-color: rgb(0, 49, 65);
+    color: white;
+}
+/* Estilos para el contenedor de la tabla */
+.tablaVendedor {
+    margin-left: 80px;
+    width: 1400px;
+    height: 640px;
+}
+.contenedorGenerarVentas {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+.formularioVendedor {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+    padding: 20px;
+
+    border-radius: 5px;
+  }
+  
+  .formularioVendedor label {
+    margin-bottom: 5px;
+  }
+  
+  .formularioVendedor input[type="text"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    background-color:  #cccccc75;
+    border-radius: 4px;
+    border: none;
+    border-left: 1px solid #46a832;
+    border-bottom: 1px solid #46a832;
+    
+  }
+  
+  .formularioVendedor button {
+    padding: 10px 20px;
+    height: 40px;
+    width: 200px;
+    background-color: #002753;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .formularioVendedor button:hover {
+    background-color: #456fa0;
+  }
+  
+  .formularioVendedor button:active {
+    background-color: #3e638e;
+  }
+  
