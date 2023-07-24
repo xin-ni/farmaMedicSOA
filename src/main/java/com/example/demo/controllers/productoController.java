@@ -27,7 +27,13 @@ public class productoController {
     @Autowired
     private categoriaService categoriaService;
     
-
+    @GetMapping("/obtener")
+    @ResponseBody
+    public ResponseEntity<List<productoModel>> obtenerProductos() {
+        List<productoModel> productos = productoService.obtenerProductos();
+        return new ResponseEntity<>(productos, HttpStatus.OK);
+    }
+    
     @GetMapping("/")
     public String listarProductos(Model model) {
         List<productoModel> productos = productoService.obtenerProductos();

@@ -1,13 +1,17 @@
 package com.example.demo.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.models.administradorModel;
+import com.example.demo.models.vendedorModel;
 import com.example.demo.services.administradorService;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,6 +26,13 @@ public class administradorController {
         return administradorService.obtenerAdmin();
     }
 
+    @GetMapping("/obtener")
+    @ResponseBody
+    public ResponseEntity<List<administradorModel>> obtenerAdministrador() {
+        List<administradorModel> administradores = administradorService.obtenerAdmin();
+        return new ResponseEntity<>(administradores, HttpStatus.OK);
+    }
+    
     @PostMapping()
     public administradorModel guardarAdministrador(@RequestBody administradorModel admin) {
         return this.administradorService.guardarAdministrador(admin);
