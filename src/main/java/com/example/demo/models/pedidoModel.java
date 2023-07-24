@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import java.sql.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +19,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class pedido {
+public class pedidoModel {
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
@@ -28,5 +30,8 @@ public class pedido {
     private productoModel producto;
     //se llama a la clase
     private int cantidad;
-    private double precioCompra;
+    private Date fecha;
+    private String proveedor;
+
+
 }

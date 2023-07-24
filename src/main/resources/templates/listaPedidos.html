@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Pedidos</title>
+    <link th:href="@{/paginas/css/estilosAdmin.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div th:replace="header.html"></div>
+
+    <div class="contenedorInferior">
+
+        <div th:replace="navbar.html"></div>
+    <h1>Lista de Pedidos</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID Pedido</th>
+                <th>Fecha</th>
+                <th>Producto</th>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th>Precio de Compra</th>
+                <th>Precio de Venta</th>
+                <th>Proveedor</th>
+                <!-- Agrega más columnas si es necesario -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterar sobre la lista de pedidos y mostrar los datos en la tabla -->
+            <tr th:each="pedido : ${pedidos}">
+                <td th:text="${pedido.idPedido}"></td>
+                <td th:text="${pedido.fecha}"></td>
+                <td th:text="${pedido.producto.nombreProducto}"></td>
+                <td th:text="${pedido.producto.descripcionProducto}"></td>
+                <td th:text="${pedido.cantidad}"></td>
+                <td th:text="${pedido.producto.precioCompraProducto}"></td>
+                <td th:text="${pedido.producto.precioVentaProducto}"></td>
+                <td th:text="${pedido.proveedor}"></td>
+                <!-- Agrega más celdas si es necesario -->
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="abrirModal()">Crear nuevo pedido</button>
+
+    <!-- Modal para mostrar el formulario de creación -->
+   <div id="modalCategoria" class="modal">
+       <div class="modal-content">
+           <span class="close" onclick="cerrarModal()">&times;</span>
+           <h2>Crear nuev</h2>
+           <form th:action="@{/entity/pedidos/crear}" method="post" th:object="${nuevoPedido}">
+            <!-- Agrega aquí los campos del formulario -->
+            <div>
+                <label for="producto">Producto:</label>
+                <select id="producto" name="producto.idProducto" onchange="mostrarPrecio()">
+                    <option value="">Seleccionar</option> <!-- Opción vacía para seleccionar -->
+                    <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:data-precio-venta="${producto.precioVentaProducto}" th:data-precio-compra="${producto.precioCompraProducto}" th:text="${producto.nombreProducto}"></option>
+                </select>
+            </div>
+            <div>
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" required>
+            </div>
+            <div>
+                <label for="fecha">Fecha del pedido:</label>
+                <input readonly type="date" id="fecha" name="fecha" required>
+            </div>
+            <div>
+                <label for="precioVenta">Precio de Venta:</label>
+                <span id="precioVentaSpan"></span> <!-- Campo para mostrar el valor de precioVenta -->
+            </div>
+            <div>
+                <label for="precioCompra">Precio de Compra:</label>
+                <span id="precioCompraSpan"></span> <!-- Campo para mostrar el valor de precioCompra -->
+            </div>
+            <div>
+                <label for="proveedor">Proveedor:</label>
+                <input type="text" id="proveedor" name="proveedor" required>
+            </div>
+            <button type="submit">Crear Pedido</button>
+        </form>
+       </div>
+   </div>
+</div>
+<script>
+    function abrirModal() {
+        document.getElementById("modalCategoria").style.display = "block";
+    }
+
+    function cerrarModal() {
+        document.getElementById("modalCategoria").style.display = "none";
+    }
+</script>
+<script th:inline="javascript">
+function mostrarPrecio() {
+        var select = document.getElementById("producto");
+        var selectedOption = select.options[select.selectedIndex];
+        var precioVenta = selectedOption.getAttribute("data-precio-venta");
+        var precioCompra = selectedOption.getAttribute("data-precio-compra");
+
+        // Verificar si la opción seleccionada es la opción "Seleccionar"
+        if (selectedOption.value === "") {
+            // Si es la opción "Seleccionar", limpiar los campos de precioVenta y precioCompra
+            document.getElementById("precioVentaSpan").innerText = "";
+            document.getElementById("precioCompraSpan").innerText = "";
+        } else {
+            // Si es una opción válida, mostrar los precios correspondientes
+            document.getElementById("precioVentaSpan").innerText = precioVenta;
+            document.getElementById("precioCompraSpan").innerText = precioCompra;
+        }
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var fechaInput = document.getElementById("fecha");
+        var fechaActual = new Date().toISOString().split("T")[0];
+        fechaInput.value = fechaActual;
+    });
+</script>
+</body>
+</html>

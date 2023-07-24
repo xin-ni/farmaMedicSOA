@@ -12,11 +12,38 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class usuarioService {
+@Autowired
+usuarioRepository usuarioRepository;
 
-    @Autowired
-    private usuarioRepository usuarioRepository;
+public ArrayList<usuarioModel> obtenerUsuario(){
+return (ArrayList<usuarioModel>) usuarioRepository.findAll();
+}
 
-    public usuarioModel findByEmail(String email) {
-        return usuarioRepository.findByEmail(email);
-    }
+public usuarioModel guardarUsuario(usuarioModel usuario){
+return usuarioRepository.save(usuario);
+}
+
+public Optional<usuarioModel> obtenerUsuarioId(int id){
+return usuarioRepository.findById(id);
+}
+
+
+//public ArrayList<productoModel> obtenerPorPrioridad(Integer nombre) {
+//return productoRepository.findByPrioridad(nombre);
+//}
+public usuarioModel obtenerUsuarioPorEmail(String email) {
+    return usuarioRepository.findByEmail(email);
+}
+
+public boolean eliminarUsuario(int id) {
+try{
+usuarioRepository.deleteById(id);
+return true;
+}catch(Exception err){
+return false;
+}
+}
+
+
+
 }
