@@ -28,4 +28,5 @@ public class productoService {
     public void eliminarProducto(int id) {
         productoRepository.deleteById(id);
     }
+
 }
