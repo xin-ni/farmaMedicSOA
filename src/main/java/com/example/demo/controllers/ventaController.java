@@ -15,7 +15,9 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import com.example.demo.services.detalleVentaService;
 import com.example.demo.services.productoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +56,15 @@ public class ventaController {
         return "listaVenta";
     }
     
+
+    @GetMapping("/obtener")
+    @ResponseBody
+    public ResponseEntity<List<ventaModel>> obtenerUsuario() {
+        List<ventaModel> ventas= ventaService.obtenerVenta();
+        return new ResponseEntity<>(ventas, HttpStatus.OK);
+    }
+
+
     @GetMapping("/detalle/{idVenta}")
     @ResponseBody
     public ResponseEntity<List<detalleVentaModel>> obtenerDetalleVenta(@PathVariable int idVenta) {

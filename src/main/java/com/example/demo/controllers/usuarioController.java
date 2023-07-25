@@ -2,7 +2,12 @@ package com.example.demo.controllers;
 
 import com.example.demo.services.usuarioService;
 import com.example.demo.models.usuarioModel;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +26,14 @@ public class usuarioController {
         model.addAttribute("email", "");
         model.addAttribute("pass", "");
         return "login";
+    }
+
+
+    @GetMapping("/obtener")
+    @ResponseBody
+    public ResponseEntity<List<usuarioModel>> obtenerUsuario() {
+        List<usuarioModel> usuarios= usuarioService.obtenerUsuario();
+        return new ResponseEntity<>(usuarios, HttpStatus.OK);
     }
 
     @PostMapping("/login")

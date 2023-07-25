@@ -37,6 +37,14 @@ public class pedidoController {
         return "listaPedidos";
     }
 
+    @GetMapping("/obtener")
+    @ResponseBody
+    public ResponseEntity<List<pedidoModel>> obtenerPedido() {
+        List<pedidoModel> ventas= pedidoService.obtenerPedido();
+        return new ResponseEntity<>(ventas, HttpStatus.OK);
+    }
+
+
     @GetMapping("/crear")
     public String mostrarFormularioCreacion(Model model) {
         model.addAttribute("pedido", new pedidoModel());
