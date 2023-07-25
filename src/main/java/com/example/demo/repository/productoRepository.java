@@ -13,6 +13,5 @@ public interface productoRepository extends CrudRepository<productoModel, Intege
         return null;
     }
 
-   // Agregar la consulta personalizada para obtener productos activos por ID y con stock mayor a 0
-   List<productoModel> findByStockGreaterThanAndIdProducto(int idProducto, int stock);
+  
 }
