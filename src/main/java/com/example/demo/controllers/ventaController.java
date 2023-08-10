@@ -44,7 +44,7 @@ public class ventaController {
     public String listaVendedor(Model model) {
         List<ventaModel> ventas = ventaService.obtenerVenta();
         model.addAttribute("ventas", ventas);
-        model.addAttribute("nuevaVenta", new ventaModel());
+        model.addAttribute("nuevaVenta", new ventaModel()); //aplicable para modal
 
         // Obtener la lista de empleados y agregarla al modelo
         List<vendedorModel> empleados = empleadoService.obtenerVendedor();
@@ -85,6 +85,8 @@ public class ventaController {
 
         return "listaVenta"; // Vista para la lista de ventas
     }
+
+
     @GetMapping("/agregar")
     public String mostrarFormularioAgregar(Model model) {
         model.addAttribute("venta", new ventaModel());
@@ -122,7 +124,7 @@ public String guardarVenta(@ModelAttribute ventaModel venta, HttpServletRequest 
 
     // Guardar la venta principal y obtener el ID de la venta recién guardada
     ventaService.guardarVenta(venta);
-    int idVentaGuardada = venta.getIdVenta();
+    //int idVentaGuardada = venta.getIdVenta();
 
     // Obtener el vendedor seleccionado por su id
     int idVendedorSeleccionado = Integer.parseInt(request.getParameter("trabajador"));

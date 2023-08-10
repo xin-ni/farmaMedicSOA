@@ -16,7 +16,7 @@
 <body style="background-color: rgba(148, 148, 148, 0.308);">
     <div th:replace="header.html"></div>
     <div class="contenedorInferior">
-        <div th:replace="navbar.html"></div>
+        <div th:replace="navbarVendedor.html"></div>
         <div class="ContenedorVentas" style="width: 1500px;">
            <div class="tituloButton" style=" background-color: transparent; align-items: center; height: 120px; display:  flex; justify-content: space-between;">
             <h1 style="margin-left: 70px; font-family: Poppins;
@@ -231,6 +231,7 @@
                 precioVentaSpan.textContent = "";
                 preciosVentaInput.value = "";
                 idProductoSeleccionadoInput.value = "";
+                
             } else {
                 const precioVentaProducto = selectProducto.options[selectProducto.selectedIndex].dataset.precioVenta;
 
@@ -268,6 +269,7 @@
 
             const totalInput = document.getElementById("total");
             totalInput.value = totalFormateado;
+           
         }
     </script>
 

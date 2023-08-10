@@ -20,8 +20,8 @@ public class cargoService {
         return (List<cargoModel>) cargoRepository.findAll();
     }
 
-    public cargoModel guardarCargo(cargoModel categoria) {
-        return cargoRepository.save(categoria);
+    public cargoModel guardarCargo(cargoModel cargo) {
+        return cargoRepository.save(cargo);
     }
 
     public Optional<cargoModel> obtenerCargoId(int id) {
